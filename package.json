@@ -8,6 +8,9 @@
     "start": "next start"
   },
   "dependencies": {
+    "bootstrap": "^4.5.3",
+    "esri-loader": "^2.16.0",
+    "json2csv": "^5.0.5",
     "next": "10.0.1",
     "react": "17.0.1",
     "react-dom": "17.0.1"
