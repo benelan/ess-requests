@@ -1,0 +1,13 @@
+Employee Name:
+Employee email: 
+Employee number:  
+Cost Center: 
+Employee location:
+Charge code: 
+Course Name:
+Cost: $$$
+Start date:
+End date:
+Vendor:
+Justification:
+Comments:

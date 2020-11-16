@@ -5,7 +5,7 @@ var json2csv = require('json2csv');
 
 export default (req, res) => {
   var newLine = "\r\n";
-  var fields = ['Total', 'Name'];
+  var fields = ['Employee Name','Employee Email','Employee Number','Employee Location','Cost Center','Charge Code','Course Name','Cost','Start Date','End Date','Vendor','Justification','Comments'];
 
   var toCsv = {
     data: req.body,
@@ -13,12 +13,12 @@ export default (req, res) => {
     hasCSVColumnTitle: false
   };
 
-  fs.stat('/data/history.csv', function (err, stat) {
+  fs.stat('/data/instructor_logs.csv', function (err, stat) {
     if (err == null) {
       //write the actual data and end with newline
       var csv = json2csv(toCsv) + newLine;
 
-      fs.appendFile('/data/history.csv', csv, function (err) {
+      fs.appendFile('/data/instructor_logs.csv', csv, function (err) {
         if (err) {
           res.statusCode = 400
           res.json({ success: false })
@@ -33,7 +33,7 @@ export default (req, res) => {
       //write the headers and newline
       fields = (fields + newLine);
 
-      fs.writeFile('/data/history.csv', fields, function (err) {
+      fs.writeFile('/data/instructor_logs.csv', fields, function (err) {
         if (err) {
           res.statusCode = 400
           res.json({ success: false })
