@@ -13,12 +13,12 @@ export default (req, res) => {
     hasCSVColumnTitle: false
   };
 
-  fs.stat('/data/certificate_logs.csv', function (err, stat) {
+  fs.stat('./data/certificate_logs.csv', function (err, stat) {
     if (err == null) {
       //write the actual data and end with newline
       var csv = json2csv(toCsv) + newLine;
 
-      fs.appendFile('/data/certificate_logs.csv', csv, function (err) {
+      fs.appendFile('./data/certificate_logs.csv', csv, function (err) {
         if (err) {
           res.statusCode = 400
           res.json({ success: false })
@@ -33,7 +33,7 @@ export default (req, res) => {
       //write the headers and newline
       fields = (fields + newLine);
 
-      fs.writeFile('/data/certificate_logs.csv', fields, function (err) {
+      fs.writeFile('./data/certificate_logs.csv', fields, function (err) {
         if (err) {
           res.statusCode = 400
           res.json({ success: false })
