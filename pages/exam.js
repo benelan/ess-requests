@@ -6,81 +6,79 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // nameEm: '',
-      // emailEm: '',
-      // locationEm: 'Redlands',
-      // numberEm: null,
-      // nameEx: null,
-      // cost: null,
-      // locationEx: 'Redlands',
-      // vendor: null,
-      // justification: null,
-      // unit: 'supt-ArcGIS-Unit-Mgmt@esri.com'
-      nameEm: 'Ben Elan',
-      emailEm: 'belan@esri.com',
+      nameEm: '',
+      emailEm: '',
       locationEm: 'Redlands',
-      numberEm: '12345',
-      nameEx: 'testing exam name',
-      cost: '500',
+      numberEm: null,
+      nameEx: null,
+      cost: null,
       locationEx: 'Redlands',
-      vendor: 'tester inc',
-      justification: 'for fun',
+      vendor: null,
+      justification: null,
       unit: 'supt-ArcGIS-Unit-Mgmt@esri.com'
+      // nameEm: 'Ben Elan',
+      // emailEm: 'belan@esri.com',
+      // locationEm: 'Redlands',
+      // numberEm: '12345',
+      // nameEx: 'testing exam name',
+      // cost: '500',
+      // locationEx: 'Redlands',
+      // vendor: 'tester inc',
+      // justification: 'for fun',
+      // unit: 'supt-ArcGIS-Unit-Mgmt@esri.com'
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  // async componentDidMount() {
-  //   // load modules
-  //   const [Portal, OAuthInfo, IdentityManager] = await (loadModules([
-  //     "esri/portal/Portal",
-  //     "esri/identity/OAuthInfo",
-  //     "esri/identity/IdentityManager"
-  //   ]));
+  async componentDidMount() {
+    // load modules
+    const [Portal, OAuthInfo, IdentityManager] = await (loadModules([
+      "esri/portal/Portal",
+      "esri/identity/OAuthInfo",
+      "esri/identity/IdentityManager"
+    ]));
 
-  //   var info = new OAuthInfo({
-  //     appId: "n5A1575tmQq5eFPd",
-  //     popup: false
-  //   });
+    var info = new OAuthInfo({
+      appId: "n5A1575tmQq5eFPd",
+      popup: false
+    });
 
-  //   // this out of scope within the promise after auth
-  //   var that = this;
+    // this out of scope within the promise after auth
+    var that = this;
 
-  //   IdentityManager.registerOAuthInfos([info]);
-  //   IdentityManager.getCredential(info.portalUrl + "/sharing");
-  //   IdentityManager.checkSignInStatus(info.portalUrl + "/sharing")
-  //     .then(() => {
-  //       var portal = new Portal();
-  //       // Setting authMode to immediate signs the user in once loaded
-  //       portal.authMode = "immediate";
-  //       // Once loaded, user is signed in
-  //       portal.load().then(function () {
-  //         console.log
-  //         // set store values of email and name
-  //         that.setState({ nameEm: portal.user.fullName, emailEm: portal.user.email })
-  //         console.log(portal.user.fullName)
-  //       });
-  //     })
-  // };
+    IdentityManager.registerOAuthInfos([info]);
+    IdentityManager.getCredential(info.portalUrl + "/sharing");
+    IdentityManager.checkSignInStatus(info.portalUrl + "/sharing")
+      .then(() => {
+        var portal = new Portal();
+        // Setting authMode to immediate signs the user in once loaded
+        portal.authMode = "immediate";
+        // Once loaded, user is signed in
+        portal.load().then(function () {
+          // set store values of email and name
+          that.setState({ nameEm: portal.user.fullName, emailEm: portal.user.email })
+        });
+      })
+  };
 
-  // async componentWillUnmount() {
-  //   // load modules
-  //   const [OAuthInfo, IdentityManager] = await (loadModules([
-  //     "esri/identity/OAuthInfo",
-  //     "esri/identity/IdentityManager"
-  //   ]));
+  async componentWillUnmount() {
+    // load modules
+    const [OAuthInfo, IdentityManager] = await (loadModules([
+      "esri/identity/OAuthInfo",
+      "esri/identity/IdentityManager"
+    ]));
 
-  //   // destroy credentials
-  //   var info = new OAuthInfo({
-  //     appId: "n5A1575tmQq5eFPd",
-  //     popup: false
-  //   });
-  //   IdentityManager.registerOAuthInfos([info]);
-  //   IdentityManager.destroyCredentials();
+    // destroy credentials
+    var info = new OAuthInfo({
+      appId: "n5A1575tmQq5eFPd",
+      popup: false
+    });
+    IdentityManager.registerOAuthInfos([info]);
+    IdentityManager.destroyCredentials();
 
-  //   // reload
-  //   window.location.reload();
-  // }
+    // reload
+    window.location.reload();
+  }
 
   getChargeCode(unit) {
     switch (unit) {
@@ -130,7 +128,7 @@ export default class Home extends React.Component {
         'Exam Vendor': vendor,
         'Justification': justification,
       }
-      fetch('/api/certificate', {
+      fetch('/api/logExam', {
         method: 'post',
         body: JSON.stringify(outputData)
       }).then(function (response) {
@@ -142,7 +140,7 @@ export default class Home extends React.Component {
       /****************** CREATE EMAIL ******************/
       const subject = "Request for Exam Certification"
       const body =
-      `Employee Name: ${nameEm}
+        `Employee Name: ${nameEm}
       Employee Email: ${emailEm}
       Employee Number: ${numberEm}
       Employee Location: ${locationEm}
@@ -159,7 +157,6 @@ export default class Home extends React.Component {
   }
 
   render() {
-    const { nameEm } = this.state
     return (
       <div>
         <title>Exam Request</title>
@@ -169,7 +166,7 @@ export default class Home extends React.Component {
           <div className="form-row mt-2">
             <div className="form-group col-md-3">
               <label>Employee Name</label>
-              <input type="text" className="form-control" disabled value={nameEm} />
+              <input type="text" className="form-control" disabled value={this.state.nameEm} />
             </div>
             <div className="form-group col-md-3">
               <label>Employee Number</label>
@@ -219,22 +216,27 @@ export default class Home extends React.Component {
 
           <div className="form-row mt-2">
             <div className="form-group col-md-3">
-              <label>Cost $</label>
-              <input type="text" className="form-control" onChange={x => this.setState({ cost: x.target.value })} />
+              <label>Cost</label>
+              <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">$</span>
+                </div>
+                <input type="text" className="form-control" onChange={x => this.setState({ cost: x.target.value })} />
+              </div>
+              </div>
+              <div className="form-group col-md-9">
+                <label>Justification</label>
+                <textarea className="form-control" rows="1" onChange={x => this.setState({ justification: x.target.value })}></textarea>
+              </div>
             </div>
-            <div className="form-group col-md-9">
-              <label>Justification</label>
-              <textarea className="form-control" rows="1" onChange={x => this.setState({ justification: x.target.value })}></textarea>
-            </div>
-          </div>
 
-          <div className="form-row mt-3">
-            <div className="form-group col" style={{ marginTop: '-5px' }}>
-              <button onClick={this.handleSubmit} className="btn btn-primary">Submit</button>
+            <div className="form-row mt-3">
+              <div className="form-group col" style={{ marginTop: '-5px' }}>
+                <button onClick={this.handleSubmit} className="btn btn-primary">Submit</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
     )
   }
 }

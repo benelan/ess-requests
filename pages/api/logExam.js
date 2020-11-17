@@ -5,7 +5,7 @@ var path = require('path')
 
 export default (req, res) => {
 
-  var filePath = path.resolve('./public', 'data', 'instructor_logs.csv');
+  var filePath = path.resolve('./public', 'data', 'exam_logs.csv');
 
   try {
     jsonexport([JSON.parse(req.body)], function (err, csv) {

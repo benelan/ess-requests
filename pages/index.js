@@ -1,25 +1,23 @@
 import React from 'react';
 import Link from 'next/link'
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Home() {
   return (
     <div>
-      <title>Training Request</title>
-      <h2 className="text-center m-4">ESS Training Request</h2>
+      <title>ESS Requests</title>
+      <h2 className="text-center m-4">ESS Training/Exam Requests</h2>
 
       <div className="container">
         Which request form do you want?
           <ul>
           <li>
-            <Link href="/form/instructor">
+            <Link href="/training">
               <a>Instructor Lead Course</a>
             </Link>
           </li>
           <li>
-            <Link href="/form/certificate">
+            <Link href="/exam">
               <a>Certification Exam</a>
             </Link>
           </li>

@@ -1,8 +1,6 @@
 import React from 'react';
 import { loadModules } from 'esri-loader';
-import DatePicker from "react-datepicker";
 import 'bootstrap/dist/css/bootstrap.min.css'
-import "react-datepicker/dist/react-datepicker.css";
 
 // NORUS: TE0702
 // Other Units: TE0352 
@@ -11,85 +9,83 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // nameE: '',
-      // emailE: '',
-      // locationE: 'Redlands',
-      // nunberE: null,
-      // nameC: null,
-      // cost: null,
-      // startDate: null,
-      // endDate: null,
-      // vendor: null,
-      // justification: null,
-      // comments: null,
-      // unit: 'supt-ArcGIS-Unit-Mgmt@esri.com'
-      nameE: 'Ben Elan',
-      emailE: 'belan@esri.com',
+      nameE: '',
+      emailE: '',
       locationE: 'Redlands',
-      numberE: '12345',
-      nameC: 'testing exam name',
-      cost: '500',
+      numberE: null,
+      nameC: null,
+      cost: null,
       startDate: null,
       endDate: null,
-      vendor: 'tester inc',
-      justification: 'for fun',
-      comments: "hi I'm ben",
-      unit: 'Supt-NORUS-Unit-Mgmt@esri.com'
+      vendor: null,
+      justification: null,
+      comments: null,
+      unit: 'supt-ArcGIS-Unit-Mgmt@esri.com'
+      // nameE: 'Ben Elan',
+      // emailE: 'belan@esri.com',
+      // locationE: 'Redlands',
+      // numberE: '12345',
+      // nameC: 'testing exam name',
+      // cost: '500',
+      // startDate: null,
+      // endDate: null,
+      // vendor: 'tester inc',
+      // justification: 'for fun',
+      // comments: "hi I'm ben",
+      // unit: 'Supt-NORUS-Unit-Mgmt@esri.com'
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // async componentDidMount() {
-  //   // load modules
-  //   const [Portal, OAuthInfo, IdentityManager] = await (loadModules([
-  //     "esri/portal/Portal",
-  //     "esri/identity/OAuthInfo",
-  //     "esri/identity/IdentityManager"
-  //   ]));
+  async componentDidMount() {
+    // load modules
+    const [Portal, OAuthInfo, IdentityManager] = await (loadModules([
+      "esri/portal/Portal",
+      "esri/identity/OAuthInfo",
+      "esri/identity/IdentityManager"
+    ]));
 
-  //   var info = new OAuthInfo({
-  //     appId: "n5A1575tmQq5eFPd",
-  //     popup: false
-  //   });
+    var info = new OAuthInfo({
+      appId: "n5A1575tmQq5eFPd",
+      popup: false
+    });
 
-  //   // this out of scope within the promise after auth
-  //   var that = this;
+    // this out of scope within the promise after auth
+    var that = this;
 
-  //   IdentityManager.registerOAuthInfos([info]);
-  //   IdentityManager.getCredential(info.portalUrl + "/sharing");
-  //   IdentityManager.checkSignInStatus(info.portalUrl + "/sharing")
-  //     .then(() => {
-  //       var portal = new Portal();
-  //       // Setting authMode to immediate signs the user in once loaded
-  //       portal.authMode = "immediate";
-  //       // Once loaded, user is signed in
-  //       portal.load().then(function () {
-  //         console.log
-  //         // set store values of email and name
-  //         that.setState({ nameE: portal.user.fullName, emailE: portal.user.email })
-  //         console.log(portal.user.fullName)
-  //       });
-  //     })
-  // };
+    IdentityManager.registerOAuthInfos([info]);
+    IdentityManager.getCredential(info.portalUrl + "/sharing");
+    IdentityManager.checkSignInStatus(info.portalUrl + "/sharing")
+      .then(() => {
+        var portal = new Portal();
+        // Setting authMode to immediate signs the user in once loaded
+        portal.authMode = "immediate";
+        // Once loaded, user is signed in
+        portal.load().then(function () {
+          // set store values of email and name
+          that.setState({ nameE: portal.user.fullName, emailE: portal.user.email })
+        });
+      })
+  };
 
-  // async componentWillUnmount() {
-  //   // load modules
-  //   const [OAuthInfo, IdentityManager] = await (loadModules([
-  //     "esri/identity/OAuthInfo",
-  //     "esri/identity/IdentityManager"
-  //   ]));
+  async componentWillUnmount() {
+    // load modules
+    const [OAuthInfo, IdentityManager] = await (loadModules([
+      "esri/identity/OAuthInfo",
+      "esri/identity/IdentityManager"
+    ]));
 
-  //   // destroy credentials
-  //   var info = new OAuthInfo({
-  //     appId: "n5A1575tmQq5eFPd",
-  //     popup: false
-  //   });
-  //   IdentityManager.registerOAuthInfos([info]);
-  //   IdentityManager.destroyCredentials();
+    // destroy credentials
+    var info = new OAuthInfo({
+      appId: "n5A1575tmQq5eFPd",
+      popup: false
+    });
+    IdentityManager.registerOAuthInfos([info]);
+    IdentityManager.destroyCredentials();
 
-  //   // reload
-  //   window.location.reload();
-  // }
+    // reload
+    window.location.reload();
+  }
 
   getChargeCode(unit) {
     switch (unit) {
@@ -126,7 +122,6 @@ export default class Home extends React.Component {
       const costCenter = this.getCostCenter(unit, locationE)
 
       /*********** SEND DATA TO SERVER FOR CSV ***********/
-
       const outputData = {
         'Employee Name': nameE,
         'Employee Email': emailE,
@@ -142,7 +137,7 @@ export default class Home extends React.Component {
         'Comments': comments,
         'Justification': justification,
       }
-      fetch('/api/instructor', {
+      fetch('/api/logTraining', {
         method: 'post',
         body: JSON.stringify(outputData)
       }).then(function (response) {
@@ -173,7 +168,6 @@ export default class Home extends React.Component {
   }
 
   render() {
-    const { nameE, startDate, endDate } = this.state
     return (
       <div>
         <title>Training Request</title>
@@ -183,7 +177,7 @@ export default class Home extends React.Component {
           <div className="form-row mt-2">
             <div className="form-group col-md-3">
               <label>Employee Name</label>
-              <input type="text" className="form-control" disabled value={nameE} />
+              <input type="text" className="form-control" disabled value={this.state.nameE} />
             </div>
             <div className="form-group col-md-3">
               <label>Employee Number</label>
@@ -221,35 +215,38 @@ export default class Home extends React.Component {
             </div>
             <div className="form-group col-md-2">
               <label>Cost</label>
-              <input type="text" className="form-control" onChange={x => this.setState({ cost: x.target.value })} />
+              <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">$</span>
+                </div>
+                <input type="text" className="form-control" onChange={x => this.setState({ cost: x.target.value })} />
+              </div>
             </div>
           </div>
 
           <div className="form-row">
             <div className="form-group col-md-6">
               <label>Justification</label>
-              <textarea className="form-control" rows="3" onChange={x => this.setState({ justification: x.target.value })}></textarea>
+              <textarea className="form-control" rows="2" onChange={x => this.setState({ justification: x.target.value })}></textarea>
             </div>
             <div className="form-group col-md-6">
               <label>Comments</label>
-              <textarea className="form-control" rows="3" onChange={x => this.setState({ comments: x.target.value })}></textarea>
+              <textarea className="form-control" rows="2" onChange={x => this.setState({ comments: x.target.value })}></textarea>
             </div>
           </div>
 
-          <div className="form-row mt-4">
+          <div className="form-row mt-2">
             <div className="form-group col-md-4">
-              <label className="mr-2">Start Date</label>
-              <DatePicker selected={startDate} onChange={date => this.setState({ startDate: date })} />
+              <label>Start Date</label>
+              <input type="date" className="form-control" onChange={x => this.setState({ startDate: x.target.value })} />
             </div>
-            <div className="form-group col-md-4">
-              <label className="mr-2">End Date</label>
-              <DatePicker selected={endDate} onChange={date => this.setState({ endDate: date })} />
+            <div className="form-group col-md-4 offset-md-1">
+              <label>End Date</label>
+              <input type="date" className="form-control" onChange={x => this.setState({ endDate: x.target.value })} />
             </div>
 
-            <div className="form-row mt-3">
-              <div className="form-group col" style={{ marginTop: '-5px' }}>
-                <button onClick={this.handleSubmit} className="btn btn-primary">Submit</button>
-              </div>
+            <div className="form-group col-md-2 offset-md-1" style={{ marginTop: "31px" }}>
+              <button onClick={this.handleSubmit} className="btn btn-primary">Submit</button>
             </div>
           </div>
         </div>
