@@ -6,72 +6,81 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameEm: '',
-      emailEm: '',
+      // nameEm: '',
+      // emailEm: '',
+      // locationEm: 'Redlands',
+      // numberEm: null,
+      // nameEx: null,
+      // cost: null,
+      // locationEx: 'Redlands',
+      // vendor: null,
+      // justification: null,
+      // unit: 'supt-ArcGIS-Unit-Mgmt@esri.com'
+      nameEm: 'Ben Elan',
+      emailEm: 'belan@esri.com',
       locationEm: 'Redlands',
-      numberEm: null,
-      nameEx: null,
-      cost: null,
+      numberEm: '12345',
+      nameEx: 'testing exam name',
+      cost: '500',
       locationEx: 'Redlands',
-      vendor: null,
-      justification: null,
+      vendor: 'tester inc',
+      justification: 'for fun',
       unit: 'supt-ArcGIS-Unit-Mgmt@esri.com'
     }
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.createMailText = this.createMailText.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  async componentDidMount() {
-    // load modules
-    const [Portal, OAuthInfo, IdentityManager] = await (loadModules([
-      "esri/portal/Portal",
-      "esri/identity/OAuthInfo",
-      "esri/identity/IdentityManager"
-    ]));
+  // async componentDidMount() {
+  //   // load modules
+  //   const [Portal, OAuthInfo, IdentityManager] = await (loadModules([
+  //     "esri/portal/Portal",
+  //     "esri/identity/OAuthInfo",
+  //     "esri/identity/IdentityManager"
+  //   ]));
 
-    var info = new OAuthInfo({
-      appId: "n5A1575tmQq5eFPd",
-      popup: false
-    });
+  //   var info = new OAuthInfo({
+  //     appId: "n5A1575tmQq5eFPd",
+  //     popup: false
+  //   });
 
-    // this out of scope within the promise after auth
-    var that = this;
+  //   // this out of scope within the promise after auth
+  //   var that = this;
 
-    IdentityManager.registerOAuthInfos([info]);
-    IdentityManager.getCredential(info.portalUrl + "/sharing");
-    IdentityManager.checkSignInStatus(info.portalUrl + "/sharing")
-      .then(() => {
-        var portal = new Portal();
-        // Setting authMode to immediate signs the user in once loaded
-        portal.authMode = "immediate";
-        // Once loaded, user is signed in
-        portal.load().then(function () {
-          console.log
-          // set store values of email and name
-          that.setState({ nameEm: portal.user.fullName, emailEm: portal.user.email })
-          console.log(portal.user.fullName)
-        });
-      })
-  };
+  //   IdentityManager.registerOAuthInfos([info]);
+  //   IdentityManager.getCredential(info.portalUrl + "/sharing");
+  //   IdentityManager.checkSignInStatus(info.portalUrl + "/sharing")
+  //     .then(() => {
+  //       var portal = new Portal();
+  //       // Setting authMode to immediate signs the user in once loaded
+  //       portal.authMode = "immediate";
+  //       // Once loaded, user is signed in
+  //       portal.load().then(function () {
+  //         console.log
+  //         // set store values of email and name
+  //         that.setState({ nameEm: portal.user.fullName, emailEm: portal.user.email })
+  //         console.log(portal.user.fullName)
+  //       });
+  //     })
+  // };
 
-  async componentWillUnmount() {
-    // load modules
-    const [OAuthInfo, IdentityManager] = await (loadModules([
-      "esri/identity/OAuthInfo",
-      "esri/identity/IdentityManager"
-    ]));
+  // async componentWillUnmount() {
+  //   // load modules
+  //   const [OAuthInfo, IdentityManager] = await (loadModules([
+  //     "esri/identity/OAuthInfo",
+  //     "esri/identity/IdentityManager"
+  //   ]));
 
-    // destroy credentials
-    var info = new OAuthInfo({
-      appId: "n5A1575tmQq5eFPd",
-      popup: false
-    });
-    IdentityManager.registerOAuthInfos([info]);
-    IdentityManager.destroyCredentials();
+  //   // destroy credentials
+  //   var info = new OAuthInfo({
+  //     appId: "n5A1575tmQq5eFPd",
+  //     popup: false
+  //   });
+  //   IdentityManager.registerOAuthInfos([info]);
+  //   IdentityManager.destroyCredentials();
 
-    // reload
-    window.location.reload();
-  }
+  //   // reload
+  //   window.location.reload();
+  // }
 
   getChargeCode(unit) {
     switch (unit) {
@@ -98,43 +107,63 @@ export default class Home extends React.Component {
   }
 
   handleSubmit() {
-    // fetch('/api/certificate', {
-    //   method: 'post',
-    //   body: JSON.stringify(this.state)
-    // }).then(function (response) {
-    //   return response.json();
-    // }).then(function (data) {
-    //   console.log(data)
-    // });
-    console.log(this.state)
-    window.open(this.createMailText())
-  }
+    if (Object.values(this.state).includes(null)) {
+      alert('Please fill out all of the results before submitting')
+    }
+    else {
+      const { nameEm, emailEm, numberEm, locationEm, nameEx, cost, locationEx, vendor, justification, unit } = this.state
 
-  createMailText() {
-    const { nameEm, emailEm, numberEm, locationEm, nameEx, cost, locationEx, vendor, justification, unit } = this.state
-    const subject = "Request for Exam Certification"
-    const body =
+      const chargeCode = this.getChargeCode(unit)
+      const costCenter = this.getCostCenter(unit, locationEm)
+
+      /*********** SEND DATA TO SERVER FOR CSV ***********/
+      const outputData = {
+        'Employee Name': nameEm,
+        'Employee Email': emailEm,
+        'Employee Number': numberEm,
+        'Employee Location': locationEm,
+        'Cost Center': costCenter,
+        'Charge Code': chargeCode,
+        'Exam Name': nameEx,
+        'Exam Cost': cost,
+        'Exam Testing Location': locationEx,
+        'Exam Vendor': vendor,
+        'Justification': justification,
+      }
+      fetch('/api/certificate', {
+        method: 'post',
+        body: JSON.stringify(outputData)
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        console.log(data.response)
+      });
+
+      /****************** CREATE EMAIL ******************/
+      const subject = "Request for Exam Certification"
+      const body =
       `Employee Name: ${nameEm}
       Employee Email: ${emailEm}
       Employee Number: ${numberEm}
       Employee Location: ${locationEm}
-      Cost Center: ${this.getCostCenter(unit, locationEm)}
-      Charge Code: ${this.getChargeCode(unit)}
+      Cost Center: ${costCenter}
+      Charge Code: ${chargeCode}
       Exam Name: ${nameEx}
       Exam Cost: $${cost}
       Exam Testing Location: ${locationEx}
       Exam Vendor: ${vendor}
       Justification: ${justification}`
 
-    return `mailto:${unit}?cc=${emailEm}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+      window.open(`mailto:${unit}?cc=${emailEm}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`)
+    }
   }
 
   render() {
     const { nameEm } = this.state
     return (
       <div>
-        <title>Training Request</title>
-        <h3 className="text-center m-4">Certification Exam</h3>
+        <title>Exam Request</title>
+        <h3 className="text-center m-4">Request for Exam Certification</h3>
 
         <div className="container">
           <div className="form-row mt-2">
@@ -144,7 +173,7 @@ export default class Home extends React.Component {
             </div>
             <div className="form-group col-md-3">
               <label>Employee Number</label>
-              <input type="number" className="form-control" onChange={x => this.setState({ numberEm: x.target.value })} />
+              <input type="text" className="form-control" onChange={x => this.setState({ numberEm: x.target.value })} />
             </div>
             <div className="form-group col-md-3">
               <label>Employee Unit</label>
@@ -191,7 +220,7 @@ export default class Home extends React.Component {
           <div className="form-row mt-2">
             <div className="form-group col-md-3">
               <label>Cost $</label>
-              <input type="number" className="form-control" onChange={x => this.setState({ cost: x.target.value })} />
+              <input type="text" className="form-control" onChange={x => this.setState({ cost: x.target.value })} />
             </div>
             <div className="form-group col-md-9">
               <label>Justification</label>

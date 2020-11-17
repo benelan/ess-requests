@@ -11,18 +11,30 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameEm: '',
-      emailEm: '',
-      locationEm: null,
-      nunberEm: null,
-      nameC: null,
-      cost: null,
+      // nameE: '',
+      // emailE: '',
+      // locationE: 'Redlands',
+      // nunberE: null,
+      // nameC: null,
+      // cost: null,
+      // startDate: null,
+      // endDate: null,
+      // vendor: null,
+      // justification: null,
+      // comments: null,
+      // unit: 'supt-ArcGIS-Unit-Mgmt@esri.com'
+      nameE: 'Ben Elan',
+      emailE: 'belan@esri.com',
+      locationE: 'Redlands',
+      numberE: '12345',
+      nameC: 'testing exam name',
+      cost: '500',
       startDate: null,
       endDate: null,
-      vendor: null,
-      justification: null,
-      comments: null,
-      norus: false
+      vendor: 'tester inc',
+      justification: 'for fun',
+      comments: "hi I'm ben",
+      unit: 'Supt-NORUS-Unit-Mgmt@esri.com'
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -104,53 +116,78 @@ export default class Home extends React.Component {
   }
 
   handleSubmit() {
-    // fetch('/api/instructor', {
-    //   method: 'post',
-    //   body: JSON.stringify(this.state)
-    // }).then(function (response) {
-    //   return response.json();
-    // }).then(function (data) {
-    //   console.log(data)
-    // });
-    console.log(this.state)
-    window.open(this.createMailText())
-  }
+    if (Object.values(this.state).includes(null)) {
+      alert('Please fill out all of the results before submitting')
+    }
+    else {
+      const { nameE, emailE, numberE, locationE, nameC, cost, startDate, endDate, vendor, justification, comments, unit } = this.state
 
-  createMailText() {
-    const { nameEm, emailEm, numberEm, locationEm, nameEx, cost, locationEx, vendor, justification, unit } = this.state
-    const subject = "Request for Exam Certification"
-    const body =
-      `Employee Name: ${nameEm}
-      Employee Email: ${emailEm}
-      Employee Number: ${numberEm}
-      Employee Location: ${locationEm}
-      Cost Center: ${this.getCostCenter(unit, locationEm)}
-      Charge Code: ${this.getChargeCode(unit)}
-      Exam Name: ${nameEx}
-      Exam Cost: $${cost}
-      Exam Testing Location: ${locationEx}
+      const chargeCode = this.getChargeCode(unit)
+      const costCenter = this.getCostCenter(unit, locationE)
+
+      /*********** SEND DATA TO SERVER FOR CSV ***********/
+
+      const outputData = {
+        'Employee Name': nameE,
+        'Employee Email': emailE,
+        'Employee Number': numberE,
+        'Employee Location': locationE,
+        'Cost Center': costCenter,
+        'Charge Code': chargeCode,
+        'Course Name': nameC,
+        'Exam Cost': cost,
+        'Exam Vendor': vendor,
+        'Start Date': startDate,
+        'End Date': endDate,
+        'Comments': comments,
+        'Justification': justification,
+      }
+      fetch('/api/instructor', {
+        method: 'post',
+        body: JSON.stringify(outputData)
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        console.log(data.response)
+      });
+
+      /****************** CREATE EMAIL ******************/
+      const subject = "Request for Training"
+      const body =
+        `Employee Name: ${nameE}
+      Employee Email: ${emailE}
+      Employee Number: ${numberE}
+      Employee Location: ${locationE}
+      Cost Center: ${costCenter}
+      Charge Code: ${chargeCode}
+      Course Name: ${nameC}
+      Exam Cost: ${cost}
       Exam Vendor: ${vendor}
+      Start Date: ${startDate}
+      End Date: ${endDate}
+      Comments: ${comments}
       Justification: ${justification}`
 
-    return `mailto:${unit}?cc=${emailEm}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+      window.open(`mailto:${unit}?cc=${emailE}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`)
+    }
   }
 
   render() {
-    const { nameEm } = this.state
+    const { nameE, startDate, endDate } = this.state
     return (
       <div>
         <title>Training Request</title>
-        <h3 className="text-center m-4">Instructor Lead Training</h3>
+        <h3 className="text-center m-4">Request for Training</h3>
 
         <div className="container">
           <div className="form-row mt-2">
             <div className="form-group col-md-3">
               <label>Employee Name</label>
-              <input type="text" className="form-control" disabled value={nameEm} />
+              <input type="text" className="form-control" disabled value={nameE} />
             </div>
             <div className="form-group col-md-3">
               <label>Employee Number</label>
-              <input type="number" className="form-control" onChange={x => this.setState({ numberEm: x.target.value })} />
+              <input type="number" className="form-control" onChange={x => this.setState({ numberE: x.target.value })} />
             </div>
             <div className="form-group col-md-3">
               <label>Employee Unit</label>
@@ -164,7 +201,7 @@ export default class Home extends React.Component {
             </div>
             <div className="form-group col-md-3">
               <label>Employee Location</label>
-              <select className="form-control" onChange={x => this.setState({ locationEm: x.target.value })}>
+              <select className="form-control" onChange={x => this.setState({ locationE: x.target.value })}>
                 <option>Redlands</option>
                 <option>Charlotte</option>
                 <option>Washington DC</option>
@@ -202,15 +239,17 @@ export default class Home extends React.Component {
           <div className="form-row mt-4">
             <div className="form-group col-md-4">
               <label className="mr-2">Start Date</label>
-              <DatePicker className="input-group" onChange={date => this.setState({ startDate: date })} />
+              <DatePicker selected={startDate} onChange={date => this.setState({ startDate: date })} />
             </div>
             <div className="form-group col-md-4">
               <label className="mr-2">End Date</label>
-              <DatePicker onChange={date => this.setState({ endDate: date })} />
+              <DatePicker selected={endDate} onChange={date => this.setState({ endDate: date })} />
             </div>
 
-            <div className="form-group col-md-4" style={{ marginTop: '-5px' }}>
-              <button onClick={this.handleSubmit()} className="btn btn-primary">Submit</button>
+            <div className="form-row mt-3">
+              <div className="form-group col" style={{ marginTop: '-5px' }}>
+                <button onClick={this.handleSubmit} className="btn btn-primary">Submit</button>
+              </div>
             </div>
           </div>
         </div>
