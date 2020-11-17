@@ -2,10 +2,7 @@ import React from 'react';
 import { loadModules } from 'esri-loader';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-// NORUS: TE0702
-// Other Units: TE0352 
-
-export default class Home extends React.Component {
+export default class Training extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -148,8 +145,8 @@ export default class Home extends React.Component {
 
       /****************** CREATE EMAIL ******************/
       const subject = "Request for Training"
-      const body =
-        `Employee Name: ${nameE}
+      const body = `
+      Employee Name: ${nameE}
       Employee Email: ${emailE}
       Employee Number: ${numberE}
       Employee Location: ${locationE}
@@ -181,7 +178,7 @@ export default class Home extends React.Component {
             </div>
             <div className="form-group col-md-3">
               <label>Employee Number</label>
-              <input type="number" className="form-control" onChange={x => this.setState({ numberE: x.target.value })} />
+              <input type="text" className="form-control" onChange={x => this.setState({ numberE: x.target.value })} />
             </div>
             <div className="form-group col-md-3">
               <label>Employee Unit</label>

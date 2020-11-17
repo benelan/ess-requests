@@ -2,7 +2,7 @@ import React from 'react';
 import { loadModules } from 'esri-loader';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-export default class Home extends React.Component {
+export default class Exam extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -139,8 +139,8 @@ export default class Home extends React.Component {
 
       /****************** CREATE EMAIL ******************/
       const subject = "Request for Exam Certification"
-      const body =
-        `Employee Name: ${nameEm}
+      const body = `
+      Employee Name: ${nameEm}
       Employee Email: ${emailEm}
       Employee Number: ${numberEm}
       Employee Location: ${locationEm}
@@ -223,20 +223,20 @@ export default class Home extends React.Component {
                 </div>
                 <input type="text" className="form-control" onChange={x => this.setState({ cost: x.target.value })} />
               </div>
-              </div>
-              <div className="form-group col-md-9">
-                <label>Justification</label>
-                <textarea className="form-control" rows="1" onChange={x => this.setState({ justification: x.target.value })}></textarea>
-              </div>
             </div>
+            <div className="form-group col-md-9">
+              <label>Justification</label>
+              <textarea className="form-control" rows="1" onChange={x => this.setState({ justification: x.target.value })}></textarea>
+            </div>
+          </div>
 
-            <div className="form-row mt-3">
-              <div className="form-group col" style={{ marginTop: '-5px' }}>
-                <button onClick={this.handleSubmit} className="btn btn-primary">Submit</button>
-              </div>
+          <div className="form-row mt-3">
+            <div className="form-group col" style={{ marginTop: '-5px' }}>
+              <button onClick={this.handleSubmit} className="btn btn-primary">Submit</button>
             </div>
           </div>
         </div>
+      </div>
     )
   }
 }
