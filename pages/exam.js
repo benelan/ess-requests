@@ -1,5 +1,6 @@
 import React from 'react';
 import { loadModules } from 'esri-loader';
+import Link from 'next/link'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default class Exam extends React.Component {
@@ -145,6 +146,25 @@ Justification: ${justification}`
   render() {
     return (
       <div>
+        <nav className="navbar navbar-expand-sm navbar-light border-bottom" style={{ background: 'white' }}>
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link href="/">
+                <a className="nav-link">Home</a>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link href="/training">
+                <a className="nav-link">Training</a>
+              </Link>
+            </li>
+            <li className="nav-item active">
+              <Link href="/exam">
+                <a className="nav-link">Exam<span className="sr-only">(current)</span></a>
+              </Link>
+            </li>
+          </ul>
+        </nav>
         <title>Exam Request</title>
         <h3 className="text-center m-4">Request for Exam Certification</h3>
 
