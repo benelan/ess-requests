@@ -1,7 +1,6 @@
 import React from 'react';
 import { loadModules } from 'esri-loader';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { getChargeCode, getCostCenter } from './_utils'
 
 export default class Training extends React.Component {
   constructor(props) {
