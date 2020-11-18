@@ -10,7 +10,7 @@ export default function Home() {
         <h1 className="display-5 text-center">ESS Training/Exam Requests</h1>
         <p className="lead mt-4">Which request form do you want?</p>
         <hr className="mb-4" />
-        <div class="container-fluid content-row">
+        <div className="container-fluid content-row">
           <div className="row">
             <div className="col-sm-6  my-2">
               <Link href="/training">
@@ -23,7 +23,7 @@ export default function Home() {
               </Link>
             </div>
             <div className="col-sm-6 my-2">
-              <Link href="/training">
+              <Link href="/exam">
                 <div className="card h-100 hoverForm" style={{ cursor: 'pointer' }}>
                   <div className="card-body">
                     <h5 className="card-title">Request for Exam Certification</h5>

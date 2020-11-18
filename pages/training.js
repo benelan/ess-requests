@@ -18,18 +18,6 @@ export default class Training extends React.Component {
       justification: null,
       comments: null,
       unit: 'supt-ArcGIS-Unit-Mgmt@esri.com'
-      // nameE: 'Ben Elan',
-      // emailE: 'belan@esri.com',
-      // locationE: 'Redlands',
-      // numberE: '12345',
-      // nameC: 'testing exam name',
-      // cost: '500',
-      // startDate: null,
-      // endDate: null,
-      // vendor: 'tester inc',
-      // justification: 'for fun',
-      // comments: "hi I'm ben",
-      // unit: 'Supt-NORUS-Unit-Mgmt@esri.com'
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -79,9 +67,6 @@ export default class Training extends React.Component {
     });
     IdentityManager.registerOAuthInfos([info]);
     IdentityManager.destroyCredentials();
-
-    // reload
-    window.location.reload();
   }
 
   getChargeCode(unit) {
