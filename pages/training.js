@@ -187,7 +187,7 @@ Comments: ${comments}`
             </div>
             <div className="form-group col-md-3">
               <label>Employee Number</label>
-              <input type="text" className="form-control" onChange={x => this.setState({ numberE: x.target.value })} />
+              <input type="number" className="form-control" onChange={x => this.setState({ numberE: x.target.value })} />
             </div>
             <div className="form-group col-md-3">
               <label>Employee Unit</label>
@@ -225,7 +225,7 @@ Comments: ${comments}`
                 <div className="input-group-prepend">
                   <span className="input-group-text">$</span>
                 </div>
-                <input type="text" className="form-control" onChange={x => this.setState({ cost: x.target.value })} />
+                <input type="number" className="form-control" onChange={x => this.setState({ cost: x.target.value })} />
               </div>
             </div>
           </div>
