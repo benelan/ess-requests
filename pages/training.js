@@ -1,7 +1,6 @@
 import React from 'react';
 import { loadModules } from 'esri-loader';
 import Link from 'next/link'
-import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default class Training extends React.Component {
   constructor(props) {
@@ -139,16 +138,16 @@ export default class Training extends React.Component {
         `Employee Name: ${nameE}
 Employee Email: ${emailE}
 Employee Number: ${numberE}
-Employee Location: ${locationE}
 Cost Center: ${costCenter}
+Employee Location: ${locationE}
 Charge Code: ${chargeCode}
 Course Name: ${nameC}
-Exam Cost: ${cost}
-Exam Vendor: ${vendor}
+Cost: ${cost}
 Start Date: ${startDate}
 End Date: ${endDate}
-Comments: ${comments}
-Justification: ${justification}`
+Vendor: ${vendor}
+Justification: ${justification}
+Comments: ${comments}`
 
       // open email in default email client
       window.open(`mailto:${unit}?cc=${emailE}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`)
@@ -158,7 +157,8 @@ Justification: ${justification}`
   render() {
     return (
       <div>
-        <nav className="navbar navbar-expand-sm navbar-light border-bottom" style={{ background: 'white' }}>
+        <title>Training Request</title>
+        <nav className="navbar navbar-expand navbar-light border-bottom" style={{ background: 'white' }}>
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link href="/">
@@ -177,7 +177,6 @@ Justification: ${justification}`
             </li>
           </ul>
         </nav>
-        <title>Training Request</title>
         <h3 className="text-center m-4">Request for Training</h3>
 
         <div className="container">

@@ -1,15 +1,10 @@
-import React from 'react';
 import Link from 'next/link'
-import Head from 'next/head'
-import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Home() {
   return (
     <div>
-      <Head>
-        <title>ESS Requests</title>
-      </Head>
-      <nav className="navbar navbar-expand-sm navbar-light border-bottom" style={{ background: 'white' }}>
+      <title>ESS Requests</title>
+      <nav className="navbar navbar-expand navbar-light border-bottom" style={{ background: 'white' }}>
         <ul className="navbar-nav">
           <li className="nav-item active">
             <Link href="/">
@@ -29,7 +24,7 @@ export default function Home() {
         </ul>
       </nav>
       <div className="container">
-        <div className="jumbotron mt-4" style={{background: '#e1f2fb'}}>
+        <div className="jumbotron mt-4" style={{ background: '#e1f2fb' }}>
           <h1 className="display-5 text-center">ESS Training/Exam Requests</h1>
           <p className="lead mt-4">Which request form do you need?</p>
           <hr className="mb-4" />
