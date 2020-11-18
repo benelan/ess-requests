@@ -1,6 +1,7 @@
 import React from 'react';
 import { loadModules } from 'esri-loader';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import {getChargeCode, getCostCenter} from './_utils'
 
 export default class Exam extends React.Component {
   constructor(props) {
@@ -51,45 +52,21 @@ export default class Exam extends React.Component {
       })
   };
 
-  async componentWillUnmount() {
-    // load modules
-    const [OAuthInfo, IdentityManager] = await (loadModules([
-      "esri/identity/OAuthInfo",
-      "esri/identity/IdentityManager"
-    ]));
+  // async componentWillUnmount() {
+  //   // load modules
+  //   const [OAuthInfo, IdentityManager] = await (loadModules([
+  //     "esri/identity/OAuthInfo",
+  //     "esri/identity/IdentityManager"
+  //   ]));
 
-    // destroy credentials
-    var info = new OAuthInfo({
-      appId: "n5A1575tmQq5eFPd",
-      popup: false
-    });
-    IdentityManager.registerOAuthInfos([info]);
-    IdentityManager.destroyCredentials();
-  }
-
-  getChargeCode(unit) {
-    switch (unit) {
-      case 'Supt-NORUS-Unit-Mgmt@esri.com':
-        return 'TE0702'
-      default:
-        return 'TE0352'
-    }
-  }
-
-  getCostCenter(unit, location) {
-    if (unit === 'Supt-NORUS-Unit-Mgmt@esri.com') return '4255'
-
-    switch (location) {
-      case 'Redlands':
-        return '4252'
-      case 'Charlotte':
-        return '4253'
-      case 'St Louis':
-        return '4252'
-      default:
-        return '4255'
-    }
-  }
+  //   // destroy credentials
+  //   var info = new OAuthInfo({
+  //     appId: "n5A1575tmQq5eFPd",
+  //     popup: false
+  //   });
+  //   IdentityManager.registerOAuthInfos([info]);
+  //   IdentityManager.destroyCredentials();
+  // }
 
   handleSubmit() {
     if (Object.values(this.state).includes(null)) {
@@ -98,8 +75,8 @@ export default class Exam extends React.Component {
     else {
       const { nameEm, emailEm, numberEm, locationEm, nameEx, cost, locationEx, vendor, justification, unit } = this.state
 
-      const chargeCode = this.getChargeCode(unit)
-      const costCenter = this.getCostCenter(unit, locationEm)
+      const chargeCode = getChargeCode(unit)
+      const costCenter = getCostCenter(unit, locationEm)
 
       /*********** SEND DATA TO SERVER FOR CSV ***********/
       const outputData = {
@@ -126,18 +103,18 @@ export default class Exam extends React.Component {
 
       /****************** CREATE EMAIL ******************/
       const subject = "Request for Exam Certification"
-      const body = `
-      Employee Name: ${nameEm}
-      Employee Email: ${emailEm}
-      Employee Number: ${numberEm}
-      Employee Location: ${locationEm}
-      Cost Center: ${costCenter}
-      Charge Code: ${chargeCode}
-      Exam Name: ${nameEx}
-      Exam Cost: $${cost}
-      Exam Testing Location: ${locationEx}
-      Exam Vendor: ${vendor}
-      Justification: ${justification}`
+      const body =
+        `Employee Name: ${nameEm}
+Employee Email: ${emailEm}
+Employee Number: ${numberEm}
+Employee Location: ${locationEm}
+Cost Center: ${costCenter}
+Charge Code: ${chargeCode}
+Exam Name: ${nameEx}
+Exam Cost: $${cost}
+Exam Testing Location: ${locationEx}
+Exam Vendor: ${vendor}
+Justification: ${justification}`
 
       window.open(`mailto:${unit}?cc=${emailEm}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`)
     }
