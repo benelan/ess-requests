@@ -16,10 +16,10 @@ export default class Training extends React.Component {
       endDate: null,
       vendor: null,
       justification: null,
-      comments: null,
+      comments: '',
       unit: 'supt-ArcGIS-Unit-Mgmt@esri.com'
     }
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.validateSubmit = this.validateSubmit.bind(this);
   }
 
   async componentDidMount() {
@@ -92,19 +92,15 @@ export default class Training extends React.Component {
     }
   }
 
-  handleSubmit() {
-    // if all inputs were not filled in, don't submit
-    if (Object.values(this.state).includes(null)) {
-      alert('Please fill out all of the results before submitting')
-    }
-    else {
-      const { nameE, emailE, numberE, locationE, nameC, cost, startDate, endDate, vendor, justification, comments, unit } = this.state
+  handleValidSubmit() {
+    const { nameE, emailE, numberE, locationE, nameC, cost, startDate, endDate, vendor, justification, comments, unit } = this.state
 
-      // get the charge code and cost centers
-      const chargeCode = this.getChargeCode(unit)
-      const costCenter = this.getCostCenter(unit, locationE)
+    // get the charge code and cost centers
+    const chargeCode = this.getChargeCode(unit)
+    const costCenter = this.getCostCenter(unit, locationE)
 
-
+    const confirmed = confirm('Please remember your charge code: ' + chargeCode)
+    if (confirmed) {
       /*********** SEND DATA TO SERVER FOR CSV ***********/
       const outputData = {
         'Employee Name': nameE,
@@ -154,6 +150,22 @@ Comments: ${comments}`
     }
   }
 
+
+  validateSubmit(event) {
+    var forms = document.getElementsByClassName('needs-validation');
+    const that = this
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function (form) {
+      form.classList.add('was-validated');
+      if (form.checkValidity() === true) {
+        that.handleValidSubmit()
+      }
+      else {
+        event.preventDefault();
+      }
+    });
+  }
+
   render() {
     return (
       <div>
@@ -180,81 +192,83 @@ Comments: ${comments}`
         <h3 className="text-center m-4">Request for Training</h3>
 
         <div className="container">
-          <div className="form-row mt-2">
-            <div className="form-group col-md-3">
-              <label>Employee Name</label>
-              <input type="text" className="form-control" disabled value={this.state.nameE} />
-            </div>
-            <div className="form-group col-md-3">
-              <label>Employee Number</label>
-              <input type="number" className="form-control" onChange={x => this.setState({ numberE: x.target.value })} />
-            </div>
-            <div className="form-group col-md-3">
-              <label>Employee Unit</label>
-              <select className="form-control" onChange={x => this.setState({ unit: x.target.value })}>
-                <option value='Supt-ArcGIS-Unit-Mgmt@esri.com'>Online</option>
-                <option value='Supt-Enterprise-Unit-Mgmt@esri.com'>Enterprise</option>
-                <option value='Supt-Desktop-Unit-Mgmt@esri.com'>Desktop</option>
-                <option value='Supt-NORUS-Unit-Mgmt@esri.com'>NORUS</option>
-                <option value='Supt-DaDP-Unit-Mgmt@esri.com'>DaDP Products</option>
-              </select>
-            </div>
-            <div className="form-group col-md-3">
-              <label>Employee Location</label>
-              <select className="form-control" onChange={x => this.setState({ locationE: x.target.value })}>
-                <option>Redlands</option>
-                <option>Charlotte</option>
-                <option>Washington DC</option>
-                <option>St Louis</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="form-row">
-            <div className="form-group col-md-5">
-              <label>Course Name</label>
-              <input type="text" className="form-control" onChange={x => this.setState({ nameC: x.target.value })} />
-            </div>
-            <div className="form-group col-md-5">
-              <label>Vendor</label>
-              <input type="text" className="form-control" onChange={x => this.setState({ vendor: x.target.value })} />
-            </div>
-            <div className="form-group col-md-2">
-              <label>Cost</label>
-              <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">$</span>
-                </div>
-                <input type="number" className="form-control" onChange={x => this.setState({ cost: x.target.value })} />
+          <form className="needs-validation" noValidate onSubmit={this.validateSubmit}>
+            <div className="form-row mt-2">
+              <div className="form-group col-md-3">
+                <label>Employee Name</label>
+                <input type="text" className="form-control" disabled value={this.state.nameE} required />
+              </div>
+              <div className="form-group col-md-3">
+                <label>Employee Number</label>
+                <input type="number" className="form-control" onChange={x => this.setState({ numberE: x.target.value })} required />
+              </div>
+              <div className="form-group col-md-3">
+                <label>Employee Unit</label>
+                <select className="form-control" onChange={x => this.setState({ unit: x.target.value })}>
+                  <option value='Supt-ArcGIS-Unit-Mgmt@esri.com'>Online</option>
+                  <option value='Supt-Enterprise-Unit-Mgmt@esri.com'>Enterprise</option>
+                  <option value='Supt-Desktop-Unit-Mgmt@esri.com'>Desktop</option>
+                  <option value='Supt-NORUS-Unit-Mgmt@esri.com'>NORUS</option>
+                  <option value='Supt-DaDP-Unit-Mgmt@esri.com'>DaDP Products</option>
+                </select>
+              </div>
+              <div className="form-group col-md-3">
+                <label>Employee Location</label>
+                <select className="form-control" onChange={x => this.setState({ locationE: x.target.value })}>
+                  <option>Redlands</option>
+                  <option>Charlotte</option>
+                  <option>Washington DC</option>
+                  <option>St Louis</option>
+                </select>
               </div>
             </div>
-          </div>
 
-          <div className="form-row">
-            <div className="form-group col-md-6">
-              <label>Justification</label>
-              <textarea className="form-control" rows="2" onChange={x => this.setState({ justification: x.target.value })}></textarea>
-            </div>
-            <div className="form-group col-md-6">
-              <label>Comments</label>
-              <textarea className="form-control" rows="2" onChange={x => this.setState({ comments: x.target.value })}></textarea>
-            </div>
-          </div>
-
-          <div className="form-row mt-2">
-            <div className="form-group col-md-4">
-              <label>Start Date</label>
-              <input type="date" className="form-control" onChange={x => this.setState({ startDate: x.target.value })} />
-            </div>
-            <div className="form-group col-md-4 offset-md-1">
-              <label>End Date</label>
-              <input type="date" className="form-control" onChange={x => this.setState({ endDate: x.target.value })} />
+            <div className="form-row">
+              <div className="form-group col-md-5">
+                <label>Course Name</label>
+                <input type="text" className="form-control" onChange={x => this.setState({ nameC: x.target.value })} required />
+              </div>
+              <div className="form-group col-md-5">
+                <label>Vendor</label>
+                <input type="text" className="form-control" onChange={x => this.setState({ vendor: x.target.value })} required />
+              </div>
+              <div className="form-group col-md-2">
+                <label>Cost</label>
+                <div className="input-group mb-3">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">$</span>
+                  </div>
+                  <input type="number" className="form-control" onChange={x => this.setState({ cost: x.target.value })} required />
+                </div>
+              </div>
             </div>
 
-            <div className="form-group col-md-2 offset-md-1" style={{ marginTop: "31px" }}>
-              <button onClick={this.handleSubmit} className="btn btn-primary">Submit</button>
+            <div className="form-row">
+              <div className="form-group col-md-6">
+                <label>Justification</label>
+                <textarea className="form-control" rows="2" onChange={x => this.setState({ justification: x.target.value })} required />
+              </div>
+              <div className="form-group col-md-6">
+                <label>Comments</label>
+                <textarea className="form-control" rows="2" onChange={x => this.setState({ comments: x.target.value })} />
+              </div>
             </div>
-          </div>
+
+            <div className="form-row mt-2">
+              <div className="form-group col-md-4">
+                <label>Start Date</label>
+                <input type="date" className="form-control" onChange={x => this.setState({ startDate: x.target.value })} required />
+              </div>
+              <div className="form-group col-md-4 offset-md-1">
+                <label>End Date</label>
+                <input type="date" className="form-control" onChange={x => this.setState({ endDate: x.target.value })} required />
+              </div>
+
+              <div className="form-group col-md-2 offset-md-1" style={{ marginTop: "31px" }}>
+                <input type="submit" className="btn btn-primary" value="Submit" />
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     )
