@@ -182,7 +182,7 @@ Justification: ${justification}`
         <h3 className="text-center m-4">Request for Exam Certification</h3>
         <div className="container">
           <form className="needs-validation" noValidate onSubmit={this.validateSubmit}>
-            <div className="form-row mt-2">
+            <div className="form-row mt-3">
               <div className="form-group col-md-3">
                 <label>Employee Name</label>
                 <input type="text" className="form-control" disabled value={this.state.nameEm} required />
@@ -212,7 +212,7 @@ Justification: ${justification}`
               </div>
             </div>
 
-            <div className="form-row mt-2">
+            <div className="form-row mt-3">
               <div className="form-group col-md-5">
                 <label>Exam Name</label>
                 <input type="text" className="form-control" onChange={x => this.setState({ nameEx: x.target.value })} required />
@@ -233,8 +233,8 @@ Justification: ${justification}`
               </div>
             </div>
 
-            <div className="form-row mt-2">
-              <div className="form-group col-md-3">
+            <div className="form-row mt-3">
+              <div className="form-group col-md-2">
                 <label>Cost</label>
                 <div className="input-group mb-3">
                   <div className="input-group-prepend">
@@ -243,14 +243,14 @@ Justification: ${justification}`
                   <input type="number" className="form-control" onChange={x => this.setState({ cost: x.target.value })} required />
                 </div>
               </div>
-              <div className="form-group col-md-9">
+              <div className="form-group col-md-10">
                 <label>Justification</label>
                 <textarea className="form-control" rows="1" onChange={x => this.setState({ justification: x.target.value })} required />
               </div>
             </div>
 
             <div className="form-row mt-3">
-              <div className="form-group col" style={{ marginTop: '-5px' }}>
+              <div className="form-group col">
                 <input type="submit" className="btn btn-primary" value="Submit" />
               </div>
             </div>

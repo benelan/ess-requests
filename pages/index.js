@@ -25,7 +25,7 @@ export default function Home() {
       </nav>
       <div className="container">
         <div className="jumbotron mt-4" style={{ background: '#e1f2fb' }}>
-          <h1 className="display-5 text-center">ESS Training/Exam Requests</h1>
+          <h1 className="display-5 text-center">ESS Requests</h1>
           <p className="lead mt-4">Which request form do you need?</p>
           <hr className="mb-4" />
           <div className="container-fluid content-row">

@@ -193,7 +193,7 @@ Comments: ${comments}`
 
         <div className="container">
           <form className="needs-validation" noValidate onSubmit={this.validateSubmit}>
-            <div className="form-row mt-2">
+            <div className="form-row mt-3">
               <div className="form-group col-md-3">
                 <label>Employee Name</label>
                 <input type="text" className="form-control" disabled value={this.state.nameE} required />
@@ -223,7 +223,7 @@ Comments: ${comments}`
               </div>
             </div>
 
-            <div className="form-row">
+            <div className="form-row mt-3">
               <div className="form-group col-md-5">
                 <label>Course Name</label>
                 <input type="text" className="form-control" onChange={x => this.setState({ nameC: x.target.value })} required />
@@ -254,7 +254,7 @@ Comments: ${comments}`
               </div>
             </div>
 
-            <div className="form-row mt-2">
+            <div className="form-row mt-3">
               <div className="form-group col-md-4">
                 <label>Start Date</label>
                 <input type="date" className="form-control" onChange={x => this.setState({ startDate: x.target.value })} required />
