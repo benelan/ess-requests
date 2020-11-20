@@ -137,6 +137,7 @@ Exam Vendor: ${vendor}
 Justification: ${justification}`
 
       window.open(`mailto:${unit}?cc=${emailEm}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`)
+      window.location.reload()
     }
   }
 
@@ -145,13 +146,9 @@ Justification: ${justification}`
     const that = this
     // Loop over them and prevent submission
     var validation = Array.prototype.filter.call(forms, function (form) {
+      event.preventDefault();
       form.classList.add('was-validated');
-      if (form.checkValidity() === true) {
-        that.handleValidSubmit()
-      }
-      else {
-        event.preventDefault();
-      }
+      if (form.checkValidity()) that.handleValidSubmit()
     });
   }
 
@@ -245,7 +242,7 @@ Justification: ${justification}`
               </div>
               <div className="form-group col-md-10">
                 <label>Justification</label>
-                <textarea className="form-control" rows="1" onChange={x => this.setState({ justification: x.target.value })} required />
+                <input type="text" className="form-control" onChange={x => this.setState({ justification: x.target.value })} required />
               </div>
             </div>
 

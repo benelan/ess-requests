@@ -147,6 +147,7 @@ Comments: ${comments}`
 
       // open email in default email client
       window.open(`mailto:${unit}?cc=${emailE}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`)
+      window.location.reload()
     }
   }
 
@@ -156,13 +157,9 @@ Comments: ${comments}`
     const that = this
     // Loop over them and prevent submission
     var validation = Array.prototype.filter.call(forms, function (form) {
+      event.preventDefault();
       form.classList.add('was-validated');
-      if (form.checkValidity() === true) {
-        that.handleValidSubmit()
-      }
-      else {
-        event.preventDefault();
-      }
+      if (form.checkValidity()) that.handleValidSubmit()
     });
   }
 
