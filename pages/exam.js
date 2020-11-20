@@ -137,7 +137,7 @@ Exam Vendor: ${vendor}
 Justification: ${justification}`
 
       window.open(`mailto:${unit}?cc=${emailEm}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`)
-    } np
+    }
   }
 
   validateSubmit(event) {
