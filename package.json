@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "node server.js"
+    "start": "next start",
+    "server": "node server.js"
   },
   "dependencies": {
     "bootstrap": "^4.5.3",
