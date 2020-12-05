@@ -9,6 +9,12 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+.shadow {
+  -moz-box-shadow: inset 0 0 10px #000000;
+  -webkit-box-shadow: inset 0 0 10px #000000;
+  box-shadow: inset 0 0 10px #000000;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -20,8 +26,9 @@ a {
 
 .hoverForm:hover,
 .hoverForm:focus,
-.hoverForm:active {
-  box-shadow: 0 0 0 1pt lightgray;
+.hoverForm:active{
+  border: 1px solid darkgray;
+  border-radius: 5px
 }
 
 /* Chrome, Safari, Edge, Opera */

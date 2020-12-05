@@ -29,7 +29,7 @@ export default class Exam extends React.Component {
     ]));
 
     var info = new OAuthInfo({
-      appId: "n5A1575tmQq5eFPd",
+      appId: "hZpRbKz3fiSkaj1U",
       popup: false
     });
 
@@ -60,7 +60,7 @@ export default class Exam extends React.Component {
 
   //   // destroy credentials
   //   var info = new OAuthInfo({
-  //     appId: "n5A1575tmQq5eFPd",
+  //     appId: "hZpRbKz3fiSkaj1U",
   //     popup: false
   //   });
   //   IdentityManager.registerOAuthInfos([info]);
