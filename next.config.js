@@ -1,4 +1,6 @@
 module.exports = {
-  //assetPrefix: '/requests',
-  //basePath: '/requests',
+  assetPrefix: '',
+  publicRuntimeConfig: {
+    basePath: '',
+  },
 }

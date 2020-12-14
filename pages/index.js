@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import getConfig from 'next/config'
+const { publicRuntimeConfig } = getConfig()
 
 export default function Home() {
   return (
@@ -7,17 +9,17 @@ export default function Home() {
       <nav className="navbar navbar-expand navbar-light border-bottom" style={{ background: 'white' }}>
         <ul className="navbar-nav">
           <li className="nav-item active">
-            <Link href="/">
-              <a className="nav-link">Home <span className="sr-only">(current)</span></a>
+            <Link href={publicRuntimeConfig.basePath}>
+              <a className="nav-link">Home<span className="sr-only">(current)</span></a>
             </Link>
           </li>
           <li className="nav-item">
-            <Link href="/training">
+            <Link href={`${publicRuntimeConfig.basePath}/training`}>
               <a className="nav-link">Training</a>
             </Link>
           </li>
           <li className="nav-item">
-            <Link href="/exam">
+            <Link href={`${publicRuntimeConfig.basePath}/exam`}>
               <a className="nav-link">Exam</a>
             </Link>
           </li>
@@ -31,7 +33,7 @@ export default function Home() {
           <div className="container-fluid content-row">
             <div className="row">
               <div className="col-sm-6  my-2">
-                <Link href="/training">
+                <Link href={`${publicRuntimeConfig.basePath}/training`}>
                   <div className="card h-100 shadow hoverForm" style={{ cursor: 'pointer' }}>
                     <div className="card-body">
                       <h5 className="card-title">Request for Training</h5>
@@ -41,7 +43,7 @@ export default function Home() {
                 </Link>
               </div>
               <div className="col-sm-6 my-2">
-                <Link href="/exam">
+                <Link href={`${publicRuntimeConfig.basePath}/exam`}>
                   <div className="card h-100 shadow hoverForm" style={{ cursor: 'pointer' }}>
                     <div className="card-body">
                       <h5 className="card-title">Request for Exam Certification</h5>

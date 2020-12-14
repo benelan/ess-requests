@@ -1,6 +1,8 @@
 import React from 'react';
 import { loadModules } from 'esri-loader';
 import Link from 'next/link'
+import getConfig from 'next/config'
+const { publicRuntimeConfig } = getConfig()
 
 export default class Exam extends React.Component {
   constructor(props) {
@@ -112,7 +114,7 @@ export default class Exam extends React.Component {
         'Exam Vendor': vendor,
         'Justification': justification,
       }
-      fetch('/api/logExam', {
+      fetch(`${publicRuntimeConfig.basePath}/api/logExam`, {
         method: 'post',
         body: JSON.stringify(outputData)
       }).then(function (response) {
@@ -137,7 +139,6 @@ Exam Vendor: ${vendor}
 Justification: ${justification}`
 
       window.open(`mailto:${unit}?cc=${emailEm}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`)
-      window.location.reload()
     }
   }
 
@@ -159,17 +160,17 @@ Justification: ${justification}`
         <nav className="navbar navbar-expand navbar-light border-bottom" style={{ background: 'white' }}>
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link href="/">
+              <Link href={publicRuntimeConfig.basePath}>
                 <a className="nav-link">Home</a>
               </Link>
             </li>
             <li className="nav-item">
-              <Link href="/training">
+              <Link href={`${publicRuntimeConfig.basePath}/training`}>
                 <a className="nav-link">Training</a>
               </Link>
             </li>
             <li className="nav-item active">
-              <Link href="/exam">
+              <Link href={`${publicRuntimeConfig.basePath}/exam`}>
                 <a className="nav-link">Exam<span className="sr-only">(current)</span></a>
               </Link>
             </li>
@@ -194,8 +195,10 @@ Justification: ${justification}`
                   <option value='Supt-ArcGIS-Unit-Mgmt@esri.com'>Online</option>
                   <option value='Supt-Enterprise-Unit-Mgmt@esri.com'>Enterprise</option>
                   <option value='Supt-Desktop-Unit-Mgmt@esri.com'>Desktop</option>
-                  <option value='Supt-NORUS-Unit-Mgmt@esri.com'>NORUS</option>
                   <option value='Supt-DaDP-Unit-Mgmt@esri.com'>DaDP Products</option>
+                  <option value='Supt-NORUS-Unit-Mgmt@esri.com'>NORUS</option>
+                  <option value='SWhittington@esri.com'>TAMS</option>
+                  <option value='Christian_Wells@esri.com'>Readiness</option>
                 </select>
               </div>
               <div className="form-group col-md-3">
