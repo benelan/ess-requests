@@ -1,12 +1,13 @@
 const httpsServer = require("https").createServer;
 const httpServer = require("http").createServer;
-// const express = require('express');
 const { parse } = require("url");
 const next = require("next");
 const fs = require("fs");
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
+
+process.env.NODE_ENV = 'production';
 
 const httpsOptions = {
   /** FOR DEV */
@@ -21,19 +22,6 @@ const http_port = 3001
 const https_port = 3000
 
 app.prepare().then(() => {
-  // const server = express();
-  // server.get('*', (req, res) => {
-  //   if (req.secure) {
-  //     // request was via https, so do no special handling
-  //     return handle(req, res);
-  //   } else {
-  //     // request was via http, so redirect to https
-  //     const https_url = 'https://' + req.headers.host.substring(0, req.headers.host.indexOf(':') + 1) + https_port;
-  //     res.redirect(https_url);
-  //   }
-  //   return handle(req, res);
-  // });
-
   httpsServer(httpsOptions, (req, res) => {
     const parsedUrl = parse(req.url, true);
     handle(req, res, parsedUrl);
