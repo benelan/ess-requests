@@ -1,6 +1,6 @@
 module.exports = {
   assetPrefix: '',
   publicRuntimeConfig: {
-    basePath: '',
-  },
+    basePath: ''
+  }
 }

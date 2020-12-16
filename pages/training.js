@@ -1,18 +1,18 @@
 import React from 'react';
-import { loadModules } from 'esri-loader';
-import Link from 'next/link'
-import getConfig from 'next/config'
-const { publicRuntimeConfig } = getConfig()
+import TopNav from '../components/TopNav'
+import { esriLogin } from '../utils/authenticator'
+import { validateSubmit } from '../utils/formSubmitter'
+import { getUnits, getEmployeeLocations } from '../utils/constGetter'
 
 export default class Training extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameE: '',
-      emailE: '',
-      locationE: 'Redlands',
-      numberE: null,
-      nameC: null,
+      nameEmployee: '',
+      emailEmployee: '',
+      locationEmployee: 'Redlands',
+      numberEmploye: null,
+      nameCourse: null,
       cost: null,
       startDate: null,
       endDate: null,
@@ -21,204 +21,56 @@ export default class Training extends React.Component {
       comments: '',
       unit: 'supt-ArcGIS-Unit-Mgmt@esri.com'
     }
-    this.validateSubmit = this.validateSubmit.bind(this);
   }
 
   async componentDidMount() {
-    // load modules
-    const [Portal, OAuthInfo, IdentityManager] = await (loadModules([
-      "esri/portal/Portal",
-      "esri/identity/OAuthInfo",
-      "esri/identity/IdentityManager"
-    ]));
-
-    var info = new OAuthInfo({
-      appId: "hZpRbKz3fiSkaj1U",
-      popup: false
-    });
-
-    // this out of scope within the promise after auth
-    var that = this;
-
-    IdentityManager.registerOAuthInfos([info]);
-    IdentityManager.getCredential(info.portalUrl + "/sharing");
-    IdentityManager.checkSignInStatus(info.portalUrl + "/sharing")
-      .then(() => {
-        var portal = new Portal();
-        // Setting authMode to immediate signs the user in once loaded
-        portal.authMode = "immediate";
-        // Once loaded, user is signed in
-        portal.load().then(function () {
-          // set store values of email and name
-          that.setState({ nameE: portal.user.fullName, emailE: portal.user.email })
-        });
-      })
-  };
-
-  // async componentWillUnmount() {
-  //   // load modules
-  //   const [OAuthInfo, IdentityManager] = await (loadModules([
-  //     "esri/identity/OAuthInfo",
-  //     "esri/identity/IdentityManager"
-  //   ]));
-
-  //   // destroy credentials
-  //   var info = new OAuthInfo({
-  //     appId: "hZpRbKz3fiSkaj1U",
-  //     popup: false
-  //   });
-  //   IdentityManager.registerOAuthInfos([info]);
-  //   IdentityManager.destroyCredentials();
-  // }
-
-  getChargeCode(unit) {
-    switch (unit) {
-      case 'Supt-NORUS-Unit-Mgmt@esri.com':
-        return 'TE0702'
-      default:
-        return 'TE0352'
+    try {
+      const { name, email } = await esriLogin()
+      console.log('signed in as', name)
+      this.setState({ nameEmployee: name, emailEmployee: email })
     }
-  }
-
-  getCostCenter(unit, location) {
-    if (unit === 'Supt-NORUS-Unit-Mgmt@esri.com') return '4255'
-    switch (location) {
-      case 'Redlands':
-        return '4252'
-      case 'Charlotte':
-        return '4253'
-      case 'St Louis':
-        return '4252'
-      default:
-        return '4255'
+    catch (err) {
+      console.error('login failed:', err)
     }
-  }
-
-  handleValidSubmit() {
-    const { nameE, emailE, numberE, locationE, nameC, cost, startDate, endDate, vendor, justification, comments, unit } = this.state
-
-    // get the charge code and cost centers
-    const chargeCode = this.getChargeCode(unit)
-    const costCenter = this.getCostCenter(unit, locationE)
-
-    const confirmed = confirm('Please remember your charge code: ' + chargeCode)
-    if (confirmed) {
-      /*********** SEND DATA TO SERVER FOR CSV ***********/
-      const outputData = {
-        'Employee Name': nameE,
-        'Employee Email': emailE,
-        'Employee Number': numberE,
-        'Employee Location': locationE,
-        'Cost Center': costCenter,
-        'Charge Code': chargeCode,
-        'Course Name': nameC,
-        'Exam Cost': cost,
-        'Exam Vendor': vendor,
-        'Start Date': startDate,
-        'End Date': endDate,
-        'Comments': comments,
-        'Justification': justification,
-      }
-
-      // REST POST data to api
-      fetch(`${publicRuntimeConfig.basePath}/api/logTraining`, {
-        method: 'post',
-        body: JSON.stringify(outputData)
-      }).then(function (response) {
-        return response.json();
-      }).then(function (data) {
-        console.log(data.response)
-      });
-
-      /****************** CREATE EMAIL ******************/
-      const subject = "Request for Training"
-      const body =
-        `Employee Name: ${nameE}
-Employee Email: ${emailE}
-Employee Number: ${numberE}
-Cost Center: ${costCenter}
-Employee Location: ${locationE}
-Charge Code: ${chargeCode}
-Course Name: ${nameC}
-Cost: ${cost}
-Start Date: ${startDate}
-End Date: ${endDate}
-Vendor: ${vendor}
-Justification: ${justification}
-Comments: ${comments}`
-
-      // open email in default email client
-      window.open(`mailto:${unit}?cc=${emailE}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`)
-    }
-  }
-
-
-  validateSubmit(event) {
-    var forms = document.getElementsByClassName('needs-validation');
-    const that = this
-    // Loop over them and prevent submission
-    var validation = Array.prototype.filter.call(forms, function (form) {
-      event.preventDefault();
-      form.classList.add('was-validated');
-      if (form.checkValidity()) that.handleValidSubmit()
-    });
   }
 
   render() {
+    const units = getUnits()
+    const unitOptions = Object.keys(units).map(u =>
+      <option key={u} value={units[u]}>{u}</option>)
+
+    const employeeLocations = getEmployeeLocations()
+    const employeeLocationOptions = employeeLocations.map(loc =>
+      <option key={loc}>{loc}</option>)
     return (
       <div>
         <title>Training Request</title>
-        <nav className="navbar navbar-expand navbar-light border-bottom" style={{ background: 'white' }}>
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <Link href={publicRuntimeConfig.basePath}>
-                <a className="nav-link">Home</a>
-              </Link>
-            </li>
-            <li className="nav-item active">
-              <Link href={`${publicRuntimeConfig.basePath}/training`}>
-                <a className="nav-link">Training<span className="sr-only">(current)</span></a>
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link href={`${publicRuntimeConfig.basePath}/exam`}>
-                <a className="nav-link">Exam</a>
-              </Link>
-            </li>
-          </ul>
-        </nav>
+        <TopNav page="training" />
         <h3 className="text-center m-4">Request for Training</h3>
 
         <div className="container">
-          <form className="needs-validation" noValidate onSubmit={this.validateSubmit}>
+          <form className="needs-validation" noValidate onSubmit={(event) =>
+            validateSubmit(event, 'training', this.state)}
+          >
             <div className="form-row mt-3">
               <div className="form-group col-md-3">
                 <label>Employee Name</label>
-                <input type="text" className="form-control" disabled value={this.state.nameE} required />
+                <input type="text" className="form-control" disabled value={this.state.nameEmployee} required />
               </div>
               <div className="form-group col-md-3">
                 <label>Employee Number</label>
-                <input type="number" className="form-control" onChange={x => this.setState({ numberE: x.target.value })} required />
+                <input type="number" className="form-control" onChange={x => this.setState({ numberEmploye: x.target.value })} required />
               </div>
               <div className="form-group col-md-3">
                 <label>Employee Unit</label>
                 <select className="form-control" onChange={x => this.setState({ unit: x.target.value })}>
-                  <option value='Supt-ArcGIS-Unit-Mgmt@esri.com'>Online</option>
-                  <option value='Supt-Enterprise-Unit-Mgmt@esri.com'>Enterprise</option>
-                  <option value='Supt-Desktop-Unit-Mgmt@esri.com'>Desktop</option>
-                  <option value='Supt-DaDP-Unit-Mgmt@esri.com'>DaDP Products</option>
-                  <option value='Supt-NORUS-Unit-Mgmt@esri.com'>NORUS</option>
-                  <option value='SWhittington@esri.com'>TAMS</option>
-                  <option value='Christian_Wells@esri.com'>Readiness</option>
+                  {unitOptions}
                 </select>
               </div>
               <div className="form-group col-md-3">
                 <label>Employee Location</label>
-                <select className="form-control" onChange={x => this.setState({ locationE: x.target.value })}>
-                  <option>Redlands</option>
-                  <option>Charlotte</option>
-                  <option>Washington DC</option>
-                  <option>St Louis</option>
+                <select className="form-control" onChange={x => this.setState({ locationEmployee: x.target.value })}>
+                  {employeeLocationOptions}
                 </select>
               </div>
             </div>
@@ -226,7 +78,7 @@ Comments: ${comments}`
             <div className="form-row mt-3">
               <div className="form-group col-md-5">
                 <label>Course Name</label>
-                <input type="text" className="form-control" onChange={x => this.setState({ nameC: x.target.value })} required />
+                <input type="text" className="form-control" onChange={x => this.setState({ nameCourse: x.target.value })} required />
               </div>
               <div className="form-group col-md-5">
                 <label>Vendor</label>

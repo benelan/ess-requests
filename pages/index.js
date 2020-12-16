@@ -1,30 +1,13 @@
 import Link from 'next/link'
 import getConfig from 'next/config'
+import TopNav from '../components/TopNav'
 const { publicRuntimeConfig } = getConfig()
 
 export default function Home() {
   return (
     <div>
       <title>ESS Requests</title>
-      <nav className="navbar navbar-expand navbar-light border-bottom" style={{ background: 'white' }}>
-        <ul className="navbar-nav">
-          <li className="nav-item active">
-            <Link href={publicRuntimeConfig.basePath}>
-              <a className="nav-link">Home<span className="sr-only">(current)</span></a>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link href={`${publicRuntimeConfig.basePath}/training`}>
-              <a className="nav-link">Training</a>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link href={`${publicRuntimeConfig.basePath}/exam`}>
-              <a className="nav-link">Exam</a>
-            </Link>
-          </li>
-        </ul>
-      </nav>
+      <TopNav page="home" />
       <div className="container">
         <div className="jumbotron mt-4" style={{ background: '#e1f2fb' }}>
           <h1 className="display-5 text-center">ESS Requests</h1>
