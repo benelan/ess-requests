@@ -1,5 +1,14 @@
+/** @module authenticator */
 import { loadModules } from 'esri-loader'
 
+const APP_ID = "hZpRbKz3fiSkaj1U"
+
+/**
+   * ArcGIS OAuth login
+   * @async
+   * @func
+   * @return {object} user's name and email
+   */
 export async function esriLogin() {
   const [Portal, OAuthInfo, IdentityManager] = await (loadModules([
     "esri/portal/Portal",
@@ -8,7 +17,7 @@ export async function esriLogin() {
   ]))
 
   var info = new OAuthInfo({
-    appId: "hZpRbKz3fiSkaj1U",
+    appId: APP_ID,
     popup: false
   })
 
@@ -23,7 +32,7 @@ export async function esriLogin() {
         // Once loaded, user is signed in
         portal.load().then(function () {
           // set store values of email and name
-          resolve({name: portal.user.fullName, email: portal.user.email})
+          resolve({ name: portal.user.fullName, email: portal.user.email })
         })
       })
       .catch((e) => {
@@ -32,6 +41,11 @@ export async function esriLogin() {
   })
 }
 
+/**
+   * ArcGIS OAuth logout
+   * @async
+   * @func
+   */
 export async function esriLogout() {
   // load modules
   const [OAuthInfo, IdentityManager] = await (loadModules([
@@ -41,7 +55,7 @@ export async function esriLogout() {
 
   // destroy credentials
   var info = new OAuthInfo({
-    appId: "hZpRbKz3fiSkaj1U",
+    appId: APP_ID,
     popup: false
   })
   IdentityManager.registerOAuthInfos([info])

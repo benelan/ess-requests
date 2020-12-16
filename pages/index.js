@@ -3,6 +3,11 @@ import getConfig from 'next/config'
 import TopNav from '../components/TopNav'
 const { publicRuntimeConfig } = getConfig()
 
+/**
+ * Home page for selecting a form
+ * @author Ben Elan
+ * @component
+ */
 export default function Home() {
   return (
     <div>

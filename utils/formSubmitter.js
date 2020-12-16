@@ -1,7 +1,16 @@
+/** @module formSubmitter */
 import { getChargeCode, getCostCenter } from './constGetter'
 import getConfig from 'next/config'
 const { publicRuntimeConfig } = getConfig()
 
+/**
+   * Validates that all required form fields are filled out 
+   * If so, submits the form based on the type
+   * @func
+   * @param {object} event - submit event
+   * @param {string} type - the type of form being submitted
+   * @param {string} state - the form data
+ */
 export const validateSubmit = (event, type, state) => {
   var forms = document.getElementsByClassName('needs-validation')
   // Loop over them and prevent submission
@@ -14,20 +23,28 @@ export const validateSubmit = (event, type, state) => {
   })
 }
 
+/**
+   * Sends a POST to the api to log the training request form data to csv
+   * Generates and opens an email with the data
+   * @func
+   * @param {string} state - the form data
+ */
 export const handleValidTrainingSubmit = (state) => {
-  const { nameEmployee, emailEmployee, numberEmploye, locationEmployee, nameCourse, cost, startDate, endDate, vendor, justification, comments, unit } = state
+  // deconstruct form data
+  const { nameEmployee, emailEmployee, numberEmployee, locationEmployee, nameCourse, cost, startDate, endDate, vendor, justification, comments, unit } = state
 
   // get the charge code and cost centers
   const chargeCode = getChargeCode(unit)
   const costCenter = getCostCenter(unit, locationEmployee)
 
+  // have user confirm submission and inform them of the charge code
   const confirmed = confirm('Please remember your charge code: ' + chargeCode)
   if (confirmed) {
     /*********** SEND DATA TO SERVER FOR CSV ***********/
     const outputData = {
       'Employee Name': nameEmployee,
       'Employee Email': emailEmployee,
-      'Employee Number': numberEmploye,
+      'Employee Number': numberEmployee,
       'Employee Location': locationEmployee,
       'Cost Center': costCenter,
       'Charge Code': chargeCode,
@@ -40,7 +57,6 @@ export const handleValidTrainingSubmit = (state) => {
       'Justification': justification,
     }
 
-    // REST POST data to api
     fetch(`${publicRuntimeConfig.basePath}/api/logTraining`, {
       method: 'post',
       body: JSON.stringify(outputData)
@@ -55,7 +71,7 @@ export const handleValidTrainingSubmit = (state) => {
     const body =
       `Employee Name: ${nameEmployee}
 Employee Email: ${emailEmployee}
-Employee Number: ${numberEmploye}
+Employee Number: ${numberEmployee}
 Cost Center: ${costCenter}
 Employee Location: ${locationEmployee}
 Charge Code: ${chargeCode}
@@ -72,19 +88,28 @@ Comments: ${comments}`
   }
 }
 
+/**
+   * Sends a POST to the api to log the exam request form data to csv
+   * Generates and opens an email with the data
+   * @func
+   * @param {string} state - the form data
+ */
 export const handleValidExamSubmit = (state) => {
-  const { nameEmployee, emailEmployee, numberEmployee, locationEmployee, nameExam, cost, locationExam, vendor, justification, unit } = state
+  // deconstruct form data
+  const { nameEmployee, emailEmployee, numberEmployeee, locationEmployee, nameExam, cost, locationExam, vendor, justification, unit } = state
 
+  // determine the charge code and cost center
   const chargeCode = getChargeCode(unit)
   const costCenter = getCostCenter(unit, locationEmployee)
 
+  // have user confirm submission and inform them of the charge code
   const confirmed = confirm('Please remember your charge code: ' + chargeCode)
   if (confirmed) {
     /*********** SEND DATA TO SERVER FOR CSV ***********/
     const outputData = {
       'Employee Name': nameEmployee,
       'Employee Email': emailEmployee,
-      'Employee Number': numberEmployee,
+      'Employee Number': numberEmployeee,
       'Employee Location': locationEmployee,
       'Cost Center': costCenter,
       'Charge Code': chargeCode,
@@ -108,7 +133,7 @@ export const handleValidExamSubmit = (state) => {
     const body =
       `Employee Name: ${nameEmployee}
 Employee Email: ${emailEmployee}
-Employee Number: ${numberEmployee}
+Employee Number: ${numberEmployeee}
 Cost Center: ${costCenter}
 Employee Location: ${locationEmployee}
 Charge Code: ${chargeCode}
@@ -118,6 +143,7 @@ Exam Testing Location: ${locationExam}
 Exam Vendor: ${vendor}
 Justification: ${justification}`
 
+    // open email in default email client
     window.open(`mailto:${unit}?cc=${emailEmployee}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`)
   }
 }

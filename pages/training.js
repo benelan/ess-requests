@@ -1,17 +1,21 @@
-import React from 'react';
+import React from 'react'
 import TopNav from '../components/TopNav'
 import { esriLogin } from '../utils/authenticator'
 import { validateSubmit } from '../utils/formSubmitter'
 import { getUnits, getEmployeeLocations } from '../utils/constGetter'
 
+/**
+ * The training request form
+ * @component
+ */
 export default class Training extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       nameEmployee: '',
       emailEmployee: '',
       locationEmployee: 'Redlands',
-      numberEmploye: null,
+      numberEmployee: null,
       nameCourse: null,
       cost: null,
       startDate: null,
@@ -35,13 +39,12 @@ export default class Training extends React.Component {
   }
 
   render() {
+    // get the units and locations and create the dropdown options
     const units = getUnits()
-    const unitOptions = Object.keys(units).map(u =>
-      <option key={u} value={units[u]}>{u}</option>)
+    const unitOptions = Object.keys(units).map(u => <option key={u} value={units[u]}>{u}</option>)
 
     const employeeLocations = getEmployeeLocations()
-    const employeeLocationOptions = employeeLocations.map(loc =>
-      <option key={loc}>{loc}</option>)
+    const employeeLocationOptions = employeeLocations.map(loc => <option key={loc}>{loc}</option>)
     return (
       <div>
         <title>Training Request</title>
@@ -59,7 +62,7 @@ export default class Training extends React.Component {
               </div>
               <div className="form-group col-md-3">
                 <label>Employee Number</label>
-                <input type="number" className="form-control" onChange={x => this.setState({ numberEmploye: x.target.value })} required />
+                <input type="number" className="form-control" onChange={x => this.setState({ numberEmployee: x.target.value })} required />
               </div>
               <div className="form-group col-md-3">
                 <label>Employee Unit</label>

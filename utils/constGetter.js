@@ -1,7 +1,21 @@
-export const getEmployeeLocations = () => ['Rendlands', 'Charlotte', 'Washington DC', 'St Louis']
+/** @module constGetter */
 
-export const getExamLocations = () => ['Rendlands', 'Charlotte', 'Washington DC', 'St Louis', 'Remote']
+/**
+   * @func
+   * @return {array} employee locations
+   */
+export const getEmployeeLocations = () => ['Redlands', 'Charlotte', 'Washington DC', 'St Louis']
 
+/**
+   * @func
+   * @return {array} exam locations
+   */
+export const getExamLocations = () => ['Redlands', 'Charlotte', 'Washington DC', 'St Louis', 'Remote']
+
+/**
+   * @func
+   * @return {object} employee units
+   */
 export const getUnits = () => {
   return {
     'Online': 'Supt-ArcGIS-Unit-Mgmt@esri.com',
@@ -14,6 +28,12 @@ export const getUnits = () => {
   }
 }
 
+/**
+   * @func
+   * @param {string} unit
+   * @param {string} location
+   * @return {string} cost center
+   */
 export const getCostCenter = (unit, location) => {
   if (unit === 'Supt-NORUS-Unit-Mgmt@esri.com') return '4255'
   switch (location) {
@@ -28,6 +48,11 @@ export const getCostCenter = (unit, location) => {
   }
 }
 
+/**
+   * @func
+   * @param {string} unit
+   * @return {string} charge code
+   */
 export const getChargeCode = (unit) => {
   switch (unit) {
     case 'Supt-NORUS-Unit-Mgmt@esri.com':

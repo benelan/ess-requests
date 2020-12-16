@@ -1,12 +1,16 @@
-import React from 'react';
+import React from 'react'
 import TopNav from '../components/TopNav'
 import { esriLogin } from '../utils/authenticator'
 import { validateSubmit } from '../utils/formSubmitter'
-import { getUnits, getEmployeeLocations, getExamLocations } from '../utils/constGetter';
+import { getUnits, getEmployeeLocations, getExamLocations } from '../utils/constGetter'
 
+/**
+ * The exam request form
+ * @component
+ */
 export default class Exam extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       nameEmployee: '',
       emailEmployee: '',
@@ -32,17 +36,15 @@ export default class Exam extends React.Component {
   }
 
   render() {
+    // get the units and locations and create the dropdown options
     const units = getUnits()
-    const unitOptions = Object.keys(units).map(u =>
-      <option key={u} value={units[u]}>{u}</option>)
+    const unitOptions = Object.keys(units).map(u => <option key={u} value={units[u]}>{u}</option>)
 
     const employeeLocations = getEmployeeLocations()
-    const employeeLocationOptions = employeeLocations.map(loc =>
-      <option key={loc}>{loc}</option>)
+    const employeeLocationOptions = employeeLocations.map(loc => <option key={loc}>{loc}</option>)
 
     const examLocations = getExamLocations()
-    const examLocationOptions = examLocations.map(loc =>
-      <option key={loc}>{loc}</option>)
+    const examLocationOptions = examLocations.map(loc => <option key={loc}>{loc}</option>)
     return (
       <div>
         <title>Exam Request</title>

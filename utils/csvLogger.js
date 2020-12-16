@@ -1,7 +1,17 @@
+/** @module csvLogger */
 import fs from 'fs'
 import jsonexport from 'jsonexport'
 
-export default async (res, req, filePath) => {
+/**
+   * receives JSON data from POST and converts it to JSON
+   * Either creates a new csv file or appends data to an existing file
+   * @func
+   * @param {object} res - REST response
+   * @param {object} data - JSON object with form data
+   * @param {string} filePath - the path to the csv file
+   * @return {promise}
+ */
+export default async (res, data, filePath) => {
   return new Promise(resolve => {
     // handles successful response
     function successful() {
@@ -18,8 +28,8 @@ export default async (res, req, filePath) => {
       return resolve()
     }
 
-    // convert the request body to csv format
-    jsonexport([JSON.parse(req.body)], function (exportError, csv) {
+    // convert the request data to csv format
+    jsonexport([JSON.parse(data)], function (exportError, csv) {
       if (exportError) fail(exportError)
 
       // check if there is a csv file
