@@ -1,0 +1,966 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders exam form unchanged 1`] = `
+<div>
+  <title>
+    Exam Request
+  </title>
+  <nav
+    className="navbar navbar-expand navbar-light border-bottom"
+    style={
+      Object {
+        "background": "white",
+      }
+    }
+  >
+    <ul
+      className="navbar-nav"
+    >
+      <li
+        className="nav-item"
+      >
+        <a
+          className="nav-link"
+          href="/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Home
+        </a>
+      </li>
+      <li
+        className="nav-item"
+      >
+        <a
+          className="nav-link"
+          href="/training"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Training
+        </a>
+      </li>
+      <li
+        className="nav-item active"
+      >
+        <a
+          className="nav-link"
+          href="/exam"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Exam
+          <span
+            className="sr-only"
+          >
+            (current)
+          </span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <h3
+    className="text-center m-4"
+  >
+    Request for Exam Certification
+  </h3>
+  <div
+    className="container"
+  >
+    <form
+      className="needs-validation"
+      noValidate={true}
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-row mt-3"
+      >
+        <div
+          className="form-group col-md-3"
+        >
+          <label
+            htmlFor="employeeName"
+          >
+            Employee Name
+          </label>
+          <input
+            className="form-control"
+            disabled={true}
+            id="employeeName"
+            required={true}
+            type="text"
+          />
+        </div>
+        <div
+          className="form-group col-md-3"
+        >
+          <label
+            htmlFor="employeeNumber"
+          >
+            Employee Number
+          </label>
+          <input
+            className="form-control"
+            id="employeeNumber"
+            onChange={[Function]}
+            required={true}
+            type="number"
+          />
+        </div>
+        <div
+          className="form-group col-md-3"
+        >
+          <label
+            htmlFor="employeeUnit"
+          >
+            Employee Unit
+          </label>
+          <select
+            className="form-control"
+            id="employeeUnit"
+            onChange={[Function]}
+          >
+            <option
+              value="Supt-ArcGIS-Unit-Mgmt@esri.com"
+            >
+              Online
+            </option>
+            <option
+              value="Supt-Enterprise-Unit-Mgmt@esri.com"
+            >
+              Enterprise
+            </option>
+            <option
+              value="Supt-Desktop-Unit-Mgmt@esri.com"
+            >
+              Desktop
+            </option>
+            <option
+              value="Supt-DaDP-Unit-Mgmt@esri.co"
+            >
+              DaDP Product
+            </option>
+            <option
+              value="Supt-NORUS-Unit-Mgmt@esri.com"
+            >
+              NORUS
+            </option>
+            <option
+              value="SWhittington@esri.com"
+            >
+              TAMS
+            </option>
+            <option
+              value="Christian_Wells@esri.com"
+            >
+              Readiness
+            </option>
+          </select>
+        </div>
+        <div
+          className="form-group col-md-3"
+        >
+          <label
+            htmlFor="employeeLocation"
+          >
+            Employee Location
+          </label>
+          <select
+            className="form-control"
+            id="employeeLocation"
+            onChange={[Function]}
+          >
+            <option>
+              Redlands
+            </option>
+            <option>
+              Charlotte
+            </option>
+            <option>
+              Washington DC
+            </option>
+            <option>
+              St Louis
+            </option>
+          </select>
+        </div>
+      </div>
+      <div
+        className="form-row mt-3"
+      >
+        <div
+          className="form-group col-md-5"
+        >
+          <label
+            htmlFor="examName"
+          >
+            Exam Name
+          </label>
+          <input
+            className="form-control"
+            id="examName"
+            onChange={[Function]}
+            required={true}
+            type="text"
+          />
+        </div>
+        <div
+          className="form-group col-md-4"
+        >
+          <label
+            htmlFor="vendor"
+          >
+            Vendor
+          </label>
+          <input
+            className="form-control"
+            id="vendor"
+            onChange={[Function]}
+            required={true}
+            type="text"
+          />
+        </div>
+        <div
+          className="form-group col-md-3"
+        >
+          <label
+            htmlFor="examLocation"
+          >
+            Exam Location
+          </label>
+          <select
+            className="form-control"
+            id="examLocation"
+            onChange={[Function]}
+          >
+            <option>
+              Redlands
+            </option>
+            <option>
+              Charlotte
+            </option>
+            <option>
+              Washington DC
+            </option>
+            <option>
+              St Louis
+            </option>
+            <option>
+              Remote
+            </option>
+          </select>
+        </div>
+      </div>
+      <div
+        className="form-row mt-3"
+      >
+        <div
+          className="form-group col-md-2"
+        >
+          <label
+            htmlFor="cost"
+          >
+            Cost
+          </label>
+          <div
+            className="input-group mb-3"
+          >
+            <div
+              className="input-group-prepend"
+            >
+              <span
+                className="input-group-text"
+              >
+                $
+              </span>
+            </div>
+            <input
+              className="form-control"
+              id="cost"
+              onChange={[Function]}
+              required={true}
+              type="number"
+            />
+          </div>
+        </div>
+        <div
+          className="form-group col-md-10"
+        >
+          <label
+            htmlFor="justification"
+          >
+            Justification
+          </label>
+          <input
+            className="form-control"
+            id="justification"
+            onChange={[Function]}
+            required={true}
+          />
+        </div>
+      </div>
+      <div
+        className="form-row mt-3"
+      >
+        <div
+          className="form-group col"
+        >
+          <input
+            className="btn btn-primary"
+            type="submit"
+            value="Submit"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`renders home page unchanged 1`] = `
+<div>
+  <title>
+    ESS Requests
+  </title>
+  <nav
+    className="navbar navbar-expand navbar-light border-bottom"
+    style={
+      Object {
+        "background": "white",
+      }
+    }
+  >
+    <ul
+      className="navbar-nav"
+    >
+      <li
+        className="nav-item active"
+      >
+        <a
+          className="nav-link"
+          href="/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Home
+        </a>
+      </li>
+      <li
+        className="nav-item"
+      >
+        <a
+          className="nav-link"
+          href="/training"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Training
+        </a>
+      </li>
+      <li
+        className="nav-item"
+      >
+        <a
+          className="nav-link"
+          href="/exam"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Exam
+          <span
+            className="sr-only"
+          >
+            (current)
+          </span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div
+    className="container"
+  >
+    <div
+      className="jumbotron mt-4"
+      style={
+        Object {
+          "background": "#e1f2fb",
+        }
+      }
+    >
+      <h1
+        className="display-5 text-center"
+      >
+        ESS Requests
+      </h1>
+      <p
+        className="lead mt-4"
+      >
+        Which request form do you need?
+      </p>
+      <hr
+        className="mb-4"
+      />
+      <div
+        className="container-fluid content-row"
+      >
+        <div
+          className="row"
+        >
+          <div
+            className="col-sm-6  my-2"
+          >
+            <div
+              className="card h-100 shadow hoverForm"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              style={
+                Object {
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <div
+                className="card-body"
+              >
+                <h5
+                  className="card-title"
+                >
+                  Request for Training
+                </h5>
+                <p
+                  className="card-text"
+                >
+                  When requesting instructor led or course training that requires management approval.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-sm-6 my-2"
+          >
+            <div
+              className="card h-100 shadow hoverForm"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              style={
+                Object {
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <div
+                className="card-body"
+              >
+                <h5
+                  className="card-title"
+                >
+                  Request for Exam Certification
+                </h5>
+                <p
+                  className="card-text"
+                >
+                  Formal request for taking a certification exam.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders homepage unchanged 1`] = `
+<div>
+  <title>
+    ESS Requests
+  </title>
+  <nav
+    className="navbar navbar-expand navbar-light border-bottom"
+    style={
+      Object {
+        "background": "white",
+      }
+    }
+  >
+    <ul
+      className="navbar-nav"
+    >
+      <li
+        className="nav-item active"
+      >
+        <a
+          className="nav-link"
+          href="/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Home
+        </a>
+      </li>
+      <li
+        className="nav-item"
+      >
+        <a
+          className="nav-link"
+          href="/training"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Training
+        </a>
+      </li>
+      <li
+        className="nav-item"
+      >
+        <a
+          className="nav-link"
+          href="/exam"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Exam
+          <span
+            className="sr-only"
+          >
+            (current)
+          </span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div
+    className="container"
+  >
+    <div
+      className="jumbotron mt-4"
+      style={
+        Object {
+          "background": "#e1f2fb",
+        }
+      }
+    >
+      <h1
+        className="display-5 text-center"
+      >
+        ESS Requests
+      </h1>
+      <p
+        className="lead mt-4"
+      >
+        Which request form do you need?
+      </p>
+      <hr
+        className="mb-4"
+      />
+      <div
+        className="container-fluid content-row"
+      >
+        <div
+          className="row"
+        >
+          <div
+            className="col-sm-6  my-2"
+          >
+            <div
+              className="card h-100 shadow hoverForm"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              style={
+                Object {
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <div
+                className="card-body"
+              >
+                <h5
+                  className="card-title"
+                >
+                  Request for Training
+                </h5>
+                <p
+                  className="card-text"
+                >
+                  When requesting instructor led or course training that requires management approval.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-sm-6 my-2"
+          >
+            <div
+              className="card h-100 shadow hoverForm"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              style={
+                Object {
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <div
+                className="card-body"
+              >
+                <h5
+                  className="card-title"
+                >
+                  Request for Exam Certification
+                </h5>
+                <p
+                  className="card-text"
+                >
+                  Formal request for taking a certification exam.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders training form unchanged 1`] = `
+<div>
+  <title>
+    Training Request
+  </title>
+  <nav
+    className="navbar navbar-expand navbar-light border-bottom"
+    style={
+      Object {
+        "background": "white",
+      }
+    }
+  >
+    <ul
+      className="navbar-nav"
+    >
+      <li
+        className="nav-item"
+      >
+        <a
+          className="nav-link"
+          href="/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Home
+        </a>
+      </li>
+      <li
+        className="nav-item active"
+      >
+        <a
+          className="nav-link"
+          href="/training"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Training
+        </a>
+      </li>
+      <li
+        className="nav-item"
+      >
+        <a
+          className="nav-link"
+          href="/exam"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Exam
+          <span
+            className="sr-only"
+          >
+            (current)
+          </span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <h3
+    className="text-center m-4"
+  >
+    Request for Training
+  </h3>
+  <div
+    className="container"
+  >
+    <form
+      className="needs-validation"
+      noValidate={true}
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-row mt-3"
+      >
+        <div
+          className="form-group col-md-3"
+        >
+          <label
+            htmlFor="employeeName"
+          >
+            Employee Name
+          </label>
+          <input
+            className="form-control"
+            disabled={true}
+            id="employeeName"
+            required={true}
+            type="text"
+          />
+        </div>
+        <div
+          className="form-group col-md-3"
+        >
+          <label
+            htmlFor="employeeNumber"
+          >
+            Employee Number
+          </label>
+          <input
+            className="form-control"
+            id="employeeNumber"
+            onChange={[Function]}
+            required={true}
+            type="number"
+          />
+        </div>
+        <div
+          className="form-group col-md-3"
+        >
+          <label
+            htmlFor="employeeUnit"
+          >
+            Employee Unit
+          </label>
+          <select
+            className="form-control"
+            id="employeeUnit"
+            onChange={[Function]}
+          >
+            <option
+              value="Supt-ArcGIS-Unit-Mgmt@esri.com"
+            >
+              Online
+            </option>
+            <option
+              value="Supt-Enterprise-Unit-Mgmt@esri.com"
+            >
+              Enterprise
+            </option>
+            <option
+              value="Supt-Desktop-Unit-Mgmt@esri.com"
+            >
+              Desktop
+            </option>
+            <option
+              value="Supt-DaDP-Unit-Mgmt@esri.co"
+            >
+              DaDP Product
+            </option>
+            <option
+              value="Supt-NORUS-Unit-Mgmt@esri.com"
+            >
+              NORUS
+            </option>
+            <option
+              value="SWhittington@esri.com"
+            >
+              TAMS
+            </option>
+            <option
+              value="Christian_Wells@esri.com"
+            >
+              Readiness
+            </option>
+          </select>
+        </div>
+        <div
+          className="form-group col-md-3"
+        >
+          <label
+            htmlFor="employeeLocation"
+          >
+            Employee Location
+          </label>
+          <select
+            className="form-control"
+            id="employeeLocation"
+            onChange={[Function]}
+          >
+            <option>
+              Redlands
+            </option>
+            <option>
+              Charlotte
+            </option>
+            <option>
+              Washington DC
+            </option>
+            <option>
+              St Louis
+            </option>
+          </select>
+        </div>
+      </div>
+      <div
+        className="form-row mt-3"
+      >
+        <div
+          className="form-group col-md-5"
+        >
+          <label
+            htmlFor="courseName"
+          >
+            Course Name
+          </label>
+          <input
+            className="form-control"
+            id="courseName"
+            onChange={[Function]}
+            required={true}
+            type="text"
+          />
+        </div>
+        <div
+          className="form-group col-md-5"
+        >
+          <label
+            htmlFor="vendor"
+          >
+            Vendor
+          </label>
+          <input
+            className="form-control"
+            id="vendor"
+            onChange={[Function]}
+            required={true}
+            type="text"
+          />
+        </div>
+        <div
+          className="form-group col-md-2"
+        >
+          <label
+            htmlFor="cost"
+          >
+            Cost
+          </label>
+          <div
+            className="input-group mb-3"
+          >
+            <div
+              className="input-group-prepend"
+            >
+              <span
+                className="input-group-text"
+              >
+                $
+              </span>
+            </div>
+            <input
+              className="form-control"
+              id="cost"
+              onChange={[Function]}
+              required={true}
+              type="number"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-md-6"
+        >
+          <label
+            htmlFor="justification"
+          >
+            Justification
+          </label>
+          <textarea
+            className="form-control"
+            id="justification"
+            onChange={[Function]}
+            required={true}
+            rows="2"
+          />
+        </div>
+        <div
+          className="form-group col-md-6"
+        >
+          <label
+            htmlFor="comments"
+          >
+            Comments
+          </label>
+          <textarea
+            className="form-control"
+            id="comments"
+            onChange={[Function]}
+            rows="2"
+          />
+        </div>
+      </div>
+      <div
+        className="form-row mt-3"
+      >
+        <div
+          className="form-group col-md-4"
+        >
+          <label
+            htmlFor="startDate"
+          >
+            Start Date
+          </label>
+          <input
+            className="form-control"
+            id="startDate"
+            onChange={[Function]}
+            required={true}
+            type="date"
+          />
+        </div>
+        <div
+          className="form-group col-md-4 offset-md-1"
+        >
+          <label
+            htmlFor="endDate"
+          >
+            End Date
+          </label>
+          <input
+            className="form-control"
+            id="endDate"
+            onChange={[Function]}
+            required={true}
+            type="date"
+          />
+        </div>
+        <div
+          className="form-group col-md-2 offset-md-1"
+          style={
+            Object {
+              "marginTop": "31px",
+            }
+          }
+        >
+          <input
+            className="btn btn-primary"
+            type="submit"
+            value="Submit"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;
