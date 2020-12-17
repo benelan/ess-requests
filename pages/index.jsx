@@ -1,12 +1,15 @@
+import React from 'react'
 import Link from 'next/link'
 import getConfig from 'next/config'
 import TopNav from '../components/TopNav'
+
 const { publicRuntimeConfig } = getConfig()
 
 /**
  * Home page for selecting a form
  * @author Ben Elan
- * @component
+ * @name Home
+ * @class
  */
 export default function Home() {
   return (
@@ -22,20 +25,33 @@ export default function Home() {
             <div className="row">
               <div className="col-sm-6  my-2">
                 <Link href={`${publicRuntimeConfig.basePath}/training`}>
-                  <div className="card h-100 shadow hoverForm" style={{ cursor: 'pointer' }}>
+                  <div
+                    className="card h-100 shadow hoverForm"
+                    style={{ cursor: 'pointer' }}
+                  >
                     <div className="card-body">
                       <h5 className="card-title">Request for Training</h5>
-                      <p className="card-text">When requesting instructor led or course training that requires management approval.</p>
+                      <p className="card-text">
+                        When requesting instructor led or course training that
+                        requires management approval.
+                      </p>
                     </div>
                   </div>
                 </Link>
               </div>
               <div className="col-sm-6 my-2">
                 <Link href={`${publicRuntimeConfig.basePath}/exam`}>
-                  <div className="card h-100 shadow hoverForm" style={{ cursor: 'pointer' }}>
+                  <div
+                    className="card h-100 shadow hoverForm"
+                    style={{ cursor: 'pointer' }}
+                  >
                     <div className="card-body">
-                      <h5 className="card-title">Request for Exam Certification</h5>
-                      <p className="card-text">Formal request for taking a certification exam.</p>
+                      <h5 className="card-title">
+                        Request for Exam Certification
+                      </h5>
+                      <p className="card-text">
+                        Formal request for taking a certification exam.
+                      </p>
                     </div>
                   </div>
                 </Link>
