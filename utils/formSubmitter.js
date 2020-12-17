@@ -7,39 +7,56 @@ import { getChargeCode, getCostCenter } from './constGetter'
 const { publicRuntimeConfig } = getConfig()
 
 /**
-   * Sends a POST to the api to log the training request form data to csv
-   * Generates and opens an email with the data
+   * Generates and returns an email with the training request data
    * @func
-   * @param {string} state - the form data
+   * @param {object} formData - the form data and costCenter and chargeCode
+   * @return {string} mailto string
  */
-export const handleValidTrainingSubmit = (state) => {
-  // deconstruct form data
-  const {
-    nameEmployee, emailEmployee, numberEmployee, locationEmployee, nameCourse, cost, startDate, endDate, vendor, justification, comments, unit,
-  } = state
+export const generateTrainingEmail = (formData) => {
+  try {
+    const subject = 'Request for Training'
+    const body = `Employee Name: ${formData.nameEmployee}
+Employee Email: ${formData.emailEmployee}
+Employee Number: ${formData.numberEmployee}
+Cost Center: ${formData.costCenter}
+Employee Location: ${formData.locationEmployee}
+Charge Code: ${formData.chargeCode}
+Course Name: ${formData.nameCourse}
+Cost: ${formData.cost}
+Start Date: ${formData.startDate}
+End Date: ${formData.endDate}
+Vendor: ${formData.vendor}
+Justification: ${formData.justification}
+Comments: ${formData.comments}`
 
-  // get the charge code and cost centers
-  const chargeCode = getChargeCode(unit)
-  const costCenter = getCostCenter(unit, locationEmployee)
+    return `mailto:${formData.unit}?cc=${formData.emailEmployee}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+  } catch (e) {
+    console.error(e)
+    return null
+  }
+}
 
-  // have user confirm submission and inform them of the charge code
-  const confirmed = confirm(`Please remember your charge code: ${chargeCode}`)
-  if (confirmed) {
-    /** ********* SEND DATA TO SERVER FOR CSV ********** */
+/**
+   * Sends a POST to the api to log the training request form data to csv
+   * @func
+   * @param {object} formData - the form data and costCenter and chargeCode
+ */
+export const logTrainingRequest = (formData) => {
+  try {
     const outputData = {
-      'Employee Name': nameEmployee,
-      'Employee Email': emailEmployee,
-      'Employee Number': numberEmployee,
-      'Employee Location': locationEmployee,
-      'Cost Center': costCenter,
-      'Charge Code': chargeCode,
-      'Course Name': nameCourse,
-      'Exam Cost': cost,
-      'Exam Vendor': vendor,
-      'Start Date': startDate,
-      'End Date': endDate,
-      Comments: comments,
-      Justification: justification,
+      'Employee Name': formData.nameEmployee,
+      'Employee Email': formData.emailEmployee,
+      'Employee Number': formData.numberEmployee,
+      'Employee Location': formData.locationEmployee,
+      'Cost Center': formData.costCenter,
+      'Charge Code': formData.chargeCode,
+      'Course Name': formData.nameCourse,
+      'Exam Cost': formData.cost,
+      'Exam Vendor': formData.vendor,
+      'Start Date': formData.startDate,
+      'End Date': formData.endDate,
+      Comments: formData.comments,
+      Justification: formData.justification,
     }
 
     fetch(`${publicRuntimeConfig.basePath}/api/logTraining`, {
@@ -48,95 +65,108 @@ export const handleValidTrainingSubmit = (state) => {
     }).then((response) => response.json()).then((data) => {
       console.log(data.response)
     })
+  } catch (e) {
+    console.error(e)
+  }
+}
 
-    /** **************** CREATE EMAIL ***************** */
-    const subject = 'Request for Training'
-    const body = `Employee Name: ${nameEmployee}
-Employee Email: ${emailEmployee}
-Employee Number: ${numberEmployee}
-Cost Center: ${costCenter}
-Employee Location: ${locationEmployee}
-Charge Code: ${chargeCode}
-Course Name: ${nameCourse}
-Cost: ${cost}
-Start Date: ${startDate}
-End Date: ${endDate}
-Vendor: ${vendor}
-Justification: ${justification}
-Comments: ${comments}`
+/**
+   * Generates and returns an email with the exam request data
+   * @func
+   * @param {object} formData - the form data and costCenter and chargeCode
+   * @return {string} mailto string
+ */
+export const generateExamEmail = (formData) => {
+  try {
+    const subject = 'Request for Exam Certification'
+    const body = `Employee Name: ${formData.nameEmployee}
+Employee Email: ${formData.emailEmployee}
+Employee Number: ${formData.numberEmployee}
+Cost Center: ${formData.costCenter}
+Employee Location: ${formData.locationEmployee}
+Charge Code: ${formData.chargeCode}
+Exam Name: ${formData.nameExam}
+Exam Cost: $${formData.cost}
+Exam Testing Location: ${formData.locationExam}
+Exam Vendor: ${formData.vendor}
+Justification: ${formData.justification}`
 
-    // open email in default email client
-    window.open(`mailto:${unit}?cc=${emailEmployee}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`)
+    return `mailto:${formData.unit}?cc=${formData.emailEmployee}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+  } catch (e) {
+    console.error(e)
+    return null
   }
 }
 
 /**
    * Sends a POST to the api to log the exam request form data to csv
-   * Generates and opens an email with the data
    * @func
-   * @param {string} state - the form data
+   * @param {object} formData - the form data and costCenter and chargeCode
  */
-export const handleValidExamSubmit = (state) => {
-  // deconstruct form data
-  const {
-    nameEmployee, emailEmployee, numberEmployeee, locationEmployee, nameExam, cost, locationExam, vendor, justification, unit,
-  } = state
-
-  // determine the charge code and cost center
-  const chargeCode = getChargeCode(unit)
-  const costCenter = getCostCenter(unit, locationEmployee)
-
-  // have user confirm submission and inform them of the charge code
-  const confirmed = confirm(`Please remember your charge code: ${chargeCode}`)
-  if (confirmed) {
-    /** ********* SEND DATA TO SERVER FOR CSV ********** */
+export const logExamRequest = (formData) => {
+  try {
     const outputData = {
-      'Employee Name': nameEmployee,
-      'Employee Email': emailEmployee,
-      'Employee Number': numberEmployeee,
-      'Employee Location': locationEmployee,
-      'Cost Center': costCenter,
-      'Charge Code': chargeCode,
-      'Exam Name': nameExam,
-      'Exam Cost': cost,
-      'Exam Testing Location': locationExam,
-      'Exam Vendor': vendor,
-      Justification: justification,
+      'Employee Name': formData.nameEmployee,
+      'Employee Email': formData.emailEmployee,
+      'Employee Number': formData.numberEmployee,
+      'Employee Location': formData.locationEmployee,
+      'Cost Center': formData.costCenter,
+      'Charge Code': formData.chargeCode,
+      'Exam Name': formData.nameExam,
+      'Exam Cost': formData.cost,
+      'Exam Testing Location': formData.locationExam,
+      'Exam Vendor': formData.vendor,
+      Justification: formData.justification,
     }
+
     fetch(`${publicRuntimeConfig.basePath}/api/logExam`, {
       method: 'post',
       body: JSON.stringify(outputData),
     }).then((response) => response.json()).then((data) => {
       console.log(data.response)
     })
-
-    /** **************** CREATE EMAIL ***************** */
-    const subject = 'Request for Exam Certification'
-    const body = `Employee Name: ${nameEmployee}
-Employee Email: ${emailEmployee}
-Employee Number: ${numberEmployeee}
-Cost Center: ${costCenter}
-Employee Location: ${locationEmployee}
-Charge Code: ${chargeCode}
-Exam Name: ${nameExam}
-Exam Cost: $${cost}
-Exam Testing Location: ${locationExam}
-Exam Vendor: ${vendor}
-Justification: ${justification}`
-
-    // open email in default email client
-    window.open(`mailto:${unit}?cc=${emailEmployee}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`)
+  } catch (e) {
+    console.error(e)
   }
 }
 
 /**
-   * Validates that all required form fields are filled out
-   * If so, submits the form based on the type
-   * @func
-   * @param {object} event - submit event
-   * @param {string} type - the type of form being submitted
-   * @param {string} state - the form data
- */
+     * Handles valid submits based on form type
+     * @func
+     * @param {string} type - the type of form being submitted
+     * @param {string} state - the form data
+   */
+export const handleValidSubmit = (type, state) => {
+  try {
+    const chargeCode = getChargeCode(state.unit)
+    // have user confirm submission and inform them of the charge code
+    const confirmed = confirm(`Please remember your charge code: ${chargeCode}`)
+    if (confirmed) {
+      const costCenter = getCostCenter(state.unit, state.locationEmployee)
+      const formData = { ...state, costCenter, chargeCode }
+      let mailtoString = ''
+      if (type === 'training') {
+        logTrainingRequest(formData)
+        mailtoString = generateTrainingEmail(formData)
+      }
+      if (type === 'exam') {
+        logExamRequest(formData)
+        mailtoString = generateExamEmail(formData)
+      }
+      if (mailtoString) window.open(mailtoString)
+    }
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+/**
+     * Validates that all required form fields are filled out
+     * @func
+     * @param {object} event - submit event
+     * @param {string} type - the type of form being submitted
+     * @param {string} state - the form data
+   */
 export const validateSubmit = (event, type, state) => {
   const forms = document.getElementsByClassName('needs-validation')
   // Loop over them and prevent submission
@@ -144,8 +174,7 @@ export const validateSubmit = (event, type, state) => {
     event.preventDefault()
     form.classList.add('was-validated')
     if (form.checkValidity()) {
-      if (type === 'training') handleValidTrainingSubmit(state)
-      else handleValidExamSubmit(state)
+      handleValidSubmit(type, state)
     }
   })
 }

@@ -79,16 +79,18 @@ exports[`renders exam form unchanged 1`] = `
           className="form-group col-md-3"
         >
           <label
-            htmlFor="employeeName"
+            htmlFor="nameEmployee"
           >
             Employee Name
           </label>
           <input
+            aria-label="nameEmployee"
             className="form-control"
             disabled={true}
-            id="employeeName"
+            id="nameEmployee"
             required={true}
             type="text"
+            value=""
           />
         </div>
         <div
@@ -100,6 +102,7 @@ exports[`renders exam form unchanged 1`] = `
             Employee Number
           </label>
           <input
+            aria-label="employeeNumber"
             className="form-control"
             id="employeeNumber"
             onChange={[Function]}
@@ -116,6 +119,7 @@ exports[`renders exam form unchanged 1`] = `
             Employee Unit
           </label>
           <select
+            aria-label="employeeUnit"
             className="form-control"
             id="employeeUnit"
             onChange={[Function]}
@@ -166,6 +170,7 @@ exports[`renders exam form unchanged 1`] = `
             Employee Location
           </label>
           <select
+            aria-label="employeeLocation"
             className="form-control"
             id="employeeLocation"
             onChange={[Function]}
@@ -197,6 +202,7 @@ exports[`renders exam form unchanged 1`] = `
             Exam Name
           </label>
           <input
+            aria-label="examName"
             className="form-control"
             id="examName"
             onChange={[Function]}
@@ -213,6 +219,7 @@ exports[`renders exam form unchanged 1`] = `
             Vendor
           </label>
           <input
+            aria-label="vendor"
             className="form-control"
             id="vendor"
             onChange={[Function]}
@@ -229,6 +236,7 @@ exports[`renders exam form unchanged 1`] = `
             Exam Location
           </label>
           <select
+            aria-label="examLocation"
             className="form-control"
             id="examLocation"
             onChange={[Function]}
@@ -275,6 +283,7 @@ exports[`renders exam form unchanged 1`] = `
               </span>
             </div>
             <input
+              aria-label="cost"
               className="form-control"
               id="cost"
               onChange={[Function]}
@@ -292,6 +301,7 @@ exports[`renders exam form unchanged 1`] = `
             Justification
           </label>
           <input
+            aria-label="justification"
             className="form-control"
             id="justification"
             onChange={[Function]}
@@ -318,160 +328,6 @@ exports[`renders exam form unchanged 1`] = `
 `;
 
 exports[`renders home page unchanged 1`] = `
-<div>
-  <title>
-    ESS Requests
-  </title>
-  <nav
-    className="navbar navbar-expand navbar-light border-bottom"
-    style={
-      Object {
-        "background": "white",
-      }
-    }
-  >
-    <ul
-      className="navbar-nav"
-    >
-      <li
-        className="nav-item active"
-      >
-        <a
-          className="nav-link"
-          href="/"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-        >
-          Home
-        </a>
-      </li>
-      <li
-        className="nav-item"
-      >
-        <a
-          className="nav-link"
-          href="/training"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-        >
-          Training
-        </a>
-      </li>
-      <li
-        className="nav-item"
-      >
-        <a
-          className="nav-link"
-          href="/exam"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-        >
-          Exam
-          <span
-            className="sr-only"
-          >
-            (current)
-          </span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <div
-    className="container"
-  >
-    <div
-      className="jumbotron mt-4"
-      style={
-        Object {
-          "background": "#e1f2fb",
-        }
-      }
-    >
-      <h1
-        className="display-5 text-center"
-      >
-        ESS Requests
-      </h1>
-      <p
-        className="lead mt-4"
-      >
-        Which request form do you need?
-      </p>
-      <hr
-        className="mb-4"
-      />
-      <div
-        className="container-fluid content-row"
-      >
-        <div
-          className="row"
-        >
-          <div
-            className="col-sm-6  my-2"
-          >
-            <div
-              className="card h-100 shadow hoverForm"
-              onClick={[Function]}
-              onMouseEnter={[Function]}
-              style={
-                Object {
-                  "cursor": "pointer",
-                }
-              }
-            >
-              <div
-                className="card-body"
-              >
-                <h5
-                  className="card-title"
-                >
-                  Request for Training
-                </h5>
-                <p
-                  className="card-text"
-                >
-                  When requesting instructor led or course training that requires management approval.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-sm-6 my-2"
-          >
-            <div
-              className="card h-100 shadow hoverForm"
-              onClick={[Function]}
-              onMouseEnter={[Function]}
-              style={
-                Object {
-                  "cursor": "pointer",
-                }
-              }
-            >
-              <div
-                className="card-body"
-              >
-                <h5
-                  className="card-title"
-                >
-                  Request for Exam Certification
-                </h5>
-                <p
-                  className="card-text"
-                >
-                  Formal request for taking a certification exam.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`renders homepage unchanged 1`] = `
 <div>
   <title>
     ESS Requests
@@ -704,16 +560,18 @@ exports[`renders training form unchanged 1`] = `
           className="form-group col-md-3"
         >
           <label
-            htmlFor="employeeName"
+            htmlFor="nameEmployee"
           >
             Employee Name
           </label>
           <input
+            aria-label="nameEmployee"
             className="form-control"
             disabled={true}
-            id="employeeName"
+            id="nameEmployee"
             required={true}
             type="text"
+            value=""
           />
         </div>
         <div
@@ -725,6 +583,7 @@ exports[`renders training form unchanged 1`] = `
             Employee Number
           </label>
           <input
+            aria-label="employeeNumber"
             className="form-control"
             id="employeeNumber"
             onChange={[Function]}
@@ -741,6 +600,7 @@ exports[`renders training form unchanged 1`] = `
             Employee Unit
           </label>
           <select
+            aria-label="employeeUnit"
             className="form-control"
             id="employeeUnit"
             onChange={[Function]}
@@ -791,6 +651,7 @@ exports[`renders training form unchanged 1`] = `
             Employee Location
           </label>
           <select
+            aria-label="employeeLocation"
             className="form-control"
             id="employeeLocation"
             onChange={[Function]}
@@ -822,6 +683,7 @@ exports[`renders training form unchanged 1`] = `
             Course Name
           </label>
           <input
+            aria-label="courseName"
             className="form-control"
             id="courseName"
             onChange={[Function]}
@@ -838,6 +700,7 @@ exports[`renders training form unchanged 1`] = `
             Vendor
           </label>
           <input
+            aria-label="vendor"
             className="form-control"
             id="vendor"
             onChange={[Function]}
@@ -866,6 +729,7 @@ exports[`renders training form unchanged 1`] = `
               </span>
             </div>
             <input
+              aria-label="cost"
               className="form-control"
               id="cost"
               onChange={[Function]}
@@ -887,6 +751,7 @@ exports[`renders training form unchanged 1`] = `
             Justification
           </label>
           <textarea
+            aria-label="justification"
             className="form-control"
             id="justification"
             onChange={[Function]}
@@ -903,6 +768,7 @@ exports[`renders training form unchanged 1`] = `
             Comments
           </label>
           <textarea
+            aria-label="comments"
             className="form-control"
             id="comments"
             onChange={[Function]}
@@ -922,6 +788,7 @@ exports[`renders training form unchanged 1`] = `
             Start Date
           </label>
           <input
+            aria-label="startDate"
             className="form-control"
             id="startDate"
             onChange={[Function]}
@@ -938,6 +805,7 @@ exports[`renders training form unchanged 1`] = `
             End Date
           </label>
           <input
+            aria-label="endDate"
             className="form-control"
             id="endDate"
             onChange={[Function]}
@@ -954,6 +822,7 @@ exports[`renders training form unchanged 1`] = `
           }
         >
           <input
+            aria-label="submit"
             className="btn btn-primary"
             type="submit"
             value="Submit"

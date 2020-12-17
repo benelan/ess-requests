@@ -52,7 +52,7 @@ export default class Training extends React.Component {
       <option key={loc}>{loc}</option>
     ))
 
-    const { employeeName } = this.state
+    const { nameEmployee } = this.state
     return (
       <div>
         <title>Training Request</title>
@@ -67,13 +67,14 @@ export default class Training extends React.Component {
           >
             <div className="form-row mt-3">
               <div className="form-group col-md-3">
-                <label htmlFor="employeeName">Employee Name</label>
+                <label htmlFor="nameEmployee">Employee Name</label>
                 <input
                   type="text"
                   className="form-control"
-                  id="employeeName"
+                  id="nameEmployee"
+                  aria-label="nameEmployee"
                   disabled
-                  value={employeeName}
+                  value={nameEmployee}
                   required
                 />
               </div>
@@ -82,6 +83,7 @@ export default class Training extends React.Component {
                 <input
                   type="number"
                   id="employeeNumber"
+                  aria-label="employeeNumber"
                   className="form-control"
                   onChange={(x) => this.setState({ numberEmployee: x.target.value })}
                   required
@@ -91,6 +93,7 @@ export default class Training extends React.Component {
                 <label htmlFor="employeeUnit">Employee Unit</label>
                 <select
                   id="employeeUnit"
+                  aria-label="employeeUnit"
                   className="form-control"
                   onChange={(x) => this.setState({ unit: x.target.value })}
                 >
@@ -101,6 +104,7 @@ export default class Training extends React.Component {
                 <label htmlFor="employeeLocation">Employee Location</label>
                 <select
                   id="employeeLocation"
+                  aria-label="employeeLocation"
                   className="form-control"
                   onChange={(x) => this.setState({ locationEmployee: x.target.value })}
                 >
@@ -114,6 +118,7 @@ export default class Training extends React.Component {
                 <label htmlFor="courseName">Course Name</label>
                 <input
                   id="courseName"
+                  aria-label="courseName"
                   type="text"
                   className="form-control"
                   onChange={(x) => this.setState({ nameCourse: x.target.value })}
@@ -124,6 +129,7 @@ export default class Training extends React.Component {
                 <label htmlFor="vendor">Vendor</label>
                 <input
                   id="vendor"
+                  aria-label="vendor"
                   type="text"
                   className="form-control"
                   onChange={(x) => this.setState({ vendor: x.target.value })}
@@ -138,6 +144,7 @@ export default class Training extends React.Component {
                   </div>
                   <input
                     id="cost"
+                    aria-label="cost"
                     type="number"
                     className="form-control"
                     onChange={(x) => this.setState({ cost: x.target.value })}
@@ -152,6 +159,7 @@ export default class Training extends React.Component {
                 <label htmlFor="justification">Justification</label>
                 <textarea
                   id="justification"
+                  aria-label="justification"
                   className="form-control"
                   rows="2"
                   onChange={(x) => this.setState({ justification: x.target.value })}
@@ -162,6 +170,7 @@ export default class Training extends React.Component {
                 <label htmlFor="comments">Comments</label>
                 <textarea
                   id="comments"
+                  aria-label="comments"
                   className="form-control"
                   rows="2"
                   onChange={(x) => this.setState({ comments: x.target.value })}
@@ -174,6 +183,7 @@ export default class Training extends React.Component {
                 <label htmlFor="startDate">Start Date</label>
                 <input
                   id="startDate"
+                  aria-label="startDate"
                   type="date"
                   className="form-control"
                   onChange={(x) => this.setState({ startDate: x.target.value })}
@@ -184,6 +194,7 @@ export default class Training extends React.Component {
                 <label htmlFor="endDate">End Date</label>
                 <input
                   id="endDate"
+                  aria-label="endDate"
                   type="date"
                   className="form-control"
                   onChange={(x) => this.setState({ endDate: x.target.value })}
@@ -197,6 +208,7 @@ export default class Training extends React.Component {
               >
                 <input
                   type="submit"
+                  aria-label="submit"
                   className="btn btn-primary"
                   value="Submit"
                 />
