@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/TrainingForm.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/TrainingForm.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable react/prop-types */
+import React from 'react'
+/**
+ * The training request form
+ * @name TrainingForm
+ * @class
+ */
+export default class TrainingForm extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      locationEmployee: 'Redlands',
+      numberEmployee: null,
+      nameCourse: null,
+      cost: null,
+      startDate: null,
+      endDate: null,
+      vendor: null,
+      justification: null,
+      comments: '',
+      unit: 'supt-ArcGIS-Unit-Mgmt@esri.com',
+    }
+  }
+
+  render() {
+    const {
+      units, offices, validateSubmit, nameEmployee,
+    } = this.props
+    // get the units and locations and create the dropdown options
+    const unitOptions = Object.keys(units).map((u) => (
+      &lt;option key={u} value={units[u]}>
+        {u}
+      &lt;/option>
+    ))
+
+    const employeeLocationOptions = offices.map((loc) => (
+      &lt;option key={loc}>{loc}&lt;/option>
+    ))
+    return (
+      &lt;>
+        &lt;title>Training Request&lt;/title>
+        &lt;h3 className="text-center m-4">Request for Training&lt;/h3>
+        &lt;div className="container">
+          &lt;form
+            className="needs-validation"
+            noValidate
+            onSubmit={(event) => validateSubmit(event, 'training', this.state)}
+          >
+            &lt;div className="form-row mt-3">
+              &lt;div className="form-group col-md-3">
+                &lt;label htmlFor="employeeName">Employee Name&lt;/label>
+                &lt;input
+                  type="text"
+                  className="form-control"
+                  id="employeeName"
+                  disabled
+                  value={nameEmployee}
+                  required
+                />
+              &lt;/div>
+              &lt;div className="form-group col-md-3">
+                &lt;label htmlFor="employeeNumber">Employee Number&lt;/label>
+                &lt;input
+                  type="number"
+                  id="employeeNumber"
+                  className="form-control"
+                  onChange={(x) => this.setState({ numberEmployee: x.target.value })}
+                  required
+                />
+              &lt;/div>
+              &lt;div className="form-group col-md-3">
+                &lt;label htmlFor="employeeUnit">Employee Unit&lt;/label>
+                &lt;select
+                  id="employeeUnit"
+                  className="form-control"
+                  onChange={(x) => this.setState({ unit: x.target.value })}
+                >
+                  {unitOptions}
+                &lt;/select>
+              &lt;/div>
+              &lt;div className="form-group col-md-3">
+                &lt;label htmlFor="employeeLocation">Employee Location&lt;/label>
+                &lt;select
+                  id="employeeLocation"
+                  className="form-control"
+                  onChange={(x) => this.setState({ locationEmployee: x.target.value })}
+                >
+                  {employeeLocationOptions}
+                &lt;/select>
+              &lt;/div>
+            &lt;/div>
+
+            &lt;div className="form-row mt-3">
+              &lt;div className="form-group col-md-5">
+                &lt;label htmlFor="courseName">Course Name&lt;/label>
+                &lt;input
+                  id="courseName"
+                  type="text"
+                  className="form-control"
+                  onChange={(x) => this.setState({ nameCourse: x.target.value })}
+                  required
+                />
+              &lt;/div>
+              &lt;div className="form-group col-md-5">
+                &lt;label htmlFor="vendor">Vendor&lt;/label>
+                &lt;input
+                  id="vendor"
+                  type="text"
+                  className="form-control"
+                  onChange={(x) => this.setState({ vendor: x.target.value })}
+                  required
+                />
+              &lt;/div>
+              &lt;div className="form-group col-md-2">
+                &lt;label htmlFor="cost">Cost&lt;/label>
+                &lt;div className="input-group mb-3">
+                  &lt;div className="input-group-prepend">
+                    &lt;span className="input-group-text">$&lt;/span>
+                  &lt;/div>
+                  &lt;input
+                    id="cost"
+                    type="number"
+                    className="form-control"
+                    onChange={(x) => this.setState({ cost: x.target.value })}
+                    required
+                  />
+                &lt;/div>
+              &lt;/div>
+            &lt;/div>
+
+            &lt;div className="form-row">
+              &lt;div className="form-group col-md-6">
+                &lt;label htmlFor="justification">Justification&lt;/label>
+                &lt;textarea
+                  id="justification"
+                  className="form-control"
+                  rows="2"
+                  onChange={(x) => this.setState({ justification: x.target.value })}
+                  required
+                />
+              &lt;/div>
+              &lt;div className="form-group col-md-6">
+                &lt;label htmlFor="comments">Comments&lt;/label>
+                &lt;textarea
+                  id="comments"
+                  className="form-control"
+                  rows="2"
+                  onChange={(x) => this.setState({ comments: x.target.value })}
+                />
+              &lt;/div>
+            &lt;/div>
+
+            &lt;div className="form-row mt-3">
+              &lt;div className="form-group col-md-4">
+                &lt;label htmlFor="startDate">Start Date&lt;/label>
+                &lt;input
+                  id="startDate"
+                  type="date"
+                  className="form-control"
+                  onChange={(x) => this.setState({ startDate: x.target.value })}
+                  required
+                />
+              &lt;/div>
+              &lt;div className="form-group col-md-4 offset-md-1">
+                &lt;label htmlFor="endDate">End Date&lt;/label>
+                &lt;input
+                  id="endDate"
+                  type="date"
+                  className="form-control"
+                  onChange={(x) => this.setState({ endDate: x.target.value })}
+                  required
+                />
+              &lt;/div>
+
+              &lt;div
+                className="form-group col-md-2 offset-md-1"
+                style={{ marginTop: '31px' }}
+              >
+                &lt;input
+                  type="submit"
+                  className="btn btn-primary"
+                  value="Submit"
+                />
+              &lt;/div>
+            &lt;/div>
+          &lt;/form>
+        &lt;/div>
+      &lt;/>
+    )
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-authenticator.html">authenticator</a></li><li><a href="module-constGetter.html">constGetter</a></li><li><a href="module-csvLogger.html">csvLogger</a></li><li><a href="module-formSubmitter.html">formSubmitter</a></li></ul><h3>Classes</h3><ul><li><a href="Exam.html">Exam</a></li><li><a href="ExamForm.html">ExamForm</a></li><li><a href="FormWrapper.html">FormWrapper</a></li><li><a href="Home.html">Home</a></li><li><a href="TopNav.html">TopNav</a></li><li><a href="Training.html">Training</a></li><li><a href="TrainingForm.html">TrainingForm</a></li></ul><h3>Global</h3><ul><li><a href="global.html#validateSubmit">validateSubmit</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Dec 18 2020 12:13:55 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

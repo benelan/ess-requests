@@ -2,18 +2,20 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import renderer from 'react-test-renderer'
 import Training from '../pages/training'
-import { getEmployeeLocations } from '../utils/constGetter'
+import { getOfficeLocations } from '../utils/constGetter'
+
+describe('<Training /> snapshot', () => {
+  it('matches component', () => {
+    const examTree = renderer.create(<Training />).toJSON()
+    expect(examTree).toMatchSnapshot()
+  })
+})
 
 beforeEach(() => {
   render(<Training />)
 })
 
 describe('<Training /> renders', () => {
-  it('matches snapshot', () => {
-    const examTree = renderer.create(<Training />).toJSON()
-    expect(examTree).toMatchSnapshot()
-  })
-
   it('user name', async () => {
     expect(
       await screen.findByRole('textbox', { name: 'Employee Name' }),
@@ -24,10 +26,10 @@ describe('<Training /> renders', () => {
     expect(screen.getByText(/Request for Training/)).toBeInTheDocument()
   })
 
-  it('employee location options', () => {
-    const employeeLocations = getEmployeeLocations()
-    employeeLocations.forEach((el) => {
-      expect(screen.getByText(el)).toBeInTheDocument()
+  it('office location options', () => {
+    const locations = getOfficeLocations()
+    locations.forEach((loc) => {
+      expect(screen.getByText(loc)).toBeInTheDocument()
     })
   })
 

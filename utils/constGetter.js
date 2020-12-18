@@ -2,15 +2,9 @@
 
 /**
    * @func
-   * @return {array} employee locations
+   * @return {array} ESS office locations
    */
-export const getEmployeeLocations = () => ['Redlands', 'Charlotte', 'Washington DC', 'St Louis']
-
-/**
-   * @func
-   * @return {array} exam locations
-   */
-export const getExamLocations = () => ['Redlands', 'Charlotte', 'Washington DC', 'St Louis', 'Remote']
+export const getOfficeLocations = () => ['Redlands', 'Charlotte', 'Washington DC', 'St Louis']
 
 /**
    * @func

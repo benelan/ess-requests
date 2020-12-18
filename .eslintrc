@@ -6,7 +6,12 @@
     "node": true,
     "es6": true
   },
-  "extends": ["airbnb", "airbnb/hooks"],
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:testing-library/recommended",
+    "plugin:jest-dom/recommended"
+  ],
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module",

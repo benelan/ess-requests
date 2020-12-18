@@ -159,22 +159,3 @@ export const handleValidSubmit = (type, state) => {
     console.error(e)
   }
 }
-
-/**
-     * Validates that all required form fields are filled out
-     * @func
-     * @param {object} event - submit event
-     * @param {string} type - the type of form being submitted
-     * @param {string} state - the form data
-   */
-export const validateSubmit = (event, type, state) => {
-  const forms = document.getElementsByClassName('needs-validation')
-  // Loop over them and prevent submission
-  Array.prototype.filter.call(forms, (form) => {
-    event.preventDefault()
-    form.classList.add('was-validated')
-    if (form.checkValidity()) {
-      handleValidSubmit(type, state)
-    }
-  })
-}

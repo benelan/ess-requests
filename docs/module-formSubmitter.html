@@ -64,7 +64,7 @@
     
 
     
-    <h4 class="name" id=".handleValidExamSubmit"><span class="type-signature">(static) </span>handleValidExamSubmit<span class="signature">(state)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".generateExamEmail"><span class="type-signature">(static) </span>generateExamEmail<span class="signature">(formData)</span><span class="type-signature"> &rarr; {string}</span></h4>
     
 
     
@@ -72,8 +72,7 @@
 
 
 <div class="description">
-    <p>Sends a POST to the api to log the exam request form data to csv
-Generates and opens an email with the data</p>
+    <p>Generates and returns an email with the exam request data</p>
 </div>
 
 
@@ -109,13 +108,13 @@ Generates and opens an email with the data</p>
 
         <tr>
             
-                <td class="name"><code>state</code></td>
+                <td class="name"><code>formData</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
             
@@ -125,7 +124,7 @@ Generates and opens an email with the data</p>
 
             
 
-            <td class="description last"><p>the form data</p></td>
+            <td class="description last"><p>the form data and costCenter and chargeCode</p></td>
         </tr>
 
     
@@ -191,6 +190,28 @@ Generates and opens an email with the data</p>
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>mailto string</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -202,7 +223,7 @@ Generates and opens an email with the data</p>
     
 
     
-    <h4 class="name" id=".handleValidTrainingSubmit"><span class="type-signature">(static) </span>handleValidTrainingSubmit<span class="signature">(state)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".generateTrainingEmail"><span class="type-signature">(static) </span>generateTrainingEmail<span class="signature">(formData)</span><span class="type-signature"> &rarr; {string}</span></h4>
     
 
     
@@ -210,8 +231,7 @@ Generates and opens an email with the data</p>
 
 
 <div class="description">
-    <p>Sends a POST to the api to log the training request form data to csv
-Generates and opens an email with the data</p>
+    <p>Generates and returns an email with the training request data</p>
 </div>
 
 
@@ -247,13 +267,13 @@ Generates and opens an email with the data</p>
 
         <tr>
             
-                <td class="name"><code>state</code></td>
+                <td class="name"><code>formData</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
             
@@ -263,7 +283,7 @@ Generates and opens an email with the data</p>
 
             
 
-            <td class="description last"><p>the form data</p></td>
+            <td class="description last"><p>the form data and costCenter and chargeCode</p></td>
         </tr>
 
     
@@ -329,6 +349,28 @@ Generates and opens an email with the data</p>
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>mailto string</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -340,7 +382,7 @@ Generates and opens an email with the data</p>
     
 
     
-    <h4 class="name" id=".validateSubmit"><span class="type-signature">(static) </span>validateSubmit<span class="signature">(event, type, state)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".handleValidSubmit"><span class="type-signature">(static) </span>handleValidSubmit<span class="signature">(type, state)</span><span class="type-signature"></span></h4>
     
 
     
@@ -348,8 +390,7 @@ Generates and opens an email with the data</p>
 
 
 <div class="description">
-    <p>Validates that all required form fields are filled out
-If so, submits the form based on the type</p>
+    <p>Handles valid submits based on form type</p>
 </div>
 
 
@@ -381,29 +422,6 @@ If so, submits the form based on the type</p>
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>event</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>submit event</p></td>
-        </tr>
-
     
 
         <tr>
@@ -488,7 +506,281 @@ If so, submits the form based on the type</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_formSubmitter.js.html">utils/formSubmitter.js</a>, <a href="utils_formSubmitter.js.html#line140">line 140</a>
+        <a href="utils_formSubmitter.js.html">utils/formSubmitter.js</a>, <a href="utils_formSubmitter.js.html#line139">line 139</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".logExamRequest"><span class="type-signature">(static) </span>logExamRequest<span class="signature">(formData)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Sends a POST to the api to log the exam request form data to csv</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>formData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the form data and costCenter and chargeCode</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_formSubmitter.js.html">utils/formSubmitter.js</a>, <a href="utils_formSubmitter.js.html#line106">line 106</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".logTrainingRequest"><span class="type-signature">(static) </span>logTrainingRequest<span class="signature">(formData)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Sends a POST to the api to log the training request form data to csv</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>formData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the form data and costCenter and chargeCode</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_formSubmitter.js.html">utils/formSubmitter.js</a>, <a href="utils_formSubmitter.js.html#line44">line 44</a>
     </li></ul></dd>
     
 
@@ -534,13 +826,13 @@ If so, submits the form based on the type</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-authenticator.html">authenticator</a></li><li><a href="module-constGetter.html">constGetter</a></li><li><a href="module-csvLogger.html">csvLogger</a></li><li><a href="module-formSubmitter.html">formSubmitter</a></li></ul><h3>Classes</h3><ul><li><a href="Exam.html">Exam</a></li><li><a href="Home.html">Home</a></li><li><a href="TopNav.html">TopNav</a></li><li><a href="Training.html">Training</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-authenticator.html">authenticator</a></li><li><a href="module-constGetter.html">constGetter</a></li><li><a href="module-csvLogger.html">csvLogger</a></li><li><a href="module-formSubmitter.html">formSubmitter</a></li></ul><h3>Classes</h3><ul><li><a href="Exam.html">Exam</a></li><li><a href="ExamForm.html">ExamForm</a></li><li><a href="FormWrapper.html">FormWrapper</a></li><li><a href="Home.html">Home</a></li><li><a href="TopNav.html">TopNav</a></li><li><a href="Training.html">Training</a></li><li><a href="TrainingForm.html">TrainingForm</a></li></ul><h3>Global</h3><ul><li><a href="global.html#validateSubmit">validateSubmit</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Wed Dec 16 2020 16:36:45 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Dec 18 2020 12:13:55 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

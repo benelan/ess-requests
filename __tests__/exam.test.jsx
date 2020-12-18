@@ -2,22 +2,20 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import renderer from 'react-test-renderer'
 import Exam from '../pages/exam'
-import {
-  getUnits,
-  getEmployeeLocations,
-  getExamLocations,
-} from '../utils/constGetter'
+import { getUnits, getOfficeLocations } from '../utils/constGetter'
 
 beforeEach(() => {
   render(<Exam />)
 })
 
-describe('<Exam /> renders', () => {
-  it('matches snapshot', () => {
+describe('<Exam /> snapshot', () => {
+  it('matches component', () => {
     const examTree = renderer.create(<Exam />).toJSON()
     expect(examTree).toMatchSnapshot()
   })
+})
 
+describe('<Exam /> renders', () => {
   it('user name', async () => {
     expect(await screen.findByRole('textbox', { name: 'Employee Name' })).toHaveValue('Test User')
   })
@@ -34,16 +32,14 @@ describe('<Exam /> renders', () => {
   })
 
   it('employee and exam locations', () => {
-    const employeeLocations = getEmployeeLocations()
-    const examLocations = getExamLocations()
+    const locations = getOfficeLocations()
 
     // check to make sure all the offices render on screen twice
-    employeeLocations.forEach((el) => {
+    locations.forEach((el) => {
       expect(screen.getAllByText(el)).toHaveLength(2)
     })
 
     // exam locations has an extra 'Remote' option
-    expect(examLocations).toHaveLength(employeeLocations.length + 1)
     expect(screen.getByText(/Remote/)).toBeInTheDocument()
   })
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Home /> renders matches snapshot 1`] = `
+exports[`<Home /> snapshot matches com 1`] = `
 <div>
   <title>
     ESS Requests
