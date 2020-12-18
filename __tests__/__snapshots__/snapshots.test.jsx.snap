@@ -790,6 +790,7 @@ exports[`renders training form unchanged 1`] = `
           <input
             aria-label="startDate"
             className="form-control"
+            data-testid="startDate"
             id="startDate"
             onChange={[Function]}
             required={true}
@@ -807,6 +808,7 @@ exports[`renders training form unchanged 1`] = `
           <input
             aria-label="endDate"
             className="form-control"
+            data-testid="endDate"
             id="endDate"
             onChange={[Function]}
             required={true}

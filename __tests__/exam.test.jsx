@@ -7,14 +7,23 @@ jest.mock('../utils/authenticator', () => ({
   esriLogin: jest.fn(),
 }))
 
-describe('<Exam />', () => {
-  it('User name is rendered', async () => {
+describe('<Exam /> renders', () => {
+  beforeEach(() => {
     esriLogin.mockImplementation(() => ({
       name: 'Test User',
       email: 'test@email.com',
     }))
     render(<Exam />)
-    expect(screen.getByRole('textbox', { name: 'nameEmployee' })).toHaveValue('')
-    expect(await screen.findByRole('textbox', { name: 'nameEmployee' })).toHaveValue('Test User')
+  })
+
+  it('User name', async () => {
+    expect(
+      await screen.findByRole('textbox', { name: 'nameEmployee' })).toHaveValue('Test User')
+  })
+
+  it('title', () => {
+    expect(
+      screen.getByText(/Request for Exam Certification/),
+    ).toBeInTheDocument()
   })
 })

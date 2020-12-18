@@ -184,6 +184,7 @@ export default class Training extends React.Component {
                 <input
                   id="startDate"
                   aria-label="startDate"
+                  data-testid="startDate"
                   type="date"
                   className="form-control"
                   onChange={(x) => this.setState({ startDate: x.target.value })}
@@ -195,6 +196,7 @@ export default class Training extends React.Component {
                 <input
                   id="endDate"
                   aria-label="endDate"
+                  data-testid="endDate"
                   type="date"
                   className="form-control"
                   onChange={(x) => this.setState({ endDate: x.target.value })}

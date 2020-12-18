@@ -1,5 +1,5 @@
 {
-  "ignorePatterns": [".next", "docs"],
+  "ignorePatterns": [".next", "docs", "__tests__"],
   "env": {
     "browser": true,
     "jest": true,
