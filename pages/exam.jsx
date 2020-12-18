@@ -77,7 +77,6 @@ export default class Exam extends React.Component {
                   type="text"
                   className="form-control"
                   id="nameEmployee"
-                  aria-label="nameEmployee"
                   disabled
                   value={nameEmployee}
                   required
@@ -88,7 +87,6 @@ export default class Exam extends React.Component {
                 <input
                   type="number"
                   id="employeeNumber"
-                  aria-label="employeeNumber"
                   className="form-control"
                   onChange={(x) => this.setState({ numberEmployee: x.target.value })}
                   required
@@ -98,7 +96,6 @@ export default class Exam extends React.Component {
                 <label htmlFor="employeeUnit">Employee Unit</label>
                 <select
                   id="employeeUnit"
-                  aria-label="employeeUnit"
                   className="form-control"
                   onChange={(x) => this.setState({ unit: x.target.value })}
                 >
@@ -109,7 +106,6 @@ export default class Exam extends React.Component {
                 <label htmlFor="employeeLocation">Employee Location</label>
                 <select
                   id="employeeLocation"
-                  aria-label="employeeLocation"
                   className="form-control"
                   onChange={(x) => this.setState({ locationEmployee: x.target.value })}
                 >
@@ -123,7 +119,6 @@ export default class Exam extends React.Component {
                 <label htmlFor="examName">Exam Name</label>
                 <input
                   id="examName"
-                  aria-label="examName"
                   type="text"
                   className="form-control"
                   onChange={(x) => this.setState({ nameExam: x.target.value })}
@@ -134,7 +129,6 @@ export default class Exam extends React.Component {
                 <label htmlFor="vendor">Vendor</label>
                 <input
                   id="vendor"
-                  aria-label="vendor"
                   type="text"
                   className="form-control"
                   onChange={(x) => this.setState({ vendor: x.target.value })}
@@ -145,7 +139,6 @@ export default class Exam extends React.Component {
                 <label htmlFor="examLocation">Exam Location</label>
                 <select
                   id="examLocation"
-                  aria-label="examLocation"
                   className="form-control"
                   onChange={(x) => this.setState({ locationExam: x.target.value })}
                 >
@@ -162,7 +155,6 @@ export default class Exam extends React.Component {
                   </div>
                   <input
                     id="cost"
-                    aria-label="cost"
                     type="number"
                     className="form-control"
                     onChange={(x) => this.setState({ cost: x.target.value })}
@@ -174,7 +166,6 @@ export default class Exam extends React.Component {
                 <label htmlFor="justification">Justification</label>
                 <input
                   id="justification"
-                  aria-label="justification"
                   className="form-control"
                   onChange={(x) => this.setState({ justification: x.target.value })}
                   required

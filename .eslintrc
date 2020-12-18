@@ -1,5 +1,5 @@
 {
-  "ignorePatterns": [".next", "docs", "__tests__"],
+  "ignorePatterns": [".next", "docs"],
   "env": {
     "browser": true,
     "jest": true,
@@ -14,7 +14,7 @@
       "jsx": true
     }
   },
-  "plugins": ["react"],
+  "plugins": ["react", "testing-library", "jest-dom"],
   "rules": {
     "indent": ["error", 2],
     "linebreak-style": ["error", "windows"],
