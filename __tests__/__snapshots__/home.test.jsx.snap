@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Home /> snapshot matches com 1`] = `
-<div>
+Array [
   <title>
     ESS Requests
-  </title>
+  </title>,
   <nav
     className="navbar navbar-expand navbar-light border-bottom"
     style={
@@ -20,7 +20,6 @@ exports[`<Home /> snapshot matches com 1`] = `
         className="nav-item active"
       >
         <a
-          className="nav-link"
           href="/"
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -32,7 +31,6 @@ exports[`<Home /> snapshot matches com 1`] = `
         className="nav-item"
       >
         <a
-          className="nav-link"
           href="/training"
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -44,21 +42,15 @@ exports[`<Home /> snapshot matches com 1`] = `
         className="nav-item"
       >
         <a
-          className="nav-link"
           href="/exam"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
           Exam
-          <span
-            className="sr-only"
-          >
-            (current)
-          </span>
         </a>
       </li>
     </ul>
-  </nav>
+  </nav>,
   <div
     className="container"
   >
@@ -150,6 +142,6 @@ exports[`<Home /> snapshot matches com 1`] = `
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </div>,
+]
 `;

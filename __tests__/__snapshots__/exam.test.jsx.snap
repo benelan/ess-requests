@@ -2,6 +2,9 @@
 
 exports[`<Exam /> snapshot matches component 1`] = `
 Array [
+  <title>
+    Exam Request
+  </title>,
   <nav
     className="navbar navbar-expand navbar-light border-bottom"
     style={
@@ -17,7 +20,6 @@ Array [
         className="nav-item"
       >
         <a
-          className="nav-link"
           href="/"
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -29,7 +31,6 @@ Array [
         className="nav-item"
       >
         <a
-          className="nav-link"
           href="/training"
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -41,281 +42,270 @@ Array [
         className="nav-item active"
       >
         <a
-          className="nav-link"
           href="/exam"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
           Exam
-          <span
-            className="sr-only"
-          >
-            (current)
-          </span>
         </a>
       </li>
     </ul>
   </nav>,
-  <div>
-    <title>
-      Exam Request
-    </title>
-    <h3
-      className="text-center m-4"
+  <h3
+    className="text-center m-4"
+  >
+    Request for Exam Certification
+  </h3>,
+  <div
+    className="container"
+  >
+    <form
+      className="needs-validation"
+      noValidate={true}
+      onSubmit={[Function]}
     >
-      Request for Exam Certification
-    </h3>
-    <div
-      className="container"
-    >
-      <form
-        className="needs-validation"
-        noValidate={true}
-        onSubmit={[Function]}
+      <div
+        className="form-row mt-3"
       >
         <div
-          className="form-row mt-3"
+          className="form-group col-md-3"
         >
-          <div
-            className="form-group col-md-3"
+          <label
+            htmlFor="nameEmployee"
           >
-            <label
-              htmlFor="nameEmployee"
+            Employee Name
+          </label>
+          <input
+            className="form-control"
+            disabled={true}
+            id="nameEmployee"
+            required={true}
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          className="form-group col-md-3"
+        >
+          <label
+            htmlFor="employeeNumber"
+          >
+            Employee Number
+          </label>
+          <input
+            className="form-control"
+            id="employeeNumber"
+            onChange={[Function]}
+            required={true}
+            type="number"
+          />
+        </div>
+        <div
+          className="form-group col-md-3"
+        >
+          <label
+            htmlFor="employeeUnit"
+          >
+            Employee Unit
+          </label>
+          <select
+            className="form-control"
+            id="employeeUnit"
+            onChange={[Function]}
+          >
+            <option
+              value="Supt-ArcGIS-Unit-Mgmt@esri.com"
             >
-              Employee Name
-            </label>
+              Online
+            </option>
+            <option
+              value="Supt-Enterprise-Unit-Mgmt@esri.com"
+            >
+              Enterprise
+            </option>
+            <option
+              value="Supt-Desktop-Unit-Mgmt@esri.com"
+            >
+              Desktop
+            </option>
+            <option
+              value="Supt-DaDP-Unit-Mgmt@esri.co"
+            >
+              DaDP Product
+            </option>
+            <option
+              value="Supt-NORUS-Unit-Mgmt@esri.com"
+            >
+              NORUS
+            </option>
+            <option
+              value="SWhittington@esri.com"
+            >
+              TAMS
+            </option>
+            <option
+              value="Christian_Wells@esri.com"
+            >
+              Readiness
+            </option>
+          </select>
+        </div>
+        <div
+          className="form-group col-md-3"
+        >
+          <label
+            htmlFor="employeeLocation"
+          >
+            Employee Location
+          </label>
+          <select
+            className="form-control"
+            id="employeeLocation"
+            onChange={[Function]}
+          >
+            <option>
+              Redlands
+            </option>
+            <option>
+              Charlotte
+            </option>
+            <option>
+              Washington DC
+            </option>
+            <option>
+              St Louis
+            </option>
+          </select>
+        </div>
+      </div>
+      <div
+        className="form-row mt-3"
+      >
+        <div
+          className="form-group col-md-5"
+        >
+          <label
+            htmlFor="examName"
+          >
+            Exam Name
+          </label>
+          <input
+            className="form-control"
+            id="examName"
+            onChange={[Function]}
+            required={true}
+            type="text"
+          />
+        </div>
+        <div
+          className="form-group col-md-4"
+        >
+          <label
+            htmlFor="vendor"
+          >
+            Vendor
+          </label>
+          <input
+            className="form-control"
+            id="vendor"
+            onChange={[Function]}
+            required={true}
+            type="text"
+          />
+        </div>
+        <div
+          className="form-group col-md-3"
+        >
+          <label
+            htmlFor="examLocation"
+          >
+            Exam Location
+          </label>
+          <select
+            className="form-control"
+            id="examLocation"
+            onChange={[Function]}
+          >
+            <option>
+              Redlands
+            </option>
+            <option>
+              Charlotte
+            </option>
+            <option>
+              Washington DC
+            </option>
+            <option>
+              St Louis
+            </option>
+            <option>
+              Remote
+            </option>
+          </select>
+        </div>
+      </div>
+      <div
+        className="form-row mt-3"
+      >
+        <div
+          className="form-group col-md-2"
+        >
+          <label
+            htmlFor="cost"
+          >
+            Cost
+          </label>
+          <div
+            className="input-group mb-3"
+          >
+            <div
+              className="input-group-prepend"
+            >
+              <span
+                className="input-group-text"
+              >
+                $
+              </span>
+            </div>
             <input
               className="form-control"
-              disabled={true}
-              id="nameEmployee"
-              required={true}
-              type="text"
-              value=""
-            />
-          </div>
-          <div
-            className="form-group col-md-3"
-          >
-            <label
-              htmlFor="employeeNumber"
-            >
-              Employee Number
-            </label>
-            <input
-              className="form-control"
-              id="employeeNumber"
+              id="cost"
               onChange={[Function]}
               required={true}
               type="number"
             />
           </div>
-          <div
-            className="form-group col-md-3"
-          >
-            <label
-              htmlFor="employeeUnit"
-            >
-              Employee Unit
-            </label>
-            <select
-              className="form-control"
-              id="employeeUnit"
-              onChange={[Function]}
-            >
-              <option
-                value="Supt-ArcGIS-Unit-Mgmt@esri.com"
-              >
-                Online
-              </option>
-              <option
-                value="Supt-Enterprise-Unit-Mgmt@esri.com"
-              >
-                Enterprise
-              </option>
-              <option
-                value="Supt-Desktop-Unit-Mgmt@esri.com"
-              >
-                Desktop
-              </option>
-              <option
-                value="Supt-DaDP-Unit-Mgmt@esri.co"
-              >
-                DaDP Product
-              </option>
-              <option
-                value="Supt-NORUS-Unit-Mgmt@esri.com"
-              >
-                NORUS
-              </option>
-              <option
-                value="SWhittington@esri.com"
-              >
-                TAMS
-              </option>
-              <option
-                value="Christian_Wells@esri.com"
-              >
-                Readiness
-              </option>
-            </select>
-          </div>
-          <div
-            className="form-group col-md-3"
-          >
-            <label
-              htmlFor="employeeLocation"
-            >
-              Employee Location
-            </label>
-            <select
-              className="form-control"
-              id="employeeLocation"
-              onChange={[Function]}
-            >
-              <option>
-                Redlands
-              </option>
-              <option>
-                Charlotte
-              </option>
-              <option>
-                Washington DC
-              </option>
-              <option>
-                St Louis
-              </option>
-            </select>
-          </div>
         </div>
         <div
-          className="form-row mt-3"
+          className="form-group col-md-10"
         >
-          <div
-            className="form-group col-md-5"
+          <label
+            htmlFor="justification"
           >
-            <label
-              htmlFor="examName"
-            >
-              Exam Name
-            </label>
-            <input
-              className="form-control"
-              id="examName"
-              onChange={[Function]}
-              required={true}
-              type="text"
-            />
-          </div>
-          <div
-            className="form-group col-md-4"
-          >
-            <label
-              htmlFor="vendor"
-            >
-              Vendor
-            </label>
-            <input
-              className="form-control"
-              id="vendor"
-              onChange={[Function]}
-              required={true}
-              type="text"
-            />
-          </div>
-          <div
-            className="form-group col-md-3"
-          >
-            <label
-              htmlFor="examLocation"
-            >
-              Exam Location
-            </label>
-            <select
-              className="form-control"
-              id="examLocation"
-              onChange={[Function]}
-            >
-              <option>
-                Redlands
-              </option>
-              <option>
-                Charlotte
-              </option>
-              <option>
-                Washington DC
-              </option>
-              <option>
-                St Louis
-              </option>
-              <option>
-                Remote
-              </option>
-            </select>
-          </div>
+            Justification
+          </label>
+          <input
+            className="form-control"
+            id="justification"
+            onChange={[Function]}
+            required={true}
+          />
         </div>
+      </div>
+      <div
+        className="form-row mt-3"
+      >
         <div
-          className="form-row mt-3"
+          className="form-group col"
         >
-          <div
-            className="form-group col-md-2"
-          >
-            <label
-              htmlFor="cost"
-            >
-              Cost
-            </label>
-            <div
-              className="input-group mb-3"
-            >
-              <div
-                className="input-group-prepend"
-              >
-                <span
-                  className="input-group-text"
-                >
-                  $
-                </span>
-              </div>
-              <input
-                className="form-control"
-                id="cost"
-                onChange={[Function]}
-                required={true}
-                type="number"
-              />
-            </div>
-          </div>
-          <div
-            className="form-group col-md-10"
-          >
-            <label
-              htmlFor="justification"
-            >
-              Justification
-            </label>
-            <input
-              className="form-control"
-              id="justification"
-              onChange={[Function]}
-              required={true}
-            />
-          </div>
+          <input
+            className="btn btn-primary"
+            type="submit"
+            value="Submit"
+          />
         </div>
-        <div
-          className="form-row mt-3"
-        >
-          <div
-            className="form-group col"
-          >
-            <input
-              className="btn btn-primary"
-              type="submit"
-              value="Submit"
-            />
-          </div>
-        </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>,
 ]
 `;

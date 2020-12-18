@@ -10,11 +10,11 @@ describe('<Home /> snapshot', () => {
   })
 })
 
-beforeEach(() => {
-  render(<Home />)
-})
-
 describe('<Home /> renders', () => {
+  beforeEach(() => {
+    render(<Home />)
+  })
+
   it('title', () => {
     expect(screen.getAllByText(/ESS Requests/)).toHaveLength(2)
   })

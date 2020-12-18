@@ -9,7 +9,9 @@ import TrainingForm from '../components/TrainingForm'
  */
 const Training = () => (
   <>
+    <title>Training Request</title>
     <TopNav page="training" />
+    <h3 className="text-center m-4">Request for Training</h3>
     <FormWrapper>
       <TrainingForm />
     </FormWrapper>

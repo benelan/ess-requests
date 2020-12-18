@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { esriLogin } from '../utils/authenticator'
 import { handleValidSubmit } from '../utils/formSubmitter'
@@ -9,24 +9,23 @@ import { getUnits, getOfficeLocations } from '../utils/constGetter'
  * @name FormWrapper
  * @class
  */
-export default class FormWrapper extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      nameEmployee: '',
-      emailEmployee: '',
-    }
-    this.validateSubmit = this.validateSubmit.bind(this)
-  }
+const FormWrapper = ({ children }) => {
+  const [nameEmployee, setName] = useState('')
+  const [emailEmployee, setEmail] = useState('')
 
-  async componentDidMount() {
+  const signIn = async () => {
     try {
       const { name, email } = await esriLogin()
-      this.setState({ nameEmployee: name, emailEmployee: email })
+      setName(name)
+      setEmail(email)
     } catch (err) {
       console.error('login failed:', err)
     }
   }
+
+  useEffect(() => {
+    signIn()
+  }, [])
 
   /**
    * Validates that all required form fields are filled out
@@ -35,40 +34,30 @@ export default class FormWrapper extends React.Component {
    * @param {string} type - the type of form being submitted
    * @param {string} state - the form data
    */
-  validateSubmit(event, type, state) {
-    console.log(event)
+  const validateSubmit = (event, type, state) => {
     const forms = document.getElementsByClassName('needs-validation')
     // Loop over them and prevent submission
     Array.prototype.filter.call(forms, (form) => {
       event.preventDefault()
       form.classList.add('was-validated')
       if (form.checkValidity()) {
-        const { nameEmployee, emailEmployee } = this.state
         const formData = { ...state, nameEmployee, emailEmployee }
         handleValidSubmit(type, formData)
       }
     })
   }
 
-  render() {
-    const { nameEmployee } = this.state
-    const { children } = this.props
-    // get the units and office locations
-    const units = getUnits()
-    const offices = getOfficeLocations()
-
-    return (
-      React.cloneElement(children, {
-        units,
-        offices,
-        nameEmployee,
-        validateSubmit: this.validateSubmit,
-      })
-    )
-  }
+  return React.cloneElement(children, {
+    nameEmployee,
+    validateSubmit,
+    units: getUnits(),
+    offices: getOfficeLocations(),
+  })
 }
 
 FormWrapper.propTypes = {
   /** the type of form */
   children: PropTypes.element.isRequired,
 }
+
+export default FormWrapper
