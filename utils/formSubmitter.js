@@ -63,7 +63,7 @@ export const logTrainingRequest = (formData) => {
       method: 'post',
       body: JSON.stringify(outputData),
     }).then((response) => response.json()).then((data) => {
-      console.log(data.response)
+      console.log(data.message)
     })
   } catch (e) {
     console.error(e)
@@ -123,7 +123,7 @@ export const logExamRequest = (formData) => {
       method: 'post',
       body: JSON.stringify(outputData),
     }).then((response) => response.json()).then((data) => {
-      console.log(data.response)
+      console.log(data.message)
     })
   } catch (e) {
     console.error(e)

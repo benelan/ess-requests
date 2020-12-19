@@ -10,7 +10,7 @@ const { publicRuntimeConfig } = getConfig()
  * The top navbar
  * @class
  * @name TopNav
- * @param {string} page - which page is currently active
+ * @param {string} page - active page for link
  */
 const TopNav = ({ page }) => (
   <nav

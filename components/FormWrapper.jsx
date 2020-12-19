@@ -13,18 +13,16 @@ const FormWrapper = ({ children }) => {
   const [nameEmployee, setName] = useState('')
   const [emailEmployee, setEmail] = useState('')
 
-  const signIn = async () => {
-    try {
-      const { name, email } = await esriLogin()
-      setName(name)
-      setEmail(email)
-    } catch (err) {
-      console.error('login failed:', err)
-    }
-  }
-
   useEffect(() => {
-    signIn()
+    (async () => {
+      try {
+        const { name, email } = await esriLogin()
+        setName(name)
+        setEmail(email)
+      } catch (err) {
+        console.error('login failed:', err)
+      }
+    })()
   }, [])
 
   /**
