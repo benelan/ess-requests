@@ -62,9 +62,11 @@ export const logTrainingRequest = (formData) => {
     fetch(`${publicRuntimeConfig.basePath}/api/logTraining`, {
       method: 'post',
       body: JSON.stringify(outputData),
-    }).then((response) => response.json()).then((data) => {
-      console.log(data.message)
     })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.message)
+      })
   } catch (e) {
     console.error(e)
   }
@@ -122,9 +124,11 @@ export const logExamRequest = (formData) => {
     fetch(`${publicRuntimeConfig.basePath}/api/logExam`, {
       method: 'post',
       body: JSON.stringify(outputData),
-    }).then((response) => response.json()).then((data) => {
-      console.log(data.message)
     })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.message)
+      })
   } catch (e) {
     console.error(e)
   }
@@ -133,23 +137,23 @@ export const logExamRequest = (formData) => {
 /**
      * Handles valid submits based on form type
      * @func
-     * @param {string} type - the type of form being submitted
-     * @param {string} state - the form data
+     * @param {string} formType - the type of form being submitted
+     * @param {string} inputData - the form data
    */
-export const handleValidSubmit = (type, state) => {
+export const handleValidSubmit = (formType, inputData) => {
   try {
-    const chargeCode = getChargeCode(state.unit)
+    const chargeCode = getChargeCode(inputData.unit)
     // have user confirm submission and inform them of the charge code
     const confirmed = confirm(`Please remember your charge code: ${chargeCode}`)
     if (confirmed) {
-      const costCenter = getCostCenter(state.unit, state.locationEmployee)
-      const formData = { ...state, costCenter, chargeCode }
+      const costCenter = getCostCenter(inputData.unit, inputData.locationEmployee)
+      const formData = { ...inputData, costCenter, chargeCode }
       let mailtoString = ''
-      if (type === 'training') {
+      if (formType === 'training') {
         logTrainingRequest(formData)
         mailtoString = generateTrainingEmail(formData)
       }
-      if (type === 'exam') {
+      if (formType === 'exam') {
         logExamRequest(formData)
         mailtoString = generateExamEmail(formData)
       }

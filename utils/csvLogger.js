@@ -39,16 +39,20 @@ export default async (data, filePath) => new Promise((resolve, reject) => {
     // check if there is a csv file
     fs.stat(filePath, async (noFile) => {
       if (noFile) { // if there is not a csv file create one and write the headers and data
-        fs.writeFile(filePath, `${csv}\r\n`, (createFail) => (createFail ? reject(createFail) : resolve('csv created')))
+        fs.writeFile(filePath, `${csv}\r\n`, (createFail) => (createFail
+          ? reject(createFail)
+          : resolve('csv created')))
       } else {
         // split header from data
         const noHeadersCSV = `${csv.split('\n')[1]}\r\n`
         const headerCSV = `${csv.split('\n').slice(0, 1)}`
         // check if the header matches the schema of the current csv file
-        const dataMatches = await dataContainsAllProperties(headerCSV, filePath)
+        const dataMatches = dataContainsAllProperties(headerCSV, filePath)
         // append the data if the new header matches the current schema
         if (dataMatches) {
-          fs.appendFile(filePath, noHeadersCSV, (appendFail) => (appendFail ? reject(appendFail) : resolve('csv appended')))
+          fs.appendFile(filePath, noHeadersCSV, (appendFail) => (appendFail
+            ? reject(appendFail)
+            : resolve('csv appended')))
         } else {
           const noMatch = new Error('New data properties do not match the csv headers')
           reject(noMatch)
