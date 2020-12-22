@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: FormWrapper</title>
+    <title>JSDoc: Module: logCSV</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: FormWrapper</h1>
+    <h1 class="page-title">Module: logCSV</h1>
 
     
 
@@ -28,7 +28,8 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>FormWrapper<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+            
         
     
 </header>
@@ -37,20 +38,13 @@
     <div class="container-overview">
     
         
+            <div class="description"><p>Logs form data to csv</p></div>
+        
 
-    
-
-    
-    <h4 class="name" id="FormWrapper"><span class="type-signature"></span>new FormWrapper<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
+        
+            
 
 
-
-<div class="description">
-    <p>The wrapper for forms which handles authentication and form submission</p>
-</div>
 
 
 
@@ -93,7 +87,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_FormWrapper.jsx.html">components/FormWrapper.jsx</a>, <a href="components_FormWrapper.jsx.html#line13">line 13</a>
+        <a href="utils_logCSV.js.html">utils/logCSV.js</a>, <a href="utils_logCSV.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -123,6 +117,7 @@
 
 
 
+        
     
     </div>
 
@@ -149,7 +144,7 @@
     
 
     
-    <h4 class="name" id="~validateSubmit"><span class="type-signature">(inner) </span>validateSubmit<span class="signature">(event, type, formData)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~dataContainsAllProperties"><span class="type-signature">(async, inner) </span>dataContainsAllProperties<span class="signature">(csvHeader, filePath)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
     
 
     
@@ -157,8 +152,7 @@
 
 
 <div class="description">
-    <p>Validates that all required form fields are filled out
-If they are, the form is submitted</p>
+    <p>Checks to see if the new data matches the headers of an existing csv file</p>
 </div>
 
 
@@ -194,30 +188,7 @@ If they are, the form is submitted</p>
 
         <tr>
             
-                <td class="name"><code>event</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>submit event</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>type</code></td>
+                <td class="name"><code>csvHeader</code></td>
             
 
             <td class="type">
@@ -233,14 +204,14 @@ If they are, the form is submitted</p>
 
             
 
-            <td class="description last"><p>the type of form being submitted</p></td>
+            <td class="description last"><p>the header of the new csv data</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>formData</code></td>
+                <td class="name"><code>filePath</code></td>
             
 
             <td class="type">
@@ -256,7 +227,7 @@ If they are, the form is submitted</p>
 
             
 
-            <td class="description last"><p>the form data</p></td>
+            <td class="description last"><p>the path of the csv file to check</p></td>
         </tr>
 
     
@@ -297,7 +268,7 @@ If they are, the form is submitted</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_FormWrapper.jsx.html">components/FormWrapper.jsx</a>, <a href="components_FormWrapper.jsx.html#line42">line 42</a>
+        <a href="utils_logCSV.js.html">utils/logCSV.js</a>, <a href="utils_logCSV.js.html#line15">line 15</a>
     </li></ul></dd>
     
 
@@ -322,6 +293,207 @@ If they are, the form is submitted</p>
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>are the headers equal</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~logCSV"><span class="type-signature">(inner) </span>logCSV<span class="signature">(data, filePath)</span><span class="type-signature"> &rarr; {promise}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>receives JSON data from POST and converts it to JSON
+Either creates a new csv file or appends data to an existing file</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>JSON object with form data</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>filePath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the path to the csv file</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_logCSV.js.html">utils/logCSV.js</a>, <a href="utils_logCSV.js.html#line28">line 28</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">promise</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 

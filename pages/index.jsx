@@ -1,9 +1,9 @@
 import React from 'react'
 import TopNav from '../components/TopNav'
-import FormSelect from '../components/FormSelect'
+import FormSelector from '../components/FormSelector'
 
 /**
- * Home page
+ * Home page contains a landing page to select a form
  * @author Ben Elan
  * @name Home
  * @class
@@ -12,7 +12,7 @@ const Home = () => (
   <>
     <title>ESS Requests</title>
     <TopNav page="home" />
-    <FormSelect />
+    <FormSelector />
   </>
 )
 

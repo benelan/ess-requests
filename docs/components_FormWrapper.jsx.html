@@ -26,80 +26,85 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from 'react'
+            <pre class="prettyprint source linenums"><code>/* eslint-disable no-alert */
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { esriLogin } from '../utils/authenticator'
-import { handleValidSubmit } from '../utils/formSubmitter'
-import { getUnits, getOfficeLocations } from '../utils/constGetter'
+import { esriLogin } from '../utils/authenticateUser'
+import handleValidSubmit from '../utils/submitForm'
+import {
+  getUnits,
+  getOfficeLocations,
+  getChargeCode,
+  getCostCenter,
+} from '../utils/getValue'
 
 /**
  * The wrapper for forms which handles authentication and form submission
  * @name FormWrapper
  * @class
  */
-export default class FormWrapper extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      nameEmployee: '',
-      emailEmployee: '',
-    }
-    this.validateSubmit = this.validateSubmit.bind(this)
-  }
+const FormWrapper = ({ children }) => {
+  const [nameEmployee, setName] = useState('')
+  const [emailEmployee, setEmail] = useState('')
 
-  async componentDidMount() {
-    try {
-      const { name, email } = await esriLogin()
-      this.setState({ nameEmployee: name, emailEmployee: email })
-    } catch (err) {
-      console.error('login failed:', err)
-    }
-  }
+  useEffect(() => {
+    (async () => {
+      try {
+        const { name, email } = await esriLogin()
+        setName(name)
+        setEmail(email)
+      } catch (err) {
+        console.error('login failed:', err)
+      }
+    })()
+  }, [])
 
   /**
    * Validates that all required form fields are filled out
+   * If they are, the form is submitted
    * @func
    * @param {object} event - submit event
    * @param {string} type - the type of form being submitted
-   * @param {string} state - the form data
+   * @param {string} formData - the form data
    */
-  validateSubmit(event, type, state) {
-    console.log(event)
+  const validateSubmit = (event, type, formData) => {
     const forms = document.getElementsByClassName('needs-validation')
     // Loop over them and prevent submission
     Array.prototype.filter.call(forms, (form) => {
       event.preventDefault()
       form.classList.add('was-validated')
       if (form.checkValidity()) {
-        const { nameEmployee, emailEmployee } = this.state
-        const formData = { ...state, nameEmployee, emailEmployee }
-        handleValidSubmit(type, formData)
+        const chargeCode = getChargeCode(formData.unit)
+        // eslint-disable-next-line no-restricted-globals
+        const confirmed = confirm(
+          `Please remember your charge code: ${chargeCode}`,
+        )
+        if (confirmed) {
+          const costCenter = getCostCenter(formData.unit, formData.locationEmployee)
+          const completeData = {
+            ...formData, nameEmployee, emailEmployee, chargeCode, costCenter,
+          }
+          const mailtoString = handleValidSubmit(type, completeData)
+          if (mailtoString) window.open(mailtoString)
+        }
       }
     })
   }
 
-  render() {
-    const { nameEmployee } = this.state
-    const { children } = this.props
-    // get the units and office locations
-    const units = getUnits()
-    const offices = getOfficeLocations()
-
-    return (
-      React.cloneElement(children, {
-        units,
-        offices,
-        nameEmployee,
-        validateSubmit: this.validateSubmit,
-      })
-    )
-  }
+  return React.cloneElement(children, {
+    nameEmployee,
+    validateSubmit,
+    units: getUnits(),
+    offices: getOfficeLocations(),
+  })
 }
 
 FormWrapper.propTypes = {
   /** the type of form */
   children: PropTypes.element.isRequired,
 }
+
+export default FormWrapper
 </code></pre>
         </article>
     </section>
@@ -110,13 +115,13 @@ FormWrapper.propTypes = {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-authenticator.html">authenticator</a></li><li><a href="module-constGetter.html">constGetter</a></li><li><a href="module-csvLogger.html">csvLogger</a></li><li><a href="module-formSubmitter.html">formSubmitter</a></li></ul><h3>Classes</h3><ul><li><a href="Exam.html">Exam</a></li><li><a href="ExamForm.html">ExamForm</a></li><li><a href="FormWrapper.html">FormWrapper</a></li><li><a href="Home.html">Home</a></li><li><a href="TopNav.html">TopNav</a></li><li><a href="Training.html">Training</a></li><li><a href="TrainingForm.html">TrainingForm</a></li></ul><h3>Global</h3><ul><li><a href="global.html#validateSubmit">validateSubmit</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-authenticateUser.html">authenticateUser</a></li><li><a href="module-getValue.html">getValue</a></li><li><a href="module-logCSV.html">logCSV</a></li><li><a href="module-submitForm.html">submitForm</a></li><li><a href="module-validateData.html">validateData</a></li></ul><h3>Classes</h3><ul><li><a href="Exam.html">Exam</a></li><li><a href="ExamForm.html">ExamForm</a></li><li><a href="FormSelect.html">FormSelect</a></li><li><a href="FormWrapper.html">FormWrapper</a></li><li><a href="Home.html">Home</a></li><li><a href="TopNav.html">TopNav</a></li><li><a href="Training.html">Training</a></li><li><a href="TrainingForm.html">TrainingForm</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Dec 18 2020 12:13:55 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Dec 22 2020 11:34:09 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

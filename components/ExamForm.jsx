@@ -66,7 +66,7 @@ class ExamForm extends React.Component {
                 type="number"
                 id="employeeNumber"
                 className="form-control"
-                onChange={(x) => this.setState({ numberEmployee: x.target.value })}
+                onChange={(x) => this.setState({ numberEmployee: parseInt(x.target.value, 10) })}
                 required
               />
             </div>
@@ -135,7 +135,7 @@ class ExamForm extends React.Component {
                   id="cost"
                   type="number"
                   className="form-control"
-                  onChange={(x) => this.setState({ cost: x.target.value })}
+                  onChange={(x) => this.setState({ cost: parseFloat(x.target.value) })}
                   required
                 />
               </div>

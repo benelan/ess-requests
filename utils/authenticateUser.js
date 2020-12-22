@@ -1,4 +1,7 @@
-/** @module authenticateUser */
+/**
+ * Authentication workflows using ArcGIS OAuth
+ *  @module authenticateUser
+ * */
 import { loadModules } from 'esri-loader'
 
 const APP_ID = 'hZpRbKz3fiSkaj1U'

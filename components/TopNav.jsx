@@ -7,7 +7,7 @@ import getConfig from 'next/config'
 const { publicRuntimeConfig } = getConfig()
 
 /**
- * The top navbar
+ * The top navbar with links to the pages
  * @class
  * @name TopNav
  * @param {string} page - active page for link
