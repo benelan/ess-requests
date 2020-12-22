@@ -1,8 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-import getConfig from 'next/config'
-
-const { publicRuntimeConfig } = getConfig()
 
 /**
  * Options for selecting a form
@@ -19,7 +16,7 @@ const FormSelect = () => (
       <div className="container-fluid content-row">
         <div className="row">
           <div className="col-sm-6  my-2">
-            <Link href={`${publicRuntimeConfig.basePath}/training`}>
+            <Link href={`${process.env.basePath}/training`}>
               <div
                 className="card h-100 shadow hoverForm"
                 style={{ cursor: 'pointer' }}
@@ -35,15 +32,13 @@ const FormSelect = () => (
             </Link>
           </div>
           <div className="col-sm-6 my-2">
-            <Link href={`${publicRuntimeConfig.basePath}/exam`}>
+            <Link href={`${process.env.basePath}/exam`}>
               <div
                 className="card h-100 shadow hoverForm"
                 style={{ cursor: 'pointer' }}
               >
                 <div className="card-body">
-                  <h5 className="card-title">
-                    Request for Exam Certification
-                  </h5>
+                  <h5 className="card-title">Request for Exam Certification</h5>
                   <p className="card-text">
                     Formal request for taking a certification exam.
                   </p>

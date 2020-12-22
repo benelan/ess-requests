@@ -21,7 +21,7 @@ Array [
       >
         <a
           className="nav-link"
-          href="/"
+          href="/undefined"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
@@ -33,7 +33,7 @@ Array [
       >
         <a
           className="nav-link"
-          href="/training"
+          href="/undefined/training"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
@@ -45,16 +45,11 @@ Array [
       >
         <a
           className="nav-link"
-          href="/exam"
+          href="/undefined/exam"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
           Exam
-          <span
-            className="sr-only"
-          >
-            (current)
-          </span>
         </a>
       </li>
     </ul>
@@ -68,6 +63,7 @@ Array [
     className="container"
   >
     <form
+      aria-label="Exam Request Form"
       className="needs-validation"
       noValidate={true}
       onSubmit={[Function]}

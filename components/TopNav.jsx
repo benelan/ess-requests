@@ -1,10 +1,6 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import getConfig from 'next/config'
-
-const { publicRuntimeConfig } = getConfig()
 
 /**
  * The top navbar with links to the pages
@@ -12,6 +8,7 @@ const { publicRuntimeConfig } = getConfig()
  * @name TopNav
  * @param {string} page - active page for link
  */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 const TopNav = ({ page }) => (
   <nav
     className="navbar navbar-expand navbar-light border-bottom"
@@ -19,21 +16,18 @@ const TopNav = ({ page }) => (
   >
     <ul className="navbar-nav">
       <li className={page === 'home' ? 'nav-item active' : 'nav-item'}>
-        <Link href={`${publicRuntimeConfig.basePath}/`}>
+        <Link href={`${process.env.basePath}/`}>
           <a className="nav-link">Home</a>
         </Link>
       </li>
       <li className={page === 'training' ? 'nav-item active' : 'nav-item'}>
-        <Link href={`${publicRuntimeConfig.basePath}/training`}>
+        <Link href={`${process.env.basePath}/training`}>
           <a className="nav-link">Training</a>
         </Link>
       </li>
       <li className={page === 'exam' ? 'nav-item active' : 'nav-item'}>
-        <Link href={`${publicRuntimeConfig.basePath}/exam`}>
-          <a className="nav-link">
-            Exam
-            <span className="sr-only">(current)</span>
-          </a>
+        <Link href={`${process.env.basePath}/exam`}>
+          <a className="nav-link">Exam</a>
         </Link>
       </li>
     </ul>

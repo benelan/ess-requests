@@ -2,10 +2,8 @@
  * This module handles form submission workflows. The default export determines if the data is valid, which type of form to submit, and then generates the email and sends a POST to the API to log the data to CSV.
  * @module submitForm
  * */
-import getConfig from 'next/config'
-import { examSchemaIsValid, trainingSchemaIsValid } from './validateData'
 
-const { publicRuntimeConfig } = getConfig()
+import { examSchemaIsValid, trainingSchemaIsValid } from './validateData'
 
 /**
    * Generates and returns an email with the training request data
@@ -88,7 +86,7 @@ const logTrainingRequest = (formData) => {
       Justification: formData.justification,
     }
 
-    fetch(`${publicRuntimeConfig.basePath}/api/logTrainingRequest`, {
+    fetch(`${process.env.basePath}/api/logTrainingRequest`, {
       method: 'post',
       body: JSON.stringify(outputData),
     })
@@ -122,7 +120,7 @@ const logExamRequest = (formData) => {
       Justification: formData.justification,
     }
 
-    fetch(`${publicRuntimeConfig.basePath}/api/logExamRequest`, {
+    fetch(`${process.env.basePath}/api/logExamRequest`, {
       method: 'post',
       body: JSON.stringify(outputData),
     })

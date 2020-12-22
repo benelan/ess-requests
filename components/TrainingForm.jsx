@@ -41,6 +41,7 @@ class TrainingForm extends React.Component {
       <div className="container">
         <form
           className="needs-validation"
+          aria-label="Training Request Form"
           noValidate
           onSubmit={(event) => validateSubmit(event, 'training', this.state)}
         >

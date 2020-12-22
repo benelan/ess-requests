@@ -20,7 +20,8 @@ Array [
         className="nav-item active"
       >
         <a
-          href="/"
+          className="nav-link"
+          href="/undefined"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
@@ -31,7 +32,8 @@ Array [
         className="nav-item"
       >
         <a
-          href="/training"
+          className="nav-link"
+          href="/undefined/training"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
@@ -42,7 +44,8 @@ Array [
         className="nav-item"
       >
         <a
-          href="/exam"
+          className="nav-link"
+          href="/undefined/exam"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >

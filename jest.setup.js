@@ -1,6 +1,20 @@
 import '@testing-library/jest-dom/extend-expect'
-import { setConfig } from 'next/config'
-import { publicRuntimeConfig } from './next.config'
+import { esriLogin } from './utils/authenticateUser'
+import submitForm from './utils/submitForm'
 
-// Make sure you can use "publicRuntimeConfig" within tests.
-setConfig({ publicRuntimeConfig })
+// mock browser window functions
+window.confirm = jest.fn(() => true) // always confirm
+window.open = jest.fn(() => false) // never open
+
+// mock the OAuth login for tests
+jest.mock('./utils/authenticateUser', () => ({
+  esriLogin: jest.fn(),
+}))
+esriLogin.mockImplementation(() => Promise.resolve({
+  name: 'Test User',
+  email: 'test@email.com',
+}))
+
+// Mock submit function
+jest.mock('./utils/submitForm')
+submitForm.mockImplementation(() => 'form submitted')

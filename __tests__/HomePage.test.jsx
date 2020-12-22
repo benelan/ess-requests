@@ -1,18 +1,18 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import renderer from 'react-test-renderer'
-import Home from '../pages/index'
+import HomePage from '../pages/index'
 
 describe('<Home /> snapshot', () => {
   it('matches com', () => {
-    const homeTree = renderer.create(<Home />).toJSON()
+    const homeTree = renderer.create(<HomePage />).toJSON()
     expect(homeTree).toMatchSnapshot()
   })
 })
 
 describe('<Home /> renders', () => {
   beforeEach(() => {
-    render(<Home />)
+    render(<HomePage />)
   })
 
   it('title', () => {

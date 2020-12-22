@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { esriLogin } from '../utils/authenticateUser'
-import handleValidSubmit from '../utils/submitForm'
+import submitForm from '../utils/submitForm'
 import {
   getUnits,
   getOfficeLocations,
@@ -56,7 +56,7 @@ const FormWrapper = ({ children }) => {
           const completeData = {
             ...formData, nameEmployee, emailEmployee, chargeCode, costCenter,
           }
-          const mailtoString = handleValidSubmit(type, completeData)
+          const mailtoString = submitForm(type, completeData)
           if (mailtoString) window.open(mailtoString)
         }
       }
