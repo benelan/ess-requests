@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import ExamForm from '../components/ExamForm'
-import { getUnits, getOfficeLocations } from '../utils/constGetter'
+import { getUnits, getOfficeLocations } from '../utils/getValue'
 
 beforeEach(() => {
   render(<ExamForm nameEmployee="Test User" units={getUnits()} offices={getOfficeLocations()} />)

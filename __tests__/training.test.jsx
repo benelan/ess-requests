@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import renderer from 'react-test-renderer'
 import Training from '../pages/training'
-import { esriLogin } from '../utils/authenticator'
+import { esriLogin } from '../utils/authenticateUser'
 
 const loginPromise = Promise.resolve({
   name: 'Test User',
@@ -10,7 +10,7 @@ const loginPromise = Promise.resolve({
 })
 
 // mock the OAuth login for tests
-jest.mock('../utils/authenticator', () => ({
+jest.mock('../utils/authenticateUser', () => ({
   esriLogin: jest.fn(),
 }))
 

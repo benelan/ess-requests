@@ -1,5 +1,5 @@
 import path from 'path'
-import csvLogger from '../../utils/csvLogger'
+import logCSV from '../../utils/logCSV'
 
 /**
    * Takes JSON form data and logs it to CSV
@@ -13,7 +13,7 @@ export default async (req, res) => {
   const filePath = path.resolve('./data', 'training_logs.csv')
 
   try {
-    const log = await csvLogger(req.body, filePath)
+    const log = await logCSV(req.body, filePath)
     res.statusCode = 200
     return res.json({ message: log })
   } catch (e) {

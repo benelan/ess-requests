@@ -1,4 +1,4 @@
-/** @module constGetter */
+/** @module getValue */
 
 /**
    * @func

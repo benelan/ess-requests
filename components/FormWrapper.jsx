@@ -1,8 +1,14 @@
+/* eslint-disable no-alert */
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { esriLogin } from '../utils/authenticator'
-import { handleValidSubmit } from '../utils/formSubmitter'
-import { getUnits, getOfficeLocations } from '../utils/constGetter'
+import { esriLogin } from '../utils/authenticateUser'
+import handleValidSubmit from '../utils/submitForm'
+import {
+  getUnits,
+  getOfficeLocations,
+  getChargeCode,
+  getCostCenter,
+} from '../utils/getValue'
 
 /**
  * The wrapper for forms which handles authentication and form submission
@@ -27,20 +33,32 @@ const FormWrapper = ({ children }) => {
 
   /**
    * Validates that all required form fields are filled out
+   * If they are, the form is submitted
    * @func
    * @param {object} event - submit event
    * @param {string} type - the type of form being submitted
-   * @param {string} state - the form data
+   * @param {string} formData - the form data
    */
-  const validateSubmit = (event, type, state) => {
+  const validateSubmit = (event, type, formData) => {
     const forms = document.getElementsByClassName('needs-validation')
     // Loop over them and prevent submission
     Array.prototype.filter.call(forms, (form) => {
       event.preventDefault()
       form.classList.add('was-validated')
       if (form.checkValidity()) {
-        const formData = { ...state, nameEmployee, emailEmployee }
-        handleValidSubmit(type, formData)
+        const chargeCode = getChargeCode(formData.unit)
+        // eslint-disable-next-line no-restricted-globals
+        const confirmed = confirm(
+          `Please remember your charge code: ${chargeCode}`,
+        )
+        if (confirmed) {
+          const costCenter = getCostCenter(formData.unit, formData.locationEmployee)
+          const completeData = {
+            ...formData, nameEmployee, emailEmployee, chargeCode, costCenter,
+          }
+          const mailtoString = handleValidSubmit(type, completeData)
+          if (mailtoString) window.open(mailtoString)
+        }
       }
     })
   }

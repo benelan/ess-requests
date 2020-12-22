@@ -1,4 +1,4 @@
-/** @module authenticator */
+/** @module authenticateUser */
 import { loadModules } from 'esri-loader'
 
 const APP_ID = 'hZpRbKz3fiSkaj1U'
