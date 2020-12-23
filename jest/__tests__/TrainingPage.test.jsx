@@ -1,42 +1,51 @@
 import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import renderer from 'react-test-renderer'
-import Training from '../../pages/training'
+import TrainingPage from '../../pages/training'
 import * as submit from '../../utils/submitForm'
 
 const { act } = renderer
 
-describe('<Training /> snapshot', () => {
+describe('<TrainingPage /> snapshot', () => {
   it('matches component', () => {
-    const examTree = renderer.create(<Training />).toJSON()
+    const examTree = renderer.create(<TrainingPage />).toJSON()
     expect(examTree).toMatchSnapshot()
   })
 })
 
-describe('<Training /> renders', () => {
+describe('<TrainingPage /> renders', () => {
   it('user name', async () => {
-    render(<Training />)
+    render(<TrainingPage />)
     expect(
       await screen.findByRole('textbox', { name: 'Employee Name' }),
     ).toHaveValue('Test User')
   })
+
+  it('navbar with training active', async () => {
+    render(<TrainingPage />)
+    await act(async () => screen.findByRole('textbox', { name: 'Employee Name' }))
+    expect(screen.getByRole('listitem', { name: 'Training Link' })).toHaveClass('active')
+  })
 })
 
-describe('<Training /> events', () => {
-  it('bootstrap validation on submit', async () => {
-    render(<Training />)
+describe('<TrainingPage /> events', () => {
+  it('doesn\'t submit empty form', async () => {
+    render(<TrainingPage />)
     await act(async () => screen.findByRole('textbox', { name: 'Employee Name' }))
     fireEvent.click(screen.getByRole('button', { name: 'Submit' }))
+
+    // bootstrap validation
     expect(
       screen.getByRole('form', { name: /Training Request Form/ }),
     ).toHaveClass('was-validated')
 
+    // submit doesn't happen
     expect(window.confirm).not.toBeCalled()
     expect(window.fetch).not.toBeCalled()
   })
 
   it('submits filled in form', async () => {
-    render(<Training />)
+    render(<TrainingPage />)
     // wait for user name to populate after mocked auth
     await act(async () => screen.findByRole('textbox', { name: 'Employee Name' }))
 

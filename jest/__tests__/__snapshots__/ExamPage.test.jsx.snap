@@ -17,6 +17,7 @@ Array [
       className="navbar-nav"
     >
       <li
+        aria-label="Home Link"
         className="nav-item"
       >
         <a
@@ -29,6 +30,7 @@ Array [
         </a>
       </li>
       <li
+        aria-label="Training Link"
         className="nav-item"
       >
         <a
@@ -41,6 +43,7 @@ Array [
         </a>
       </li>
       <li
+        aria-label="Exam Link"
         className="nav-item active"
       >
         <a

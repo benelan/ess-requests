@@ -15,17 +15,17 @@ const TopNav = ({ page }) => (
     style={{ background: 'white' }}
   >
     <ul className="navbar-nav">
-      <li className={page === 'home' ? 'nav-item active' : 'nav-item'}>
+      <li aria-label="Home Link" className={page === 'home' ? 'nav-item active' : 'nav-item'}>
         <Link href={`${process.env.basePath}/`}>
           <a className="nav-link">Home</a>
         </Link>
       </li>
-      <li className={page === 'training' ? 'nav-item active' : 'nav-item'}>
+      <li aria-label="Training Link" className={page === 'training' ? 'nav-item active' : 'nav-item'}>
         <Link href={`${process.env.basePath}/training`}>
           <a className="nav-link">Training</a>
         </Link>
       </li>
-      <li className={page === 'exam' ? 'nav-item active' : 'nav-item'}>
+      <li aria-label="Exam Link" className={page === 'exam' ? 'nav-item active' : 'nav-item'}>
         <Link href={`${process.env.basePath}/exam`}>
           <a className="nav-link">Exam</a>
         </Link>

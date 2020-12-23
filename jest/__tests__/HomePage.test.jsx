@@ -18,9 +18,14 @@ describe('<Home /> renders', () => {
   it('title', () => {
     expect(screen.getAllByText(/ESS Requests/)).toHaveLength(2)
   })
+
   it('instructions', () => {
     expect(
       screen.getByText(/Which request form do you need\?/),
     ).toBeInTheDocument()
+  })
+
+  it('navbar with home active', () => {
+    expect(screen.getByRole('listitem', { name: 'Home Link' })).toHaveClass('active')
   })
 })

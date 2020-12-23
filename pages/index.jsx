@@ -5,10 +5,10 @@ import FormSelector from '../components/FormSelector'
 /**
  * Home page contains a landing page to select a form
  * @author Ben Elan
- * @name Home
+ * @name HomePage
  * @class
  */
-const Home = () => (
+const HomePage = () => (
   <>
     <title>ESS Requests</title>
     <TopNav page="home" />
@@ -16,4 +16,4 @@ const Home = () => (
   </>
 )
 
-export default Home
+export default HomePage

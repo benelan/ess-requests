@@ -17,6 +17,12 @@ describe('<Exam /> renders', () => {
     render(<ExamPage />)
     expect(await screen.findByRole('textbox', { name: 'Employee Name' })).toHaveValue('Test User')
   })
+
+  it('navbar with exam active', async () => {
+    render(<ExamPage />)
+    await act(async () => screen.findByRole('textbox', { name: 'Employee Name' }))
+    expect(screen.getByRole('listitem', { name: 'Exam Link' })).toHaveClass('active')
+  })
 })
 
 describe('<Exam /> events', () => {

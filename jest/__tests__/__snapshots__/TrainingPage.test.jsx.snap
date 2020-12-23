@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Training /> snapshot matches component 1`] = `
+exports[`<TrainingPage /> snapshot matches component 1`] = `
 Array [
   <title>
     Training Request
@@ -17,6 +17,7 @@ Array [
       className="navbar-nav"
     >
       <li
+        aria-label="Home Link"
         className="nav-item"
       >
         <a
@@ -29,6 +30,7 @@ Array [
         </a>
       </li>
       <li
+        aria-label="Training Link"
         className="nav-item active"
       >
         <a
@@ -41,6 +43,7 @@ Array [
         </a>
       </li>
       <li
+        aria-label="Exam Link"
         className="nav-item"
       >
         <a
