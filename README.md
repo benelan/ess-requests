@@ -1,6 +1,6 @@
 # ESS Requests
 
-This application streamlines the process of creating training and exam requests for Esri Support Services employees. The form extrapolates some of the required information such as who to send it to and which charge code and cost center to use. Once it is submitted it generates an email and opens it in the default mail client. It also adds the request to a csv log so that the administrator has easy access for reports.
+This application streamlines the process of creating training and exam requests for Esri Support Services employees. The form extrapolates some of the required information such as who to send it to and which charge code and cost center to use. Once it is submitted it generates an email and opens it in the default mail client. It also adds the request to a CSV log so that the administrator has easy access for reports.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
@@ -33,7 +33,11 @@ npm run prod
 
 ## Developer Notes
 
-The production server hosts this application on the `requests` sub directory. In order to deploy to that server you will need to change the `assetPrefix` and `basePath` settings in `next.config.js` to `'/requests/'`. I am also not including the prod server certs in this repo so you will need to generate those as well (ask your GL). Make sure to switch the certs used in `server.js` before deploying.
+Since I used Next, the client routes are taken care of in the `/pages` directory, and the api routes are in `/pages/api`. The React components are in the `/components` directory, and there are a few modules with exported functions in `/utils`. The CSVs are saved to `/data`. If there is no CSV it will create one. Otherwise, if the headers match, it will append the new request information to the existing CSV. For more specific information check out `/docs/index.html`.
+
+### Production Deployment
+
+The production server hosts this application on the `requests` sub directory. In order to deploy to that server you will need to change the `assetPrefix` and `basePath` settings in `next.config.js` to `'/requests/'`. I am also not including the prod server certs in this repo so you will need to generate those as well. Make sure to switch the certs used in `server.js` before deploying. **Do not use the included unsigned certs for anything other than local development.**
 
 ### Tooling
 
@@ -61,17 +65,12 @@ I also added some Jest test suites that you can run to make sure everything is s
 npm run test
 ```
 
-### Structure
-
-Since I used Next, the client routes are taken care of in the `/pages` directory, and the api routes are in `/pages/api`. You won't find much code in any of the pages files. The React components are in the `/components` directory, and there are a few modules with exported functions in `/utils`. For more specific information check out `/docs`.
-
 ## Built With
 
-- [NextJS](https://nextjs.org//) - SSR Framework
-- [React](https://reactjs.org/) - Client Library
-- [Node](https://nodejs.org/en/) - Backend Language
+- [NextJS](https://nextjs.org/) - SSR Framework
 - [Bootstrap](https://getbootstrap.com/) - UI Kit
 - [Jest](https://jestjs.io/) - Test Framework
 - [Testing Library](https://testing-library.com/) React Test Utilities
 - [ESLint](https://eslint.org/) - Code Linting
 - [JSDoc](https://jsdoc.app/) - Documentation Generator
+-  ... and more (see `package.json`)

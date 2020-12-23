@@ -27,13 +27,11 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * This module handles form submission workflows. The default export determines if the data is valid, which type of form to submit, and then generates the email and sends a POST to the API to log the data to CSV.
+ * This module handles form submission workflows. The exported named function submitForm determines if the data is valid, which type of form to submit, and then generates the email and sends a POST to the API to log the data to CSV.
  * @module submitForm
  * */
-import getConfig from 'next/config'
-import { examSchemaIsValid, trainingSchemaIsValid } from './validateData'
 
-const { publicRuntimeConfig } = getConfig()
+import { examSchemaIsValid, trainingSchemaIsValid } from './validateData'
 
 /**
    * Generates and returns an email with the training request data
@@ -98,35 +96,14 @@ Justification: ${formData.justification}`
    * @func
    * @param {object} formData - the form data and costCenter and chargeCode
  */
-const logTrainingRequest = (formData) => {
-  try {
-    const outputData = {
-      'Employee Name': formData.nameEmployee,
-      'Employee Email': formData.emailEmployee,
-      'Employee Number': formData.numberEmployee,
-      'Employee Location': formData.locationEmployee,
-      'Cost Center': formData.costCenter,
-      'Charge Code': formData.chargeCode,
-      'Course Name': formData.nameCourse,
-      'Exam Cost': formData.cost,
-      'Exam Vendor': formData.vendor,
-      'Start Date': formData.startDate,
-      'End Date': formData.endDate,
-      Comments: formData.comments,
-      Justification: formData.justification,
-    }
-
-    fetch(`${publicRuntimeConfig.basePath}/api/logTrainingRequest`, {
-      method: 'post',
-      body: JSON.stringify(outputData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.message)
-      })
-  } catch (e) {
-    console.error(e)
-  }
+const apiTrainingPOST = (formData) => {
+  fetch(`${process.env.basePath}/api/logTrainingRequest`, {
+    method: 'post',
+    body: JSON.stringify(formData),
+  })
+    .then((response) => response.json())
+    .then((data) => console.log(data.message))
+    .catch((e) => console.error(e))
 }
 
 /**
@@ -134,33 +111,14 @@ const logTrainingRequest = (formData) => {
    * @func
    * @param {object} formData - the form data and costCenter and chargeCode
  */
-const logExamRequest = (formData) => {
-  try {
-    const outputData = {
-      'Employee Name': formData.nameEmployee,
-      'Employee Email': formData.emailEmployee,
-      'Employee Number': formData.numberEmployee,
-      'Employee Location': formData.locationEmployee,
-      'Cost Center': formData.costCenter,
-      'Charge Code': formData.chargeCode,
-      'Exam Name': formData.nameExam,
-      'Exam Cost': formData.cost,
-      'Exam Testing Location': formData.locationExam,
-      'Exam Vendor': formData.vendor,
-      Justification: formData.justification,
-    }
-
-    fetch(`${publicRuntimeConfig.basePath}/api/logExamRequest`, {
-      method: 'post',
-      body: JSON.stringify(outputData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.message)
-      })
-  } catch (e) {
-    console.error(e)
-  }
+const apiExamPOST = (formData) => {
+  fetch(`${process.env.basePath}/api/logExamRequest`, {
+    method: 'post',
+    body: JSON.stringify(formData),
+  })
+    .then((response) => response.json())
+    .then((data) => console.log(data.message))
+    .catch((e) => console.error(e))
 }
 
 /**
@@ -170,14 +128,15 @@ const logExamRequest = (formData) => {
      * @param {string} inputData - the form data
      * @return {string} mailto string
    */
-const submitForm = (formType, inputData) => {
+// eslint-disable-next-line import/prefer-default-export
+export const submitForm = (formType, inputData) => {
   try {
-    if (formType === 'training' &amp;&amp; trainingSchemaIsValid(inputData).valid) {
-      logTrainingRequest(inputData)
+    if (formType === 'training' &amp;&amp; trainingSchemaIsValid(inputData)) {
+      apiTrainingPOST(inputData)
       return generateTrainingEmail(inputData)
     }
-    if (formType === 'exam' &amp;&amp; examSchemaIsValid(inputData).valid) {
-      logExamRequest(inputData)
+    if (formType === 'exam' &amp;&amp; examSchemaIsValid(inputData)) {
+      apiExamPOST(inputData)
       return generateExamEmail(inputData)
     }
     console.error('invalid data schema')
@@ -187,8 +146,6 @@ const submitForm = (formType, inputData) => {
     return null
   }
 }
-
-export default submitForm
 </code></pre>
         </article>
     </section>
@@ -199,13 +156,13 @@ export default submitForm
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-authenticateUser.html">authenticateUser</a></li><li><a href="module-getValue.html">getValue</a></li><li><a href="module-logCSV.html">logCSV</a></li><li><a href="module-submitForm.html">submitForm</a></li><li><a href="module-validateData.html">validateData</a></li></ul><h3>Classes</h3><ul><li><a href="Exam.html">Exam</a></li><li><a href="ExamForm.html">ExamForm</a></li><li><a href="FormSelect.html">FormSelect</a></li><li><a href="FormWrapper.html">FormWrapper</a></li><li><a href="Home.html">Home</a></li><li><a href="TopNav.html">TopNav</a></li><li><a href="Training.html">Training</a></li><li><a href="TrainingForm.html">TrainingForm</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-authenticateUser.html">authenticateUser</a></li><li><a href="module-getValue.html">getValue</a></li><li><a href="module-logCSV.html">logCSV</a></li><li><a href="module-submitForm.html">submitForm</a></li><li><a href="module-validateData.html">validateData</a></li></ul><h3>Classes</h3><ul><li><a href="ExamForm.html">ExamForm</a></li><li><a href="ExamPage.html">ExamPage</a></li><li><a href="FormSelect.html">FormSelect</a></li><li><a href="FormWrapper.html">FormWrapper</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="TopNav.html">TopNav</a></li><li><a href="TrainingForm.html">TrainingForm</a></li><li><a href="TrainingPage.html">TrainingPage</a></li></ul><h3>Global</h3><ul><li><a href="global.html#logExamRequest">logExamRequest</a></li><li><a href="global.html#logTrainingRequest">logTrainingRequest</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Dec 22 2020 11:34:09 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Wed Dec 23 2020 14:00:49 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

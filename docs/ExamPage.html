@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: utils/getValue.js</title>
+    <title>JSDoc: Class: ExamPage</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,82 +17,137 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: utils/getValue.js</h1>
+    <h1 class="page-title">Class: ExamPage</h1>
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Named function exports that return hardcoded values
- * @module getValue
- * */
+        <h2><span class="attribs"><span class="type-signature"></span></span>ExamPage<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+    
+</header>
 
-/**
- * The location of ESS offices
- * @func
- * @return {array} ESS office locations
- */
-export const getOfficeLocations = () => ['Redlands', 'Charlotte', 'Washington DC', 'St Louis']
+<article>
+    <div class="container-overview">
+    
+        
 
-/**
- * The email addresses for requests by unit
- * @func
- * @return {object} employee units
- */
-export const getUnits = () => ({
-  Online: 'Supt-ArcGIS-Unit-Mgmt@esri.com',
-  Enterprise: 'Supt-Enterprise-Unit-Mgmt@esri.com',
-  Desktop: 'Supt-Desktop-Unit-Mgmt@esri.com',
-  'DaDP Product': 'Supt-DaDP-Unit-Mgmt@esri.co',
-  NORUS: 'Supt-NORUS-Unit-Mgmt@esri.com',
-  TAMS: 'SWhittington@esri.com',
-  Readiness: 'Christian_Wells@esri.com',
-})
+    
 
-/**
- * Determines cost center by employee unit and location
- * @func
- * @param {string} unit
- * @param {string} location
- * @return {string} cost center
- */
-export const getCostCenter = (unit, location) => {
-  if (unit === 'Supt-NORUS-Unit-Mgmt@esri.com') {
-    return '4255'
-  }
-  switch (location) {
-  case 'Redlands':
-    return '4252'
-  case 'Charlotte':
-    return '4253'
-  case 'St Louis':
-    return '4252'
-  default:
-    return '4255'
-  }
-}
+    
+    <h4 class="name" id="ExamPage"><span class="type-signature"></span>new ExamPage<span class="signature">()</span><span class="type-signature"></span></h4>
+    
 
-/**
- * Determines charge code by employee unit
- * @func
- * @param {string} unit
- * @return {string} charge code
- */
-export const getChargeCode = (unit) => {
-  switch (unit) {
-  case 'Supt-NORUS-Unit-Mgmt@esri.com':
-    return 'TE0702'
-  default:
-    return 'TE0352'
-  }
-}
-</code></pre>
-        </article>
-    </section>
+    
+
+
+
+<div class="description">
+    <p>The exam request page. The user will be challenged to sign in with ArcGIS OAuth via the FormWrapper. They can then fill out the ExamForm. When submitting the FormWrapper will validate the data and submit if all is good.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pages_exam.jsx.html">pages/exam.jsx</a>, <a href="pages_exam.jsx.html#line5">line 5</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
