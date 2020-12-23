@@ -8,7 +8,7 @@ import logCSV from '../../utils/logCSV'
    * @param {object} req - request
    * @param {object} res - response
    */
-export default async (req, res) => {
+const logExamRequest = async (req, res) => {
   // get path to csv
   const filePath = path.resolve('./data', 'exam_logs.csv')
 
@@ -22,3 +22,5 @@ export default async (req, res) => {
     return res.json({ message: e.message })
   }
 }
+
+export default logExamRequest

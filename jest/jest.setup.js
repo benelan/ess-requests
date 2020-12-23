@@ -1,13 +1,12 @@
 import '@testing-library/jest-dom/extend-expect'
-import { esriLogin } from './utils/authenticateUser'
-import submitForm from './utils/submitForm'
+import { esriLogin } from '../utils/authenticateUser'
 
 // mock browser window functions
 window.confirm = jest.fn(() => true) // always confirm
 window.open = jest.fn(() => false) // never open
 
 // mock the OAuth login for tests
-jest.mock('./utils/authenticateUser', () => ({
+jest.mock('../utils/authenticateUser', () => ({
   esriLogin: jest.fn(),
 }))
 esriLogin.mockImplementation(() => Promise.resolve({
@@ -15,6 +14,5 @@ esriLogin.mockImplementation(() => Promise.resolve({
   email: 'test@email.com',
 }))
 
-// Mock submit function
-jest.mock('./utils/submitForm')
-submitForm.mockImplementation(() => 'form submitted')
+// set the base path
+process.env.basePath = ''
