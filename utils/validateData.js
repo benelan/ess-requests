@@ -2,7 +2,7 @@
  * Schema validators for training and exam data
  * @module validateData
  * */
-const { Validator } = require('jsonschema')
+import { Validator } from 'jsonschema'
 
 /**
  * Takes an exam data object as an input and validates it's schema
@@ -28,7 +28,7 @@ export const examSchemaIsValid = (instance) => {
       justification: { type: 'string', minLength: 1, required: true },
     },
   }
-  return v.validate(instance, schema)
+  return v.validate(instance, schema).valid
 }
 
 /**
@@ -57,8 +57,7 @@ export const trainingSchemaIsValid = (instance) => {
       comments: { type: 'string', minLength: 0, required: false },
     },
   }
-
-  return v.validate(instance, schema)
+  return v.validate(instance, schema).valid
 }
 
 /**
@@ -66,4 +65,6 @@ export const trainingSchemaIsValid = (instance) => {
  * @param {object} instance - data to validate
  * @return {boolean} does the data have a proper schema
  */
-export const anySchemaIsValid = (instance) => (examSchemaIsValid(instance) || trainingSchemaIsValid(instance))
+export const anySchemaIsValid = (instance) => (
+  examSchemaIsValid(instance).valid || trainingSchemaIsValid(instance).valid
+)

@@ -1,7 +1,8 @@
 import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import renderer from 'react-test-renderer'
-import Training from '../pages/training'
+import Training from '../../pages/training'
+import * as submit from '../../utils/submitForm'
 
 const { act } = renderer
 
@@ -29,6 +30,9 @@ describe('<Training /> events', () => {
     expect(
       screen.getByRole('form', { name: /Training Request Form/ }),
     ).toHaveClass('was-validated')
+
+    expect(window.confirm).not.toBeCalled()
+    expect(window.fetch).not.toBeCalled()
   })
 
   it('submits filled in form', async () => {
@@ -70,9 +74,14 @@ describe('<Training /> events', () => {
       target: { value: '2020-12-22' },
     })
 
+    // spy on submit function
+    const submitMock = jest.spyOn(submit, 'submitForm')
     // submit the form
     fireEvent.click(screen.getByRole('button', { name: 'Submit' }))
 
-    expect(window.confirm).toBeCalled()
+    // form submission succeeds when all inputs are filled out
+    expect(window.confirm).toReturn()
+    expect(window.fetch).toReturn()
+    expect(submitMock.mock.results[0].value).toMatch(/mailto/)
   })
 })

@@ -1,5 +1,5 @@
 /**
- * This module handles form submission workflows. The default export determines if the data is valid, which type of form to submit, and then generates the email and sends a POST to the API to log the data to CSV.
+ * This module handles form submission workflows. The exported named function submitForm determines if the data is valid, which type of form to submit, and then generates the email and sends a POST to the API to log the data to CSV.
  * @module submitForm
  * */
 
@@ -68,35 +68,14 @@ Justification: ${formData.justification}`
    * @func
    * @param {object} formData - the form data and costCenter and chargeCode
  */
-const logTrainingRequest = (formData) => {
-  try {
-    const outputData = {
-      'Employee Name': formData.nameEmployee,
-      'Employee Email': formData.emailEmployee,
-      'Employee Number': formData.numberEmployee,
-      'Employee Location': formData.locationEmployee,
-      'Cost Center': formData.costCenter,
-      'Charge Code': formData.chargeCode,
-      'Course Name': formData.nameCourse,
-      'Exam Cost': formData.cost,
-      'Exam Vendor': formData.vendor,
-      'Start Date': formData.startDate,
-      'End Date': formData.endDate,
-      Comments: formData.comments,
-      Justification: formData.justification,
-    }
-
-    fetch(`${process.env.basePath}/api/logTrainingRequest`, {
-      method: 'post',
-      body: JSON.stringify(outputData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.message)
-      })
-  } catch (e) {
-    console.error(e)
-  }
+const apiTrainingPOST = (formData) => {
+  fetch(`${process.env.basePath}/api/logTrainingRequest`, {
+    method: 'post',
+    body: JSON.stringify(formData),
+  })
+    .then((response) => response.json())
+    .then((data) => console.log(data.message))
+    .catch((e) => console.error(e))
 }
 
 /**
@@ -104,33 +83,14 @@ const logTrainingRequest = (formData) => {
    * @func
    * @param {object} formData - the form data and costCenter and chargeCode
  */
-const logExamRequest = (formData) => {
-  try {
-    const outputData = {
-      'Employee Name': formData.nameEmployee,
-      'Employee Email': formData.emailEmployee,
-      'Employee Number': formData.numberEmployee,
-      'Employee Location': formData.locationEmployee,
-      'Cost Center': formData.costCenter,
-      'Charge Code': formData.chargeCode,
-      'Exam Name': formData.nameExam,
-      'Exam Cost': formData.cost,
-      'Exam Testing Location': formData.locationExam,
-      'Exam Vendor': formData.vendor,
-      Justification: formData.justification,
-    }
-
-    fetch(`${process.env.basePath}/api/logExamRequest`, {
-      method: 'post',
-      body: JSON.stringify(outputData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.message)
-      })
-  } catch (e) {
-    console.error(e)
-  }
+const apiExamPOST = (formData) => {
+  fetch(`${process.env.basePath}/api/logExamRequest`, {
+    method: 'post',
+    body: JSON.stringify(formData),
+  })
+    .then((response) => response.json())
+    .then((data) => console.log(data.message))
+    .catch((e) => console.error(e))
 }
 
 /**
@@ -140,14 +100,15 @@ const logExamRequest = (formData) => {
      * @param {string} inputData - the form data
      * @return {string} mailto string
    */
-const submitForm = (formType, inputData) => {
+// eslint-disable-next-line import/prefer-default-export
+export const submitForm = (formType, inputData) => {
   try {
-    if (formType === 'training' && trainingSchemaIsValid(inputData).valid) {
-      logTrainingRequest(inputData)
+    if (formType === 'training' && trainingSchemaIsValid(inputData)) {
+      apiTrainingPOST(inputData)
       return generateTrainingEmail(inputData)
     }
-    if (formType === 'exam' && examSchemaIsValid(inputData).valid) {
-      logExamRequest(inputData)
+    if (formType === 'exam' && examSchemaIsValid(inputData)) {
+      apiExamPOST(inputData)
       return generateExamEmail(inputData)
     }
     console.error('invalid data schema')
@@ -157,5 +118,3 @@ const submitForm = (formType, inputData) => {
     return null
   }
 }
-
-export default submitForm

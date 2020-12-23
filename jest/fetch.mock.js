@@ -18,7 +18,7 @@ async function mockFetch(url, config) {
     return {
       ok: false,
       status: 400,
-      json: async () => ({ message: 'invalid data schema' }),
+      json: async () => ({ message: 'invalid training data schema' }),
     }
   }
   case '/api/logExamRequest': {
@@ -33,7 +33,7 @@ async function mockFetch(url, config) {
     return {
       ok: false,
       status: 400,
-      json: async () => ({ message: 'invalid data schema' }),
+      json: async () => ({ message: 'invalid exam data schema' }),
     }
   }
   default: {

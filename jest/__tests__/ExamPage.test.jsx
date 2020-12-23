@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import renderer from 'react-test-renderer'
-import ExamPage from '../pages/exam'
+import ExamPage from '../../pages/exam'
 
 const { act } = renderer
 

@@ -34,7 +34,8 @@ const dataContainsAllProperties = async (csvHeader, filePath) => {
    * @param {string} filePath - the path to the csv file
    * @return {promise}
  */
-const logCSV = async (data, filePath) => new Promise((resolve, reject) => {
+// eslint-disable-next-line import/prefer-default-export
+export const logCSV = async (data, filePath) => new Promise((resolve, reject) => {
   // convert the request data to csv format
   jsonexport([JSON.parse(data)], (exportError, csv) => {
     if (exportError) reject(exportError)
@@ -64,5 +65,3 @@ const logCSV = async (data, filePath) => new Promise((resolve, reject) => {
     })
   })
 })
-
-export default logCSV

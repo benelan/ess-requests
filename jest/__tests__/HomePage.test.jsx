@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import renderer from 'react-test-renderer'
-import HomePage from '../pages/index'
+import HomePage from '../../pages/index'
 
 describe('<Home /> snapshot', () => {
   it('matches com', () => {

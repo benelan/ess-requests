@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
-import TrainingForm from '../components/TrainingForm'
-import { getUnits, getOfficeLocations } from '../utils/getValue'
+import TrainingForm from '../../components/TrainingForm'
+import { getUnits, getOfficeLocations } from '../../utils/getValue'
 
 beforeEach(() => {
   render(
