@@ -28,7 +28,7 @@ const logExamRequest = async (req, res) => {
       'Exam Vendor': body.vendor || '',
       Justification: body.justification || '',
     }
-    console.log(inputData)
+
     const log = await logCSV(inputData, filePath)
     res.statusCode = 200
     return res.json({ message: log })
