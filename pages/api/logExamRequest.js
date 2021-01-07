@@ -13,20 +13,22 @@ const logExamRequest = async (req, res) => {
     // get path to csv
     const filePath = path.resolve('./data', 'exam_logs.csv')
 
-    const inputData = {
-      'Employee Name': req.body.nameEmployee || '',
-      'Employee Email': req.body.emailEmployee || '',
-      'Employee Number': req.body.numberEmployee || '',
-      'Employee Location': req.body.locationEmployee || '',
-      'Cost Center': req.body.costCenter || '',
-      'Charge Code': req.body.chargeCode || '',
-      'Exam Name': req.body.nameExam || '',
-      'Exam Cost': req.body.cost || '',
-      'Exam Testing Location': req.body.locationExam || '',
-      'Exam Vendor': req.body.vendor || '',
-      Justification: req.body.justification || '',
-    }
+    const body = JSON.parse(req.body)
 
+    const inputData = {
+      'Employee Name': body.nameEmployee || '',
+      'Employee Email': body.emailEmployee || '',
+      'Employee Number': body.numberEmployee || '',
+      'Employee Location': body.locationEmployee || '',
+      'Cost Center': body.costCenter || '',
+      'Charge Code': body.chargeCode || '',
+      'Exam Name': body.nameExam || '',
+      'Exam Cost': body.cost || '',
+      'Exam Testing Location': body.locationExam || '',
+      'Exam Vendor': body.vendor || '',
+      Justification: body.justification || '',
+    }
+    console.log(inputData)
     const log = await logCSV(inputData, filePath)
     res.statusCode = 200
     return res.json({ message: log })

@@ -13,21 +13,23 @@ const logTrainingRequest = async (req, res) => {
     // get path to csv
     const filePath = path.resolve('./data', 'training_logs.csv')
 
+    const body = JSON.parse(req.body)
+
     // structure schema
     const inputData = {
-      'Employee Name': req.body.nameEmployee || '',
-      'Employee Email': req.body.emailEmployee || '',
-      'Employee Number': req.body.numberEmployee || '',
-      'Employee Location': req.body.locationEmployee || '',
-      'Cost Center': req.body.costCenter || '',
-      'Charge Code': req.body.chargeCode || '',
-      'Course Name': req.body.nameCourse || '',
-      'Exam Cost': req.body.cost || '',
-      'Exam Vendor': req.body.vendor || '',
-      'Start Date': req.body.startDate || '',
-      'End Date': req.body.endDate || '',
-      Comments: req.body.comments || '',
-      Justification: req.body.justification || '',
+      'Employee Name': body.nameEmployee || '',
+      'Employee Email': body.emailEmployee || '',
+      'Employee Number': body.numberEmployee || '',
+      'Employee Location': body.locationEmployee || '',
+      'Cost Center': body.costCenter || '',
+      'Charge Code': body.chargeCode || '',
+      'Course Name': body.nameCourse || '',
+      'Exam Cost': body.cost || '',
+      'Exam Vendor': body.vendor || '',
+      'Start Date': body.startDate || '',
+      'End Date': body.endDate || '',
+      Comments: body.comments || '',
+      Justification: body.justification || '',
     }
 
     const log = await logCSV(inputData, filePath)

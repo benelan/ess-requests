@@ -37,7 +37,7 @@ const dataContainsAllProperties = async (csvHeader, filePath) => {
 // eslint-disable-next-line import/prefer-default-export
 export const logCSV = async (data, filePath) => new Promise((resolve, reject) => {
   // convert the request data to csv format
-  jsonexport([JSON.parse(data)], (exportError, csv) => {
+  jsonexport(data, (exportError, csv) => {
     if (exportError) reject(exportError)
 
     // check if there is a csv file
@@ -49,18 +49,20 @@ export const logCSV = async (data, filePath) => new Promise((resolve, reject) =>
       } else {
         // split header from data
         const noHeadersCSV = `${csv.split('\n')[1]}\r\n`
-        const headerCSV = `${csv.split('\n').slice(0, 1)}`
+        // const headerCSV = `${csv.split('\n').slice(0, 1)}`
+
         // check if the header matches the schema of the current csv file
-        const dataMatches = dataContainsAllProperties(headerCSV, filePath)
-        // append the data if the new header matches the current schema
-        if (dataMatches) {
-          fs.appendFile(filePath, noHeadersCSV, (appendFail) => (appendFail
-            ? reject(appendFail)
-            : resolve('csv appended')))
-        } else {
-          const noMatch = new Error('New data properties do not match the csv headers')
-          reject(noMatch)
-        }
+        // then append the data if the new header matches the current schema
+        // const dataMatches = dataContainsAllProperties(headerCSV, filePath)
+        // if (dataMatches) {
+
+        fs.appendFile(filePath, noHeadersCSV, (appendFail) => (appendFail
+          ? reject(appendFail)
+          : resolve('csv appended')))
+        // } else {
+        // const noMatch = new Error('New data properties do not match the csv headers')
+        // reject(noMatch)
+        // }
       }
     })
   })
