@@ -52,12 +52,22 @@ const FormWrapper = ({ children }) => {
           `Please remember your charge code: ${chargeCode}`,
         )
         if (confirmed) {
-          const costCenter = getCostCenter(formData.unit, formData.locationEmployee)
+          const costCenter = getCostCenter(
+            formData.unit,
+            formData.locationEmployee,
+          )
           const completeData = {
-            ...formData, nameEmployee, emailEmployee, chargeCode, costCenter,
+            ...formData,
+            nameEmployee,
+            emailEmployee,
+            chargeCode,
+            costCenter,
           }
           const mailtoString = submitForm(type, completeData)
-          if (mailtoString) window.open(mailtoString)
+          if (mailtoString) {
+            window.open(mailtoString)
+            window.location.reload()
+          }
         }
       }
     })

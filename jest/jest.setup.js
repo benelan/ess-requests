@@ -5,6 +5,13 @@ import { esriLogin } from '../utils/authenticateUser'
 window.confirm = jest.fn(() => true) // always confirm
 window.open = jest.fn(() => false) // never open
 
+const { location } = window
+delete window.location
+window.location = {
+  ...location,
+  reload: jest.fn(),
+}
+
 // mock the OAuth login for tests
 jest.mock('../utils/authenticateUser', () => ({
   esriLogin: jest.fn(),
