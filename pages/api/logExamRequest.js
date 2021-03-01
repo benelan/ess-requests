@@ -1,5 +1,7 @@
 import path from 'path'
 import { logCSV } from '../../utils/logCSV'
+import { generateExamEmail } from '../../utils/submitForm'
+import { sendAutoEmail } from '../../utils/sendAutoEmail'
 
 /**
    * Takes JSON form data and logs it to CSV
@@ -14,6 +16,8 @@ const logExamRequest = async (req, res) => {
     const filePath = path.resolve('./data', 'exam_logs.csv')
 
     const body = JSON.parse(req.body)
+
+    const mail = await sendAutoEmail(generateExamEmail(body))
 
     const inputData = {
       'Employee Name': body.nameEmployee || '',
@@ -31,7 +35,7 @@ const logExamRequest = async (req, res) => {
 
     const log = await logCSV(inputData, filePath)
     res.statusCode = 200
-    return res.json({ message: log })
+    return res.json({ message: log, sent: mail })
   } catch (e) {
     console.error(e)
     res.statusCode = 500

@@ -1,5 +1,7 @@
 import path from 'path'
+import { generateTrainingEmail } from '../../utils/submitForm'
 import { logCSV } from '../../utils/logCSV'
+import { sendAutoEmail } from '../../utils/sendAutoEmail'
 
 /**
    * Takes JSON form data and logs it to CSV
@@ -14,6 +16,7 @@ const logTrainingRequest = async (req, res) => {
     const filePath = path.resolve('./data', 'training_logs.csv')
 
     const body = JSON.parse(req.body)
+    const mail = await sendAutoEmail(generateTrainingEmail(body))
 
     // structure schema
     const inputData = {
@@ -34,7 +37,7 @@ const logTrainingRequest = async (req, res) => {
 
     const log = await logCSV(inputData, filePath)
     res.statusCode = 200
-    return res.json({ message: log })
+    return res.json({ message: log, sent: mail })
   } catch (e) {
     console.error(e.message)
     res.statusCode = 500

@@ -42,7 +42,7 @@ const FormWrapper = ({ children }) => {
   const validateSubmit = (event, type, formData) => {
     const forms = document.getElementsByClassName('needs-validation')
     // Loop over them and prevent submission
-    Array.prototype.filter.call(forms, (form) => {
+    Array.prototype.filter.call(forms, async (form) => {
       event.preventDefault()
       form.classList.add('was-validated')
       if (form.checkValidity()) {
@@ -63,7 +63,7 @@ const FormWrapper = ({ children }) => {
             chargeCode,
             costCenter,
           }
-          const mailtoString = submitForm(type, completeData)
+          const mailtoString = await submitForm(type, completeData)
           if (mailtoString) {
             window.open(mailtoString)
             window.location.reload()

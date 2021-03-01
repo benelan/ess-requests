@@ -74,6 +74,7 @@ describe('<Exam /> events', () => {
     // form submission succeeds when all inputs are filled out
     expect(window.confirm).toReturn()
     expect(window.fetch).toReturn()
-    expect(submitMock.mock.results[0].value).toMatch(/mailto/)
+    // mailto string is only created on error when the email doesn't auto send
+    expect(submitMock).toReturn()
   })
 })

@@ -1,6 +1,6 @@
 {
-  "name": "ess-training-request",
-  "version": "0.1.0",
+  "name": "ess-request",
+  "version": "0.2.0",
   "private": true,
   "author": "Ben Elan",
   "babel": {

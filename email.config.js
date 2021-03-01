@@ -1,11 +1,13 @@
-const emailSettings = {
-  host: 'smtp.ethereal.email',
-  port: 587,
-  secure: false,
+export const emailSettings = {
+  host: 'smtp.PROVIDER',
+  port: 465,
+  secure: true,
+  secureConnection: false,
+  ignoreTLS: true,
   auth: {
-    user: '',
-    pass: '',
+    user: 'EMAIL',
+    pass: 'PASSWORD',
   },
 }
 
-export default emailSettings
+export const from = '"ESS Apps" <essapps@PROVIDER>'
