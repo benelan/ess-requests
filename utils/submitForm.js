@@ -120,7 +120,7 @@ export const submitForm = async (formType, inputData) => {
         return `mailto:${inputData.unit}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`
       }
       // if the email sent from the server no need to return mailto string
-      return null
+      return 'sent'
     }
     // same steps as above, only for exam forms
     if (formType === 'exam' && examSchemaIsValid(inputData)) {
@@ -130,13 +130,13 @@ export const submitForm = async (formType, inputData) => {
 
         return `mailto:${inputData.unit}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`
       }
-      return null
+      return 'sent'
     }
     // if there were issues with the schemas
     console.error('invalid data schema')
-    return null
+    return 'error'
   } catch (e) {
     console.error(e)
-    return null
+    return 'error'
   }
 }

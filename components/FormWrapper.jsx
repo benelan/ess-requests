@@ -1,6 +1,9 @@
 /* eslint-disable no-alert */
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import {
+  Button, Modal, ModalBody, ModalFooter,
+} from 'reactstrap'
 import { esriLogin } from '../utils/authenticateUser'
 import { submitForm } from '../utils/submitForm'
 import {
@@ -18,6 +21,11 @@ import {
 const FormWrapper = ({ children }) => {
   const [nameEmployee, setName] = useState('')
   const [emailEmployee, setEmail] = useState('')
+
+  const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState('')
+  const [modal, setModal] = useState(false)
+  const toggleModal = () => setModal(!modal)
 
   useEffect(() => {
     (async () => {
@@ -40,6 +48,7 @@ const FormWrapper = ({ children }) => {
    * @param {string} formData - the form data
    */
   const validateSubmit = (event, type, formData) => {
+    setLoading(true)
     const forms = document.getElementsByClassName('needs-validation')
     // Loop over them and prevent submission
     Array.prototype.filter.call(forms, async (form) => {
@@ -47,38 +56,76 @@ const FormWrapper = ({ children }) => {
       form.classList.add('was-validated')
       if (form.checkValidity()) {
         const chargeCode = getChargeCode(formData.unit)
-        // eslint-disable-next-line no-restricted-globals
-        const confirmed = confirm(
-          `Please remember your charge code: ${chargeCode}`,
+        const costCenter = getCostCenter(
+          formData.unit,
+          formData.locationEmployee,
         )
-        if (confirmed) {
-          const costCenter = getCostCenter(
-            formData.unit,
-            formData.locationEmployee,
-          )
-          const completeData = {
-            ...formData,
-            nameEmployee,
-            emailEmployee,
-            chargeCode,
-            costCenter,
-          }
-          const mailtoString = await submitForm(type, completeData)
-          if (mailtoString) {
-            window.open(mailtoString)
-            window.location.reload()
-          }
+        const completeData = {
+          ...formData,
+          nameEmployee,
+          emailEmployee,
+          chargeCode,
+          costCenter,
         }
+        const mailtoString = await submitForm(type, completeData)
+        let body
+        if (mailtoString === 'error') {
+          body = (
+            <ModalBody>
+              There was an error submitting the request, please try again.
+            </ModalBody>
+          )
+        } else if (mailtoString === 'sent') {
+          body = (
+            <ModalBody>
+              Request sent. Please remember your charge code:
+              {' '}
+              {chargeCode}
+            </ModalBody>
+          )
+        } else {
+          window.open(mailtoString)
+          body = (
+            <ModalBody>
+              There was an issue sending the request automatically. An email template should popup to send it manually. If the popup was blocked,
+              {' '}
+              <a style={{ color: 'blue' }} href={mailtoString}>click here</a>
+              .
+            </ModalBody>
+          )
+        }
+        setMessage(body)
+        toggleModal()
       }
+      setLoading(false)
     })
   }
 
-  return React.cloneElement(children, {
-    nameEmployee,
-    validateSubmit,
-    units: getUnits(),
-    offices: getOfficeLocations(),
-  })
+  return (
+    <>
+      {loading ? (
+        <>
+          <div className="spinner-border text-primary center" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        </>
+      ) : (
+        React.cloneElement(children, {
+          nameEmployee,
+          validateSubmit,
+          units: getUnits(),
+          offices: getOfficeLocations(),
+        })
+      )}
+
+      <Modal isOpen={modal} toggle={toggleModal} centered>
+        {message}
+        <ModalFooter>
+          <Button color="primary" onClick={toggleModal}>Okay</Button>
+        </ModalFooter>
+      </Modal>
+    </>
+  )
 }
 
 FormWrapper.propTypes = {
