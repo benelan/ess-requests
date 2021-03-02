@@ -29,6 +29,9 @@
             <pre class="prettyprint source linenums"><code>/* eslint-disable no-alert */
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import {
+  Button, Modal, ModalBody, ModalFooter,
+} from 'reactstrap'
 import { esriLogin } from '../utils/authenticateUser'
 import { submitForm } from '../utils/submitForm'
 import {
@@ -47,6 +50,12 @@ const FormWrapper = ({ children }) => {
   const [nameEmployee, setName] = useState('')
   const [emailEmployee, setEmail] = useState('')
 
+  const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState('')
+  const [modal, setModal] = useState(false)
+  const toggleModal = () => setModal(!modal)
+
+  /* Login with ArcGIS OAuth */
   useEffect(() => {
     (async () => {
       try {
@@ -60,53 +69,98 @@ const FormWrapper = ({ children }) => {
   }, [])
 
   /**
-   * Validates that all required form fields are filled out
-   * If they are, the form is submitted
+   * Validates that all required form fields are filled out. If they are, the form is submitted.
+   * If there is an issue sending the email, a template is generated on the client side
    * @func
    * @param {object} event - submit event
    * @param {string} type - the type of form being submitted
    * @param {string} formData - the form data
    */
   const validateSubmit = (event, type, formData) => {
+    // spinner on submit
+    setLoading(true)
     const forms = document.getElementsByClassName('needs-validation')
     // Loop over them and prevent submission
     Array.prototype.filter.call(forms, async (form) => {
       event.preventDefault()
       form.classList.add('was-validated')
-      if (form.checkValidity()) {
+      if (form.checkValidity()) { // if the inputs are valid
+        // get charge code and cost center values
         const chargeCode = getChargeCode(formData.unit)
-        // eslint-disable-next-line no-restricted-globals
-        const confirmed = confirm(
-          `Please remember your charge code: ${chargeCode}`,
+        const costCenter = getCostCenter(
+          formData.unit,
+          formData.locationEmployee,
         )
-        if (confirmed) {
-          const costCenter = getCostCenter(
-            formData.unit,
-            formData.locationEmployee,
-          )
-          const completeData = {
-            ...formData,
-            nameEmployee,
-            emailEmployee,
-            chargeCode,
-            costCenter,
-          }
-          const mailtoString = await submitForm(type, completeData)
-          if (mailtoString) {
-            window.open(mailtoString)
-            window.location.reload()
-          }
+        const completeData = {
+          ...formData,
+          nameEmployee,
+          emailEmployee,
+          chargeCode,
+          costCenter,
         }
+        // attempt to log request to csv and auto send email
+        const mailtoString = await submitForm(type, completeData)
+        let body
+        // if there is an error, try again
+        if (mailtoString === 'error') {
+          body = (
+            &lt;ModalBody>
+              There was an error submitting the request, please try again.
+            &lt;/ModalBody>
+          )
+          // if the email is sent, show charge code
+        } else if (mailtoString === 'sent') {
+          body = (
+            &lt;ModalBody>
+              Request sent. Please remember your charge code:
+              {' '}
+              {chargeCode}
+            &lt;/ModalBody>
+          )
+        // if the email doesn't send automatically do it manually
+        } else {
+          window.open(mailtoString)
+          body = (
+            &lt;ModalBody>
+              There was an issue sending the request automatically. An email template should popup to send it manually. If the popup was blocked,
+              {' '}
+              &lt;a style={{ color: 'blue' }} href={mailtoString}>click here&lt;/a>
+              .
+            &lt;/ModalBody>
+          )
+        }
+        setMessage(body)
+        toggleModal()
       }
+      setLoading(false)
     })
   }
 
-  return React.cloneElement(children, {
-    nameEmployee,
-    validateSubmit,
-    units: getUnits(),
-    offices: getOfficeLocations(),
-  })
+  return (
+    &lt;>
+      {loading ? (
+        &lt;>
+          &lt;div className="spinner-border text-primary center" role="status">
+            &lt;span className="sr-only">Loading...&lt;/span>
+          &lt;/div>
+        &lt;/>
+      ) : (
+        React.cloneElement(children, {
+          nameEmployee,
+          validateSubmit,
+          units: getUnits(),
+          offices: getOfficeLocations(),
+        })
+      )}
+
+      &lt;Modal isOpen={modal} toggle={toggleModal} centered>
+        {message}
+        &lt;ModalFooter>
+          &lt;Button color="primary" onClick={toggleModal}>Okay&lt;/Button>
+        &lt;/ModalFooter>
+      &lt;/Modal>
+    &lt;/>
+  )
 }
 
 FormWrapper.propTypes = {
@@ -125,13 +179,13 @@ export default FormWrapper
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-authenticateUser.html">authenticateUser</a></li><li><a href="module-getValue.html">getValue</a></li><li><a href="module-logCSV.html">logCSV</a></li><li><a href="module-submitForm.html">submitForm</a></li><li><a href="module-validateData.html">validateData</a></li></ul><h3>Classes</h3><ul><li><a href="ExamForm.html">ExamForm</a></li><li><a href="ExamPage.html">ExamPage</a></li><li><a href="FormSelect.html">FormSelect</a></li><li><a href="FormWrapper.html">FormWrapper</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="TopNav.html">TopNav</a></li><li><a href="TrainingForm.html">TrainingForm</a></li><li><a href="TrainingPage.html">TrainingPage</a></li></ul><h3>Global</h3><ul><li><a href="global.html#logExamRequest">logExamRequest</a></li><li><a href="global.html#logTrainingRequest">logTrainingRequest</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-authenticateUser.html">authenticateUser</a></li><li><a href="module-getValue.html">getValue</a></li><li><a href="module-logCSV.html">logCSV</a></li><li><a href="module-submitForm.html">submitForm</a></li><li><a href="module-validateData.html">validateData</a></li></ul><h3>Classes</h3><ul><li><a href="ExamForm.html">ExamForm</a></li><li><a href="ExamPage.html">ExamPage</a></li><li><a href="FormSelect.html">FormSelect</a></li><li><a href="FormWrapper.html">FormWrapper</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="TopNav.html">TopNav</a></li><li><a href="TrainingForm.html">TrainingForm</a></li><li><a href="TrainingPage.html">TrainingPage</a></li></ul><h3>Global</h3><ul><li><a href="global.html#sendAutoEmail">sendAutoEmail</a></li><li><a href="global.html#submitExamRequest">submitExamRequest</a></li><li><a href="global.html#submitTrainingRequest">submitTrainingRequest</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Mar 01 2021 14:14:28 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Mar 02 2021 15:49:52 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

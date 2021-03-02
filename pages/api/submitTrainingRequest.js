@@ -1,24 +1,24 @@
 import path from 'path'
+import { generateTrainingEmail } from '../../utils/submitForm'
 import { logCSV } from '../../utils/logCSV'
-import { generateExamEmail } from '../../utils/submitForm'
 import { sendAutoEmail } from '../../utils/sendAutoEmail'
 
 /**
-   * Takes JSON form data and logs it to CSV
-   * @route POST /api/logExam
+   * Takes JSON form data and sends an email/logs to csv
+   * @route POST /api/submitTrainingRequest
    * @access public
    * @param {object} req - request
    * @param {object} res - response
    */
-const logExamRequest = async (req, res) => {
+const submitTrainingRequest = async (req, res) => {
   try {
     // get path to csv
-    const filePath = path.resolve('./data', 'exam_logs.csv')
-
+    const filePath = path.resolve('./data', 'training_logs.csv')
     const body = JSON.parse(req.body)
+    // try to automatically send an email
+    const mail = await sendAutoEmail(generateTrainingEmail(body))
 
-    const mail = await sendAutoEmail(generateExamEmail(body))
-
+    // format data for csv
     const inputData = {
       'Employee Name': body.nameEmployee || '',
       'Employee Email': body.emailEmployee || '',
@@ -26,21 +26,25 @@ const logExamRequest = async (req, res) => {
       'Employee Location': body.locationEmployee || '',
       'Cost Center': body.costCenter || '',
       'Charge Code': body.chargeCode || '',
-      'Exam Name': body.nameExam || '',
+      'Course Name': body.nameCourse || '',
       'Exam Cost': body.cost || '',
-      'Exam Testing Location': body.locationExam || '',
       'Exam Vendor': body.vendor || '',
+      'Start Date': body.startDate || '',
+      'End Date': body.endDate || '',
+      Comments: body.comments || '',
       Justification: body.justification || '',
     }
 
+    // log to csv
     const log = await logCSV(inputData, filePath)
     res.statusCode = 200
+    // send response containing info about email/log
     return res.json({ message: log, sent: mail })
   } catch (e) {
-    console.error(e)
+    console.error(e.message)
     res.statusCode = 500
-    return res.json({ message: e.message })
+    return res.json({ message: e.message, sent: false })
   }
 }
 
-export default logExamRequest
+export default submitTrainingRequest

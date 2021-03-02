@@ -1,12 +1,14 @@
 # ESS Requests
 
-This application streamlines the process of creating training and exam requests for Esri Support Services employees. The form extrapolates some of the required information such as who to send it to and which charge code and cost center to use. Once it is submitted it generates an email and opens it in the default mail client. It also adds the request to a CSV log so that the administrator has easy access for reports.
+This application streamlines the process of creating training and exam requests for Esri Support Services employees. The form extrapolates some of the required information such as who to send it to and which charge code and cost center to use. Once it is submitted it sends an email. If the email is not sent automatically, a template will be generated and opened in the user's default email app. It also logs the request to a CSV so that the administrator has easy access for reports.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-First install the node modules:
+The ``emailSettings`` and ``from`` variables in ``email.config.js`` will need to be added. They are options for [nodemailer](https://nodemailer.com/about/).
+
+First, install the node modules:
 
 ```bash
 npm install
@@ -30,10 +32,11 @@ To start the app for production with https use:
 ```bash
 npm run prod
 ```
+Check the Product Deployment section below for configuring https.
 
 ## Developer Notes
 
-Since I used Next, the client routes are taken care of in the `/pages` directory, and the api routes are in `/pages/api`. The React components are in the `/components` directory, and there are a few modules with exported functions in `/utils`. The CSVs are saved to `/data`. If there is no CSV it will create one. Otherwise, if the headers match, it will append the new request information to the existing CSV. For more specific information check out `/docs/index.html`.
+Since I used Next, the client routes are taken care of in the `/pages` directory, and the api routes are in `/pages/api`. The React components are in the `/components` directory, and there are a few modules with exported functions in `/utils`. The CSVs are saved to `/data`. If there is no CSV it will create one. Otherwise, if the headers match, it will append the new request information to the existing CSV. For more specific information check out `/docs/index.html`. This branch uses [nodemailer](https://nodemailer.com/about/) to send the email automatically.  If the email doesn't send, a template will be provided for the user to send it themselves. The ``flow`` branch uses [Microsoft Flow](https://us.flow.microsoft.com/en-us/) which is used internally.
 
 ### Production Deployment
 

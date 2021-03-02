@@ -27,6 +27,7 @@ const FormWrapper = ({ children }) => {
   const [modal, setModal] = useState(false)
   const toggleModal = () => setModal(!modal)
 
+  /* Login with ArcGIS OAuth */
   useEffect(() => {
     (async () => {
       try {
@@ -40,21 +41,23 @@ const FormWrapper = ({ children }) => {
   }, [])
 
   /**
-   * Validates that all required form fields are filled out
-   * If they are, the form is submitted
+   * Validates that all required form fields are filled out. If they are, the form is submitted.
+   * If there is an issue sending the email, a template is generated on the client side
    * @func
    * @param {object} event - submit event
    * @param {string} type - the type of form being submitted
    * @param {string} formData - the form data
    */
   const validateSubmit = (event, type, formData) => {
+    // spinner on submit
     setLoading(true)
     const forms = document.getElementsByClassName('needs-validation')
     // Loop over them and prevent submission
     Array.prototype.filter.call(forms, async (form) => {
       event.preventDefault()
       form.classList.add('was-validated')
-      if (form.checkValidity()) {
+      if (form.checkValidity()) { // if the inputs are valid
+        // get charge code and cost center values
         const chargeCode = getChargeCode(formData.unit)
         const costCenter = getCostCenter(
           formData.unit,
@@ -67,14 +70,17 @@ const FormWrapper = ({ children }) => {
           chargeCode,
           costCenter,
         }
+        // attempt to log request to csv and auto send email
         const mailtoString = await submitForm(type, completeData)
         let body
+        // if there is an error, try again
         if (mailtoString === 'error') {
           body = (
             <ModalBody>
               There was an error submitting the request, please try again.
             </ModalBody>
           )
+          // if the email is sent, show charge code
         } else if (mailtoString === 'sent') {
           body = (
             <ModalBody>
@@ -83,6 +89,7 @@ const FormWrapper = ({ children }) => {
               {chargeCode}
             </ModalBody>
           )
+        // if the email doesn't send automatically do it manually
         } else {
           window.open(mailtoString)
           body = (

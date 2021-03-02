@@ -1,5 +1,7 @@
 import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import {
+  render, screen, fireEvent, waitFor,
+} from '@testing-library/react'
 import renderer from 'react-test-renderer'
 import ExamPage from '../../pages/exam'
 import * as submit from '../../utils/submitForm'
@@ -69,12 +71,12 @@ describe('<Exam /> events', () => {
     // spy on submit function
     const submitMock = jest.spyOn(submit, 'submitForm')
     // submit the form
-    fireEvent.click(screen.getByRole('button', { name: 'Submit' }))
-
+    act(() => {
+      fireEvent.click(screen.getByRole('button', { name: 'Submit' }))
+    })
     // form submission succeeds when all inputs are filled out
-    expect(window.confirm).toReturn()
-    expect(window.fetch).toReturn()
+    await waitFor(() => expect(window.fetch).toReturn())
     // mailto string is only created on error when the email doesn't auto send
-    expect(submitMock).toReturn()
+    await waitFor(() => expect(submitMock).toReturn())
   })
 })

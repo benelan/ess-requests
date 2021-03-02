@@ -6,7 +6,7 @@ import { examSchemaIsValid, trainingSchemaIsValid } from '../utils/validateData'
  */
 async function mockFetch(url, config) {
   switch (url) {
-  case '/api/logTrainingRequest': {
+  case '/api/submitTrainingRequest': {
     const trainingData = JSON.parse(config.body)
     if (trainingSchemaIsValid(trainingData)) {
       return {
@@ -21,7 +21,7 @@ async function mockFetch(url, config) {
       json: async () => ({ message: 'invalid training data schema' }),
     }
   }
-  case '/api/logExamRequest': {
+  case '/api/submitExamRequest': {
     const examData = JSON.parse(config.body)
     if (examSchemaIsValid(examData)) {
       return {

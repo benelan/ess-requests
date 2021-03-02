@@ -94,6 +94,72 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="sendAutoEmail"><span class="type-signature">(constant) </span>sendAutoEmail<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Automatically sends an email request</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_sendAutoEmail.js.html">utils/sendAutoEmail.js</a>, <a href="utils_sendAutoEmail.js.html#line10">line 10</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -104,7 +170,7 @@
     
 
     
-    <h4 class="name" id="logExamRequest"><span class="type-signature">(async) </span>logExamRequest<span class="signature">(req, res)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="submitExamRequest"><span class="type-signature">(async) </span>submitExamRequest<span class="signature">(req, res)</span><span class="type-signature"></span></h4>
     
 
     
@@ -112,7 +178,7 @@
 
 
 <div class="description">
-    <p>Takes JSON form data and logs it to CSV</p>
+    <p>Takes JSON form data and sends an email/logs to csv</p>
 </div>
 
 
@@ -228,7 +294,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="pages_api_logExamRequest.js.html">pages/api/logExamRequest.js</a>, <a href="pages_api_logExamRequest.js.html#line13">line 13</a>
+        <a href="pages_api_submitExamRequest.js.html">pages/api/submitExamRequest.js</a>, <a href="pages_api_submitExamRequest.js.html#line13">line 13</a>
     </li></ul></dd>
     
 
@@ -264,7 +330,7 @@
     
 
     
-    <h4 class="name" id="logTrainingRequest"><span class="type-signature">(async) </span>logTrainingRequest<span class="signature">(req, res)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="submitTrainingRequest"><span class="type-signature">(async) </span>submitTrainingRequest<span class="signature">(req, res)</span><span class="type-signature"></span></h4>
     
 
     
@@ -272,7 +338,7 @@
 
 
 <div class="description">
-    <p>Takes JSON form data and logs it to CSV</p>
+    <p>Takes JSON form data and sends an email/logs to csv</p>
 </div>
 
 
@@ -388,7 +454,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="pages_api_logTrainingRequest.js.html">pages/api/logTrainingRequest.js</a>, <a href="pages_api_logTrainingRequest.js.html#line13">line 13</a>
+        <a href="pages_api_submitTrainingRequest.js.html">pages/api/submitTrainingRequest.js</a>, <a href="pages_api_submitTrainingRequest.js.html#line13">line 13</a>
     </li></ul></dd>
     
 
@@ -434,13 +500,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-authenticateUser.html">authenticateUser</a></li><li><a href="module-getValue.html">getValue</a></li><li><a href="module-logCSV.html">logCSV</a></li><li><a href="module-submitForm.html">submitForm</a></li><li><a href="module-validateData.html">validateData</a></li></ul><h3>Classes</h3><ul><li><a href="ExamForm.html">ExamForm</a></li><li><a href="ExamPage.html">ExamPage</a></li><li><a href="FormSelect.html">FormSelect</a></li><li><a href="FormWrapper.html">FormWrapper</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="TopNav.html">TopNav</a></li><li><a href="TrainingForm.html">TrainingForm</a></li><li><a href="TrainingPage.html">TrainingPage</a></li></ul><h3>Global</h3><ul><li><a href="global.html#logExamRequest">logExamRequest</a></li><li><a href="global.html#logTrainingRequest">logTrainingRequest</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-authenticateUser.html">authenticateUser</a></li><li><a href="module-getValue.html">getValue</a></li><li><a href="module-logCSV.html">logCSV</a></li><li><a href="module-submitForm.html">submitForm</a></li><li><a href="module-validateData.html">validateData</a></li></ul><h3>Classes</h3><ul><li><a href="ExamForm.html">ExamForm</a></li><li><a href="ExamPage.html">ExamPage</a></li><li><a href="FormSelect.html">FormSelect</a></li><li><a href="FormWrapper.html">FormWrapper</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="TopNav.html">TopNav</a></li><li><a href="TrainingForm.html">TrainingForm</a></li><li><a href="TrainingPage.html">TrainingPage</a></li></ul><h3>Global</h3><ul><li><a href="global.html#sendAutoEmail">sendAutoEmail</a></li><li><a href="global.html#submitExamRequest">submitExamRequest</a></li><li><a href="global.html#submitTrainingRequest">submitTrainingRequest</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Mar 01 2021 14:14:28 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Mar 02 2021 15:49:52 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
