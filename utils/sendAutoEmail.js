@@ -1,7 +1,12 @@
+/* eslint-disable import/prefer-default-export */
 import axios from 'axios'
 import { flowUrl } from '../email.config'
 
-/* eslint-disable import/prefer-default-export */
+/**
+ * Automatically sends an email request
+ * @param {object} { subject, text, to } - the email information
+ * @return {boolean} did the email send successfully
+ */
 export const sendAutoEmail = async ({ subject, text, to }) => new Promise((resolve, reject) => {
   axios.post(
     flowUrl,

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: utils/getValue.js</title>
+    <title>JSDoc: Source: pages/api/submitTrainingRequest.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: utils/getValue.js</h1>
+    <h1 class="page-title">Source: pages/api/submitTrainingRequest.js</h1>
 
     
 
@@ -26,70 +26,56 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Named function exports that return hardcoded values
- * @module getValue
- * */
+            <pre class="prettyprint source linenums"><code>import path from 'path'
+import { generateTrainingEmail } from '../../utils/submitForm'
+import { logCSV } from '../../utils/logCSV'
+import { sendAutoEmail } from '../../utils/sendAutoEmail'
 
 /**
- * The location of ESS offices
- * @func
- * @return {array} ESS office locations
- */
-export const getOfficeLocations = () => ['Redlands', 'Charlotte', 'Washington DC', 'St Louis']
+   * Takes JSON form data and sends an email/logs to csv
+   * @route POST /api/submitTrainingRequest
+   * @access public
+   * @param {object} req - request
+   * @param {object} res - response
+   */
+const submitTrainingRequest = async (req, res) => {
+  try {
+    // get path to csv
+    const filePath = path.resolve('./data', 'training_logs.csv')
+    const body = JSON.parse(req.body)
+    // try to automatically send an email
+    const mail = await sendAutoEmail(generateTrainingEmail(body))
 
-/**
- * The email addresses for requests by unit
- * @func
- * @return {object} employee units
- */
-export const getUnits = () => ({
-  Online: 'Supt-ArcGIS-Unit-Mgmt@esri.com',
-  Enterprise: 'Supt-Enterprise-Unit-Mgmt@esri.com',
-  Desktop: 'Supt-Desktop-Unit-Mgmt@esri.com',
-  'DaDP Product': 'Supt-DaDP-Unit-Mgmt@esri.co',
-  NORUS: 'Supt-NORUS-Unit-Mgmt@esri.com',
-  TAMS: 'SWhittington@esri.com',
-  Readiness: 'Christian_Wells@esri.com',
-})
+    // format data for csv
+    const inputData = {
+      'Employee Name': body.nameEmployee || '',
+      'Employee Email': body.emailEmployee || '',
+      'Employee Number': body.numberEmployee || '',
+      'Employee Location': body.locationEmployee || '',
+      'Cost Center': body.costCenter || '',
+      'Charge Code': body.chargeCode || '',
+      'Course Name': body.nameCourse || '',
+      'Exam Cost': body.cost || '',
+      'Exam Vendor': body.vendor || '',
+      'Start Date': body.startDate || '',
+      'End Date': body.endDate || '',
+      Comments: body.comments || '',
+      Justification: body.justification || '',
+    }
 
-/**
- * Determines cost center by employee unit and location
- * @func
- * @param {string} unit
- * @param {string} location
- * @return {string} cost center
- */
-export const getCostCenter = (unit, location) => {
-  if (unit === 'Supt-NORUS-Unit-Mgmt@esri.com') {
-    return '4255'
-  }
-  switch (location) {
-  case 'Redlands':
-    return '4252'
-  case 'Charlotte':
-    return '4253'
-  case 'St Louis':
-    return '4252'
-  default:
-    return '4255'
-  }
-}
-
-/**
- * Determines charge code by employee unit
- * @func
- * @param {string} unit
- * @return {string} charge code
- */
-export const getChargeCode = (unit) => {
-  switch (unit) {
-  case 'Supt-NORUS-Unit-Mgmt@esri.com':
-    return 'TE0702'
-  default:
-    return 'TE0352'
+    // log to csv
+    const log = await logCSV(inputData, filePath)
+    res.statusCode = 200
+    // send response containing info about email/log
+    return res.json({ message: log, sent: mail })
+  } catch (e) {
+    console.error(e.message)
+    res.statusCode = 500
+    return res.json({ message: e.message, sent: false })
   }
 }
+
+export default submitTrainingRequest
 </code></pre>
         </article>
     </section>

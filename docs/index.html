@@ -44,10 +44,11 @@
 
     <section>
         <article><h1>ESS Requests</h1>
-<p>This application streamlines the process of creating training and exam requests for Esri Support Services employees. The form extrapolates some of the required information such as who to send it to and which charge code and cost center to use. Once it is submitted it generates an email and opens it in the default mail client. It also adds the request to a CSV log so that the administrator has easy access for reports.</p>
+<p>This application streamlines the process of creating training and exam requests for Esri Support Services employees. The form extrapolates some of the required information such as who to send it to and which charge code and cost center to use. Once it is submitted it sends an email. If the email is not sent automatically, a template will be generated and opened in the user's default email app. It also logs the request to a CSV so that the administrator has easy access for reports.</p>
 <p>This is a <a href="https://nextjs.org/">Next.js</a> project bootstrapped with <a href="https://github.com/vercel/next.js/tree/canary/packages/create-next-app"><code>create-next-app</code></a>.</p>
 <h2>Getting Started</h2>
-<p>First install the node modules:</p>
+<p>The <code>flowUrl</code> variable in <code>email.config.js</code> will need to be added. If you don't have access to the current Flow, <a href="https://flow.microsoft.com/fr-fr/blog/call-flow-restapi/">this blog</a> will help with creating a new one.</p>
+<p>First, install the node modules:</p>
 <pre class="prettyprint source lang-bash"><code>npm install
 </code></pre>
 <p>For development, run the development server:</p>
@@ -60,8 +61,9 @@ npm start
 <p>To start the app for production with https use:</p>
 <pre class="prettyprint source lang-bash"><code>npm run prod
 </code></pre>
+<p>Check the Product Deployment section below for configuring https.</p>
 <h2>Developer Notes</h2>
-<p>Since I used Next, the client routes are taken care of in the <code>/pages</code> directory, and the api routes are in <code>/pages/api</code>. The React components are in the <code>/components</code> directory, and there are a few modules with exported functions in <code>/utils</code>. The CSVs are saved to <code>/data</code>. If there is no CSV it will create one. Otherwise, if the headers match, it will append the new request information to the existing CSV. For more specific information check out <code>/docs/index.html</code>.</p>
+<p>Since I used Next, the client routes are taken care of in the <code>/pages</code> directory, and the api routes are in <code>/pages/api</code>. The React components are in the <code>/components</code> directory, and there are a few modules with exported functions in <code>/utils</code>. The CSVs are saved to <code>/data</code>. If there is no CSV it will create one. Otherwise, if the headers match, it will append the new request information to the existing CSV. For more specific information check out <code>/docs/index.html</code>. This branch uses <a href="https://us.flow.microsoft.com/en-us/">Microsoft Flow</a> to send the email automatically.  If Flow doesn't work, an email template will be provided for the user to send it themselves. The <code>main</code> branch uses <a href="https://nodemailer.com/about/">nodemailer</a>.</p>
 <h3>Production Deployment</h3>
 <p>The production server hosts this application on the <code>requests</code> sub directory. In order to deploy to that server you will need to change the <code>assetPrefix</code> and <code>basePath</code> settings in <code>next.config.js</code> to <code>'/requests/'</code>. I am also not including the prod server certs in this repo so you will need to generate those as well. Make sure to uncomment the https configuration in <code>server.js</code> and generate CA certificates before deploying.</p>
 <h3>Tooling</h3>
@@ -97,13 +99,13 @@ npm start
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-authenticateUser.html">authenticateUser</a></li><li><a href="module-getValue.html">getValue</a></li><li><a href="module-logCSV.html">logCSV</a></li><li><a href="module-submitForm.html">submitForm</a></li><li><a href="module-validateData.html">validateData</a></li></ul><h3>Classes</h3><ul><li><a href="ExamForm.html">ExamForm</a></li><li><a href="ExamPage.html">ExamPage</a></li><li><a href="FormSelect.html">FormSelect</a></li><li><a href="FormWrapper.html">FormWrapper</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="TopNav.html">TopNav</a></li><li><a href="TrainingForm.html">TrainingForm</a></li><li><a href="TrainingPage.html">TrainingPage</a></li></ul><h3>Global</h3><ul><li><a href="global.html#logExamRequest">logExamRequest</a></li><li><a href="global.html#logTrainingRequest">logTrainingRequest</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-authenticateUser.html">authenticateUser</a></li><li><a href="module-getValue.html">getValue</a></li><li><a href="module-logCSV.html">logCSV</a></li><li><a href="module-submitForm.html">submitForm</a></li><li><a href="module-validateData.html">validateData</a></li></ul><h3>Classes</h3><ul><li><a href="ExamForm.html">ExamForm</a></li><li><a href="ExamPage.html">ExamPage</a></li><li><a href="FormSelect.html">FormSelect</a></li><li><a href="FormWrapper.html">FormWrapper</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="TopNav.html">TopNav</a></li><li><a href="TrainingForm.html">TrainingForm</a></li><li><a href="TrainingPage.html">TrainingPage</a></li></ul><h3>Global</h3><ul><li><a href="global.html#sendAutoEmail">sendAutoEmail</a></li><li><a href="global.html#submitExamRequest">submitExamRequest</a></li><li><a href="global.html#submitTrainingRequest">submitTrainingRequest</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Mar 01 2021 14:14:28 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Mar 02 2021 15:39:12 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

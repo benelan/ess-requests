@@ -1,5 +1,5 @@
 /**
- * This module handles form submission workflows. The exported named function submitForm determines if the data is valid, which type of form to submit, and then generates the email and sends a POST to the API to log the data to CSV.
+ * This module handles form submission workflows. The exported named function submitForm determines if the data is valid and which type of form to submit. It then sends a POST to the API to log the request to CSV and send an email. If the email does not send on the server, a template will be generated on the client.
  * @module submitForm
  * */
 
@@ -71,7 +71,7 @@ Justification: ${formData.justification}`
    * @param {object} formData - the form data and costCenter and chargeCode
  */
 const apiTrainingPOST = async (formData) => new Promise((resolve, reject) => {
-  fetch(`${process.env.basePath}/api/logTrainingRequest`, {
+  fetch(`${process.env.basePath}/api/submitTrainingRequest`, {
     method: 'post',
     body: JSON.stringify(formData),
   })
@@ -86,7 +86,7 @@ const apiTrainingPOST = async (formData) => new Promise((resolve, reject) => {
    * @param {object} formData - the form data and costCenter and chargeCode
  */
 const apiExamPOST = async (formData) => new Promise((resolve, reject) => {
-  fetch(`${process.env.basePath}/api/logExamRequest`, {
+  fetch(`${process.env.basePath}/api/submitExamRequest`, {
     method: 'post',
     body: JSON.stringify(formData),
   })
