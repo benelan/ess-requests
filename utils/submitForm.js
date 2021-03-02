@@ -15,21 +15,19 @@ export const generateTrainingEmail = (formData) => {
   try {
     const to = `${formData.unit}, ${formData.emailEmployee}`
     const subject = 'Request for Training'
-    const text = `Employee Name: ${formData.nameEmployee}
-Employee Email: ${formData.emailEmployee}
-Employee Number: ${formData.numberEmployee}
-Cost Center: ${formData.costCenter}
-Employee Location: ${formData.locationEmployee}
-Charge Code: ${formData.chargeCode}
-Course Name: ${formData.nameCourse}
-Cost: ${formData.cost}
-Start Date: ${formData.startDate}
-End Date: ${formData.endDate}
-Vendor: ${formData.vendor}
-Justification: ${formData.justification}
+    const text = `Employee Name: ${formData.nameEmployee},
+Employee Email: ${formData.emailEmployee},
+Employee Number: ${formData.numberEmployee},
+Cost Center: ${formData.costCenter},
+Employee Location: ${formData.locationEmployee},
+Charge Code: ${formData.chargeCode},
+Course Name: ${formData.nameCourse},
+Cost: ${formData.cost},
+Start Date: ${formData.startDate},
+End Date: ${formData.endDate},
+Vendor: ${formData.vendor},
+Justification: ${formData.justification},
 Comments: ${formData.comments}`
-
-    // return `mailto:${formData.unit}?cc=${formData.emailEmployee}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
 
     return { subject, text, to }
   } catch (e) {
@@ -48,19 +46,17 @@ export const generateExamEmail = (formData) => {
   try {
     const to = `${formData.unit}, ${formData.emailEmployee}`
     const subject = 'Request for Exam Certification'
-    const text = `Employee Name: ${formData.nameEmployee}
-Employee Email: ${formData.emailEmployee}
-Employee Number: ${formData.numberEmployee}
-Cost Center: ${formData.costCenter}
-Employee Location: ${formData.locationEmployee}
-Charge Code: ${formData.chargeCode}
-Exam Name: ${formData.nameExam}
-Exam Cost: $${formData.cost}
-Exam Testing Location: ${formData.locationExam}
-Exam Vendor: ${formData.vendor}
+    const text = `Employee Name: ${formData.nameEmployee},
+Employee Email: ${formData.emailEmployee},
+Employee Number: ${formData.numberEmployee},
+Cost Center: ${formData.costCenter},
+Employee Location: ${formData.locationEmployee},
+Charge Code: ${formData.chargeCode},
+Exam Name: ${formData.nameExam},
+Exam Cost: $${formData.cost},
+Exam Testing Location: ${formData.locationExam},
+Exam Vendor: ${formData.vendor},
 Justification: ${formData.justification}`
-
-    // return `mailto:${formData.unit}?cc=${formData.emailEmployee}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
 
     return { subject, text, to }
   } catch (e) {
@@ -117,7 +113,7 @@ export const submitForm = async (formType, inputData) => {
         // generate the email on the client side
         const { text, subject } = generateTrainingEmail(inputData)
         // create and return a mailto string
-        return `mailto:${inputData.unit}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`
+        return `mailto:${inputData.unit}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text.replaceAll(',', ''))}`
       }
       // if the email sent from the server no need to return mailto string
       return 'sent'
@@ -128,7 +124,7 @@ export const submitForm = async (formType, inputData) => {
       if (!response.sent) {
         const { text, subject } = generateExamEmail(inputData)
 
-        return `mailto:${inputData.unit}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`
+        return `mailto:${inputData.unit}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text.replaceAll(',', ''))}`
       }
       return 'sent'
     }
