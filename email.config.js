@@ -1,9 +1,8 @@
+// you may have to tweak these nodemailer settings depending on your network and email provider
+// https://nodemailer.com/smtp/
 export const emailSettings = {
   host: 'smtp.PROVIDER',
-  port: 465,
   secure: true,
-  secureConnection: false,
-  ignoreTLS: true,
   auth: {
     user: 'EMAIL',
     pass: 'PASSWORD',
