@@ -1,4 +1,8 @@
 /* eslint-disable import/prefer-default-export */
+/**
+ * Logs form data to csv
+ * @module sendAutoEmail
+ * */
 import axios from 'axios'
 import { flowUrl } from '../email.config'
 
