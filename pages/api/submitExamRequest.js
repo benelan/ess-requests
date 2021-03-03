@@ -17,7 +17,7 @@ const submitExamRequest = async (req, res) => {
     const body = JSON.parse(req.body)
     // try to automatically send an email
     const mail = await sendAutoEmail(generateExamEmail(body))
-    // format data for csv
+    // format data for csv, remove commas from string inputs
     const inputData = {
       'Employee Name': body.nameEmployee || '',
       'Employee Email': body.emailEmployee || '',
@@ -25,11 +25,11 @@ const submitExamRequest = async (req, res) => {
       'Employee Location': body.locationEmployee || '',
       'Cost Center': body.costCenter || '',
       'Charge Code': body.chargeCode || '',
-      'Exam Name': body.nameExam || '',
+      'Exam Name': body.nameExam.replaceAll(',', '-') || '',
       'Exam Cost': body.cost || '',
       'Exam Testing Location': body.locationExam || '',
-      'Exam Vendor': body.vendor || '',
-      Justification: body.justification || '',
+      'Exam Vendor': body.vendor.replaceAll(',', '-') || '',
+      Justification: body.justification.replaceAll(',', '-') || '',
     }
     // log to csv
     const log = await logCSV(inputData, filePath)

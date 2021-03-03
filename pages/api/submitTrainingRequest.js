@@ -18,7 +18,7 @@ const submitTrainingRequest = async (req, res) => {
     // try to automatically send an email
     const mail = await sendAutoEmail(generateTrainingEmail(body))
 
-    // format data for csv
+    // format data for csv, remove commas from string inputs
     const inputData = {
       'Employee Name': body.nameEmployee || '',
       'Employee Email': body.emailEmployee || '',
@@ -26,13 +26,13 @@ const submitTrainingRequest = async (req, res) => {
       'Employee Location': body.locationEmployee || '',
       'Cost Center': body.costCenter || '',
       'Charge Code': body.chargeCode || '',
-      'Course Name': body.nameCourse || '',
+      'Course Name': body.nameCourse.replaceAll(',', '-') || '',
       'Exam Cost': body.cost || '',
-      'Exam Vendor': body.vendor || '',
+      'Exam Vendor': body.vendor.replaceAll(',', '-') || '',
       'Start Date': body.startDate || '',
       'End Date': body.endDate || '',
-      Comments: body.comments || '',
-      Justification: body.justification || '',
+      Comments: body.comments.replaceAll(',', '-') || '',
+      Justification: body.justification.replaceAll(',', '-') || '',
     }
 
     // log to csv
