@@ -40,7 +40,7 @@ Since I used Next, the client routes are taken care of in the `/pages` directory
 
 ### Production Deployment
 
-The production server hosts this application on the `requests` sub directory. In order to deploy to that server you will need to change the `assetPrefix` and `basePath` settings in `next.config.js` to `'/requests/'`. I am also not including the prod server certs in this repo so you will need to generate those as well. Make sure to uncomment the https configuration in `server.js` and generate CA certificates before deploying.
+The production server hosts this application on the `requests` sub directory. In order to deploy to that server you will need to change the `assetPrefix` and `basePath` settings in `next.config.js` to `'/requests'`. I am also not including the prod server certs in this repo so you will need to generate those as well. Make sure to uncomment the https configuration in `server.js` and generate CA certificates before deploying.
 
 ### Tooling
 
