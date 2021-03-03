@@ -1,4 +1,8 @@
 /* eslint-disable import/prefer-default-export */
+/**
+ * Logs form data to csv
+ * @module sendAutoEmail
+ * */
 import nodemailer from 'nodemailer'
 import { emailSettings, from } from '../email.config'
 
