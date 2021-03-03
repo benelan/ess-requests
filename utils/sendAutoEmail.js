@@ -14,7 +14,7 @@ import { flowUrl } from '../email.config'
 export const sendAutoEmail = async ({ subject, text, to }) => new Promise((resolve, reject) => {
   axios.post(
     flowUrl,
-    { to, subject, text: text.replaceAll(',', '<br>') },
+    { to, subject, text: text.replaceAll(':)', '<br>') },
     {
       headers: { 'Content-Type': 'application/json' },
     },
