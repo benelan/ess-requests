@@ -1,7 +1,6 @@
 {
   "name": "ess-request",
-  "version": "0.2.0",
-  "private": true,
+  "version": "1.0.0",
   "author": "Ben Elan",
   "babel": {
     "presets": [

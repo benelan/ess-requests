@@ -1,6 +1,6 @@
 module.exports = {
-  assetPrefix: '',
+  assetPrefix: '/requests/',
   env: {
-    basePath: '',
+    basePath: '/requests/',
   },
 }

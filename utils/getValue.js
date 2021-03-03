@@ -19,7 +19,7 @@ export const getUnits = () => ({
   Online: 'Supt-ArcGIS-Unit-Mgmt@esri.com',
   Enterprise: 'Supt-Enterprise-Unit-Mgmt@esri.com',
   Desktop: 'Supt-Desktop-Unit-Mgmt@esri.com',
-  'DaDP Product': 'Supt-DaDP-Unit-Mgmt@esri.co',
+  'DaDP Product': 'Supt-DaDP-Unit-Mgmt@esri.com',
   NORUS: 'Supt-NORUS-Unit-Mgmt@esri.com',
   TAMS: 'SWhittington@esri.com',
   Readiness: 'Christian_Wells@esri.com',
