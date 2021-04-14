@@ -8,7 +8,12 @@
  * @func
  * @return {array} ESS office locations
  */
-export const getOfficeLocations = () => ['Redlands', 'Charlotte', 'Washington DC', 'St Louis']
+export const getOfficeLocations = () => [
+  'Redlands',
+  'Charlotte',
+  'Washington DC',
+  'St Louis',
+]
 
 /**
  * The email addresses for requests by unit
@@ -24,6 +29,15 @@ export const getUnits = () => ({
   TAMS: 'SWhittington@esri.com',
   Readiness: 'Christian_Wells@esri.com',
 })
+
+/**
+ * St Louis employees get sent to Enterprise unit alias
+ * @func
+ * @param {string} location
+ * @param {string} unit
+ * @return {string} employee unit
+ */
+export const getStLouisUnit = (location, unit) => (location === 'St Louis' ? 'belan@esri.com' : unit)
 
 /**
  * Determines cost center by employee unit and location

@@ -8,6 +8,7 @@ import { esriLogin } from '../utils/authenticateUser'
 import { submitForm } from '../utils/submitForm'
 import {
   getUnits,
+  getStLouisUnit,
   getOfficeLocations,
   getChargeCode,
   getCostCenter,
@@ -56,15 +57,20 @@ const FormWrapper = ({ children }) => {
     Array.prototype.filter.call(forms, async (form) => {
       event.preventDefault()
       form.classList.add('was-validated')
-      if (form.checkValidity()) { // if the inputs are valid
-        // get charge code and cost center values
-        const chargeCode = getChargeCode(formData.unit)
+      if (form.checkValidity()) {
+        // St Louis only goes to Enterprise alias
+        const updatedUnit = getStLouisUnit(formData.locationEmployee, formData.unit)
+        const updatedData = { ...formData }
+        updatedData.unit = updatedUnit
+
+        // get charge code and cost center
+        const chargeCode = getChargeCode(updatedData.unit)
         const costCenter = getCostCenter(
-          formData.unit,
-          formData.locationEmployee,
+          updatedData.unit,
+          updatedData.locationEmployee,
         )
         const completeData = {
-          ...formData,
+          ...updatedData,
           nameEmployee,
           emailEmployee,
           chargeCode,
@@ -89,14 +95,18 @@ const FormWrapper = ({ children }) => {
               {chargeCode}
             </ModalBody>
           )
-        // if the email doesn't send automatically do it manually
+          // if the email doesn't send automatically do it manually
         } else {
           window.open(mailtoString)
           body = (
             <ModalBody>
-              There was an issue sending the request automatically. An email template should popup to send it manually. If the popup was blocked,
+              There was an issue sending the request automatically. An email
+              template should popup to send it manually. If the popup was
+              blocked,
               {' '}
-              <a style={{ color: 'blue' }} href={mailtoString}>click here</a>
+              <a style={{ color: 'blue' }} href={mailtoString}>
+                click here
+              </a>
               .
             </ModalBody>
           )
@@ -128,7 +138,9 @@ const FormWrapper = ({ children }) => {
       <Modal isOpen={modal} toggle={toggleModal} centered>
         {message}
         <ModalFooter>
-          <Button color="primary" onClick={toggleModal}>Okay</Button>
+          <Button color="primary" onClick={toggleModal}>
+            Okay
+          </Button>
         </ModalFooter>
       </Modal>
     </>
