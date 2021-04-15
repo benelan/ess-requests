@@ -59,7 +59,7 @@ const FormWrapper = ({ children }) => {
       form.classList.add('was-validated')
       if (form.checkValidity()) {
         // St Louis only goes to Enterprise alias
-        const updatedUnit = getStLouisUnit(formData.locationEmployee, formData.unit)
+        const updatedUnit = getStLouisUnit(formData.unit, formData.locationEmployee)
         const updatedData = { ...formData }
         updatedData.unit = updatedUnit
 

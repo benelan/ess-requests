@@ -31,13 +31,13 @@ export const getUnits = () => ({
 })
 
 /**
- * St Louis employees get sent to Enterprise unit alias
+ * St Louis employee requests get sent to Enterprise unit alias
  * @func
- * @param {string} location
  * @param {string} unit
+ * @param {string} location
  * @return {string} employee unit
  */
-export const getStLouisUnit = (location, unit) => (location === 'St Louis' ? 'belan@esri.com' : unit)
+export const getStLouisUnit = (unit, location) => (location === 'St Louis' ? getUnits().Enterprise : unit)
 
 /**
  * Determines cost center by employee unit and location
@@ -47,19 +47,14 @@ export const getStLouisUnit = (location, unit) => (location === 'St Louis' ? 'be
  * @return {string} cost center
  */
 export const getCostCenter = (unit, location) => {
-  if (unit === 'Supt-NORUS-Unit-Mgmt@esri.com') {
-    return '4255'
+  const costLookup = {
+    Redlands: '4252',
+    Charlotte: '4253',
+    'St Louis': '4252',
+    'Washington DC': '4255',
   }
-  switch (location) {
-  case 'Redlands':
-    return '4252'
-  case 'Charlotte':
-    return '4253'
-  case 'St Louis':
-    return '4252'
-  default:
-    return '4255'
-  }
+
+  return unit === 'Supt-NORUS-Unit-Mgmt@esri.com' ? '4255' : costLookup[location]
 }
 
 /**
@@ -68,11 +63,4 @@ export const getCostCenter = (unit, location) => {
  * @param {string} unit
  * @return {string} charge code
  */
-export const getChargeCode = (unit) => {
-  switch (unit) {
-  case 'Supt-NORUS-Unit-Mgmt@esri.com':
-    return 'TE0702'
-  default:
-    return 'TE0352'
-  }
-}
+export const getChargeCode = (unit) => (unit === 'Supt-NORUS-Unit-Mgmt@esri.com' ? 'TE0702' : 'TE0352')
