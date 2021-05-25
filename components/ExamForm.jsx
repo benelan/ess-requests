@@ -26,11 +26,17 @@ class ExamForm extends React.Component {
       units, offices, validateSubmit, nameEmployee,
     } = this.props
     // get the units and locations and create the dropdown options
-    const unitOptions = Object.keys(units).map((u) => (
-      <option key={u} value={units[u]}>
-        {u}
-      </option>
-    ))
+    const unitOptions = [
+      <option disabled hidden value="prompt" key="prompt">
+        -- select a unit --
+      </option>,
+    ].concat(
+      Object.keys(units).map((u) => (
+        <option key={u} value={units[u]}>
+          {u}
+        </option>
+      )),
+    )
 
     const employeeLocationOptions = offices.map((loc) => (
       <option key={loc}>{loc}</option>
@@ -67,7 +73,9 @@ class ExamForm extends React.Component {
                 type="number"
                 id="employeeNumber"
                 className="form-control"
-                onChange={(x) => this.setState({ numberEmployee: parseInt(x.target.value, 10) })}
+                onChange={(x) => this.setState({
+                  numberEmployee: parseInt(x.target.value, 10),
+                })}
                 required
               />
             </div>
@@ -76,7 +84,11 @@ class ExamForm extends React.Component {
               <select
                 id="employeeUnit"
                 className="form-control"
-                onChange={(x) => this.setState({ unit: x.target.value })}
+                defaultValue="prompt"
+                onChange={(x) => {
+                  this.setState({ unit: x.target.value })
+                  document.getElementById('submitButton').disabled = false
+                }}
               >
                 {unitOptions}
               </select>
@@ -154,7 +166,7 @@ class ExamForm extends React.Component {
 
           <div className="form-row mt-3">
             <div className="form-group col">
-              <input type="submit" className="btn btn-primary" value="Submit" />
+              <input disabled type="submit" id="submitButton" className="btn btn-primary" value="Submit" />
             </div>
           </div>
         </form>

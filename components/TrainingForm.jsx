@@ -28,11 +28,17 @@ class TrainingForm extends React.Component {
       units, offices, validateSubmit, nameEmployee,
     } = this.props
     // get the units and locations and create the dropdown options
-    const unitOptions = Object.keys(units).map((u) => (
-      <option key={u} value={units[u]}>
-        {u}
-      </option>
-    ))
+    const unitOptions = [
+      <option disabled hidden value="prompt" key="prompt">
+        -- select a unit --
+      </option>,
+    ].concat(
+      Object.keys(units).map((u) => (
+        <option key={u} value={units[u]}>
+          {u}
+        </option>
+      )),
+    )
 
     const employeeLocationOptions = offices.map((loc) => (
       <option key={loc}>{loc}</option>
@@ -74,7 +80,11 @@ class TrainingForm extends React.Component {
               <select
                 id="employeeUnit"
                 className="form-control"
-                onChange={(x) => this.setState({ unit: x.target.value })}
+                defaultValue="prompt"
+                onChange={(x) => {
+                  this.setState({ unit: x.target.value })
+                  document.getElementById('submitButton').disabled = false
+                }}
               >
                 {unitOptions}
               </select>
@@ -177,7 +187,7 @@ class TrainingForm extends React.Component {
               className="form-group col-md-2 offset-md-1"
               style={{ marginTop: '31px' }}
             >
-              <input type="submit" className="btn btn-primary" value="Submit" />
+              <input disabled type="submit" className="btn btn-primary" id="submitButton" value="Submit" />
             </div>
           </div>
         </form>
