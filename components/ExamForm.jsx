@@ -28,7 +28,7 @@ class ExamForm extends React.Component {
     // get the units and locations and create the dropdown options
     const unitOptions = [
       <option disabled hidden value="prompt" key="prompt">
-        -- select a unit --
+        Select a unit
       </option>,
     ].concat(
       Object.keys(units).map((u) => (
