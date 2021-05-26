@@ -34,6 +34,14 @@ describe('<Exam /> events', () => {
     await act(async () => screen.findByRole('textbox', { name: 'Employee Name' }))
     const examForm = screen.getByRole('form', { name: /Exam Request Form/ })
     expect(examForm).not.toHaveClass('was-validated')
+    // cant submit without selecting a unit
+    fireEvent.click(screen.getByRole('button', { name: 'Submit' }))
+    expect(examForm).not.toHaveClass('was-validated')
+    // select a unit
+    fireEvent.change(screen.getByRole('combobox', { name: 'Employee Unit' }), {
+      target: { value: 'Enterprise' },
+    })
+    // form will be validated on submit
     fireEvent.click(screen.getByRole('button', { name: 'Submit' }))
     expect(examForm).toHaveClass('was-validated')
   })

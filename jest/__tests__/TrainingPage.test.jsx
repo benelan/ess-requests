@@ -34,6 +34,10 @@ describe('<TrainingPage /> events', () => {
   it('doesn\'t submit empty form', async () => {
     render(<TrainingPage />)
     await act(async () => screen.findByRole('textbox', { name: 'Employee Name' }))
+    // cant submit without selecting a unit
+    fireEvent.change(screen.getByRole('combobox', { name: 'Employee Unit' }), {
+      target: { value: 'Enterprise' },
+    })
     fireEvent.click(screen.getByRole('button', { name: 'Submit' }))
 
     // bootstrap validation

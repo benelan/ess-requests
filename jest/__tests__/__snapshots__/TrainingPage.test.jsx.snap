@@ -117,9 +117,17 @@ Array [
           </label>
           <select
             className="form-control"
+            defaultValue="prompt"
             id="employeeUnit"
             onChange={[Function]}
           >
+            <option
+              disabled={true}
+              hidden={true}
+              value="prompt"
+            >
+              Select a unit
+            </option>
             <option
               value="Supt-ArcGIS-Unit-Mgmt@esri.com"
             >
@@ -138,7 +146,7 @@ Array [
             <option
               value="Supt-DaDP-Unit-Mgmt@esri.com"
             >
-              DaDP Product
+              DaD Products
             </option>
             <option
               value="Supt-NORUS-Unit-Mgmt@esri.com"
@@ -148,7 +156,7 @@ Array [
             <option
               value="SWhittington@esri.com"
             >
-              TAMS
+              TAMs
             </option>
             <option
               value="Christian_Wells@esri.com"
@@ -330,6 +338,8 @@ Array [
         >
           <input
             className="btn btn-primary"
+            disabled={true}
+            id="submitButton"
             type="submit"
             value="Submit"
           />
