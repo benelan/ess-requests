@@ -16,13 +16,13 @@ export const getOfficeLocations = () => ['Redlands', 'Charlotte', 'Washington DC
  * @return {object} employee units
  */
 export const getUnits = () => ({
-  Online: 'Supt-ArcGIS-Unit-Mgmt@esri.com',
-  Enterprise: 'Supt-Enterprise-Unit-Mgmt@esri.com',
-  Desktop: 'Supt-Desktop-Unit-Mgmt@esri.com',
-  'DaDP Product': 'Supt-DaDP-Unit-Mgmt@esri.com',
-  NORUS: 'Supt-NORUS-Unit-Mgmt@esri.com',
-  TAMS: 'SWhittington@esri.com',
-  Readiness: 'Christian_Wells@esri.com',
+  Online: 'online@fake.com',
+  Enterprise: 'enterprise@fake.com',
+  Desktop: 'desktop@fake.com',
+  'DaD Products': 'dadp@fake.com',
+  NORUS: 'norus@fake.com',
+  TAMS: 'tams@fake.com',
+  Readiness: 'readiness@fake.com',
 })
 
 /**
@@ -33,7 +33,7 @@ export const getUnits = () => ({
  * @return {string} cost center
  */
 export const getCostCenter = (unit, location) => {
-  if (unit === 'Supt-NORUS-Unit-Mgmt@esri.com') {
+  if (unit === 'norus@fake.com') {
     return '4255'
   }
   switch (location) {
@@ -56,7 +56,7 @@ export const getCostCenter = (unit, location) => {
  */
 export const getChargeCode = (unit) => {
   switch (unit) {
-  case 'Supt-NORUS-Unit-Mgmt@esri.com':
+  case 'norus@fake.com':
     return 'TE0702'
   default:
     return 'TE0352'
