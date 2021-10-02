@@ -8,12 +8,7 @@
  * @func
  * @return {array} ESS office locations
  */
-export const getOfficeLocations = () => [
-  'Redlands',
-  'Charlotte',
-  'Washington DC',
-  'St Louis',
-]
+export const getOfficeLocations = () => ['Redlands', 'Charlotte', 'Washington DC', 'St Louis']
 
 /**
  * The email addresses for requests by unit
@@ -21,23 +16,14 @@ export const getOfficeLocations = () => [
  * @return {object} employee units
  */
 export const getUnits = () => ({
-  Online: 'Supt-ArcGIS-Unit-Mgmt@esri.com',
-  Enterprise: 'Supt-Enterprise-Unit-Mgmt@esri.com',
-  Desktop: 'Supt-Desktop-Unit-Mgmt@esri.com',
-  'DaD Products': 'Supt-DaDP-Unit-Mgmt@esri.com',
-  NORUS: 'Supt-NORUS-Unit-Mgmt@esri.com',
-  TAMs: 'SWhittington@esri.com',
-  Readiness: 'Christian_Wells@esri.com',
+  Online: 'online@fake.com',
+  Enterprise: 'enterprise@fake.com',
+  Desktop: 'desktop@fake.com',
+  'DaD Products': 'dadp@fake.com',
+  NORUS: 'norus@fake.com',
+  TAMS: 'tams@fake.com',
+  Readiness: 'readiness@fake.com',
 })
-
-/**
- * St Louis employee requests get sent to Enterprise unit alias
- * @func
- * @param {string} unit
- * @param {string} location
- * @return {string} employee unit
- */
-export const getStLouisUnit = (unit, location) => (location === 'St Louis' ? getUnits().Enterprise : unit)
 
 /**
  * Determines cost center by employee unit and location
@@ -47,14 +33,19 @@ export const getStLouisUnit = (unit, location) => (location === 'St Louis' ? get
  * @return {string} cost center
  */
 export const getCostCenter = (unit, location) => {
-  const costLookup = {
-    Redlands: '4252',
-    Charlotte: '4253',
-    'St Louis': '4252',
-    'Washington DC': '4255',
+  if (unit === 'norus@fake.com') {
+    return '4255'
   }
-
-  return unit === 'Supt-NORUS-Unit-Mgmt@esri.com' ? '4255' : costLookup[location]
+  switch (location) {
+  case 'Redlands':
+    return '4252'
+  case 'Charlotte':
+    return '4253'
+  case 'St Louis':
+    return '4252'
+  default:
+    return '4255'
+  }
 }
 
 /**
@@ -63,4 +54,11 @@ export const getCostCenter = (unit, location) => {
  * @param {string} unit
  * @return {string} charge code
  */
-export const getChargeCode = (unit) => (unit === 'Supt-NORUS-Unit-Mgmt@esri.com' ? 'TE0702' : 'TE0352')
+export const getChargeCode = (unit) => {
+  switch (unit) {
+  case 'norus@fake.com':
+    return 'TE0702'
+  default:
+    return 'TE0352'
+  }
+}
