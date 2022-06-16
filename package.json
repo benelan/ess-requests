@@ -24,7 +24,7 @@
     "esri-loader": "^2.16.0",
     "jsonexport": "^3.0.1",
     "jsonschema": "^1.4.0",
-    "next": "10.0.1",
+    "next": "12.1.0",
     "nodemailer": "^6.5.0",
     "prop-types": "^15.7.2",
     "react": "17.0.1",
