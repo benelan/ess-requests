@@ -9,30 +9,32 @@ import Link from 'next/link'
  * @param {string} page - active page for link
  */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-const TopNav = ({ page }) => (
-  <nav
-    className="navbar navbar-expand navbar-light border-bottom"
-    style={{ background: 'white' }}
-  >
-    <ul className="navbar-nav">
-      <li aria-label="Home Link" className={page === 'home' ? 'nav-item active' : 'nav-item'}>
-        <Link href={`${process.env.basePath}/`}>
-          <a className="nav-link">Home</a>
-        </Link>
-      </li>
-      <li aria-label="Training Link" className={page === 'training' ? 'nav-item active' : 'nav-item'}>
-        <Link href={`${process.env.basePath}/training`}>
-          <a className="nav-link">Training</a>
-        </Link>
-      </li>
-      <li aria-label="Exam Link" className={page === 'exam' ? 'nav-item active' : 'nav-item'}>
-        <Link href={`${process.env.basePath}/exam`}>
-          <a className="nav-link">Exam</a>
-        </Link>
-      </li>
-    </ul>
-  </nav>
-)
+function TopNav({ page }) {
+  return (
+    <nav
+      className="navbar navbar-expand navbar-light border-bottom"
+      style={{ background: 'white' }}
+    >
+      <ul className="navbar-nav">
+        <li aria-label="Home Link" className={page === 'home' ? 'nav-item active' : 'nav-item'}>
+          <Link href={`${process.env.basePath}/`}>
+            <a className="nav-link">Home</a>
+          </Link>
+        </li>
+        <li aria-label="Training Link" className={page === 'training' ? 'nav-item active' : 'nav-item'}>
+          <Link href={`${process.env.basePath}/training`}>
+            <a className="nav-link">Training</a>
+          </Link>
+        </li>
+        <li aria-label="Exam Link" className={page === 'exam' ? 'nav-item active' : 'nav-item'}>
+          <Link href={`${process.env.basePath}/exam`}>
+            <a className="nav-link">Exam</a>
+          </Link>
+        </li>
+      </ul>
+    </nav>
+  )
+}
 
 TopNav.propTypes = {
   /** the type of form */

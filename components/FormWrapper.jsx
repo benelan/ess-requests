@@ -18,7 +18,7 @@ import {
  * @name FormWrapper
  * @class
  */
-const FormWrapper = ({ children }) => {
+function FormWrapper({ children }) {
   const [nameEmployee, setName] = useState('')
   const [emailEmployee, setEmail] = useState('')
 
@@ -111,11 +111,9 @@ const FormWrapper = ({ children }) => {
   return (
     <>
       {loading ? (
-        <>
-          <div className="spinner-border text-primary center" role="status">
-            <span className="sr-only">Loading...</span>
-          </div>
-        </>
+        <div className="spinner-border text-primary center" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
       ) : (
         React.cloneElement(children, {
           nameEmployee,

@@ -8,12 +8,14 @@ import FormSelector from '../components/FormSelector'
  * @name HomePage
  * @class
  */
-const HomePage = () => (
-  <>
-    <title>ESS Requests</title>
-    <TopNav page="home" />
-    <FormSelector />
-  </>
-)
+function HomePage() {
+  return (
+    <>
+      <title>ESS Requests</title>
+      <TopNav page="home" />
+      <FormSelector />
+    </>
+  )
+}
 
 export default HomePage

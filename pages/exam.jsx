@@ -7,15 +7,17 @@ import ExamForm from '../components/ExamForm'
  * @name ExamPage
  * @class
  */
-const ExamPage = () => (
-  <>
-    <title>Exam Request</title>
-    <TopNav page="exam" />
-    <h3 className="text-center m-4">Request for Exam Certification</h3>
-    <FormWrapper>
-      <ExamForm />
-    </FormWrapper>
-  </>
-)
+function ExamPage() {
+  return (
+    <>
+      <title>Exam Request</title>
+      <TopNav page="exam" />
+      <h3 className="text-center m-4">Request for Exam Certification</h3>
+      <FormWrapper>
+        <ExamForm />
+      </FormWrapper>
+    </>
+  )
+}
 
 export default ExamPage

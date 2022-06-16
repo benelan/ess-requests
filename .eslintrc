@@ -8,9 +8,7 @@
   },
   "extends": [
     "airbnb",
-    "airbnb/hooks",
-    "plugin:testing-library/recommended",
-    "plugin:jest-dom/recommended"
+    "airbnb/hooks"
   ],
   "parserOptions": {
     "ecmaVersion": 2020,
@@ -43,5 +41,11 @@
     ],
     "no-console": ["off"],
     "max-len": ["off"]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
+      "extends": ["plugin:testing-library/react", "plugin:jest-dom/recommended"]
+    }
+  ]
 }
